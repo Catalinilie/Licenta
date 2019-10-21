@@ -62,6 +62,36 @@ class Availability(Base):
     createdOn = Column(DateTime, server_default=func.now())
     updatedOn = Column(DateTime, server_default=func.now(), server_onupdate=func.now())
 
+    @property
+    def serialize(self):
+        return {
+            'id': self.id,
+            'createdOn': self.createdOn,
+            'updatenOn': self.updatedOn,
+        }
+
+
+class timeSlot(Base):
+    __tablename__ = 'TimeSlot'
+
+    id = Column(Integer, primary_key=True)
+    start = Column(DateTime, nullable=False)
+    end = Column(DateTime, nullable=False)
+    userId = Column(Integer, ForeignKey("User.id"), nullable=False)
+    createdOn = Column(DateTime, server_default=func.now())
+    updatedOn = Column(DateTime, server_default=func.now(), server_onupdate=func.now())
+
+    @property
+    def serialize(self):
+        return {
+            'id': self.id,
+            'start': self.start,
+            'end': self.end,
+            'userId': self.userId,
+            'createdOn': self.createdOn,
+            'updatenOn': self.updatedOn,
+        }
+
 
 # creates a create_engine instance at the bottom of the file
 engine = create_engine('sqlite:///database.db')
