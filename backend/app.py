@@ -1,35 +1,36 @@
 import uuid
+import hashlib
+import DBClient
+import Register
 from datetime import datetime
 
 from flask import Flask, render_template, request, redirect, url_for
 
 app = Flask(__name__)
 
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
-from database import Base, User
-
-# Connect to Database and create database session
-engine = create_engine('sqlite:///database.db.db?check_same_thread=False')
-Base.metadata.bind = engine
-
-DBSession = sessionmaker(bind=engine)
-session = DBSession()
-
 
 # landing page that will display all the users in our database
 # This function will operate on the Read operation.
-@app.route('/')
 @app.route('/users')
 def showFirstPage():
-    users = session.query(User).all()
+    users = DBClient.session.query(DBClient.User).all()
     return render_template('users.html', users=users)
 
 
 @app.route('/')
-@app.route('/login')
-def showLogin():
-    users = session.query(User).all()
+@app.route('/register', methods=['POST'])
+def register(Credential):
+    Credential.password = hashlib.sha256(Credential.password)
+    if Register.verifyIfUserExist(Credential) == True:
+        return render_template(), 409
+    else:
+        return Register.createNewUser(Credential), 201
+
+
+@app.route('/')
+@app.route('/login', methods=['POST'])
+def login(user, password):
+    users = DBClient.session.query(DBClient.User).all()
     return render_template('users.html', users=users)
 
 
@@ -37,14 +38,14 @@ def showLogin():
 @app.route('/users/new/', methods=['GET', 'POST'])
 def newUser():
     if request.method == 'POST':
-        newUser = User(id=uuid.uuid1(),
-                       username=request.form['username'],
-                       password_hash=request.form['password'],
-                       firstName=request.form['firstName'],
-                       createdOn=datetime.now(),
-                       updatedOn=datetime.now())
-        session.add(newUser)
-        session.commit()
+        newUser = DBClient.User(id=uuid.uuid1(),
+                                username=request.form['username'],
+                                password_hash=request.form['password'],
+                                firstName=request.form['firstName'],
+                                createdOn=datetime.now(),
+                                updatedOn=datetime.now())
+        DBClient.session.add(newUser)
+        DBClient.session.commit()
         return redirect(url_for('showFirstPage'))
     else:
         return render_template('newUser.html')
@@ -53,7 +54,7 @@ def newUser():
 # This will let us Update our user and save it in our database
 @app.route("/users/<int:userId>/edit/", methods=['GET', 'POST'])
 def editUser(userId):
-    editedUser = session.query(User).filter_by(id=userId).one()
+    editedUser = DBClient.session.query(DBClient.User).filter_by(id=userId).one()
     if request.method == 'POST':
         if request.form['name']:
             editedUser.title = request.form['name']
@@ -65,10 +66,10 @@ def editUser(userId):
 # This will let us Delete our user
 @app.route('/users/<int:user_id>/delete/', methods=['GET', 'POST'])
 def deleteUser(user_id):
-    userToDelete = session.query(User).filter_by(id=user_id).one()
+    userToDelete = DBClient.session.query(DBClient.User).filter_by(id=user_id).one()
     if request.method == 'POST':
-        session.delete(userToDelete)
-        session.commit()
+        DBClient.session.delete(userToDelete)
+        DBClient.session.commit()
         return redirect(url_for('showUsers', user_id=user_id))
     else:
         return render_template('deleteUser.html', user=userToDelete)
@@ -81,39 +82,39 @@ from flask import jsonify
 
 
 def get_users():
-    users = session.query(User).all()
+    users = DBClient.session.query(DBClient.User).all()
     return jsonify(users=[b.serialize for b in users])
 
 
 def get_user(user_id):
-    users = session.query(User).filter_by(id=user_id).one()
+    users = DBClient.session.query(DBClient.User).filter_by(id=user_id).one()
     return jsonify(users=users.serialize)
 
 
 def makeANewUser(title, author, genre):
-    addeduser = User(title=title, author=author, genre=genre)
-    session.add(addeduser)
-    session.commit()
+    addeduser = DBClient.User(title=title, author=author, genre=genre)
+    DBClient.session.add(addeduser)
+    DBClient.session.commit()
     return jsonify(User=addeduser.serialize)
 
 
 def updateUser(id, title, author, genre):
-    updatedUser = session.query(User).filter_by(id=id).one()
+    updatedUser = DBClient.session.query(DBClient.User).filter_by(id=id).one()
     if not title:
         updatedUser.title = title
     if not author:
         updatedUser.author = author
     if not genre:
         updatedUser.genre = genre
-    session.add(updatedUser)
-    session.commit()
+    DBClient.session.add(updatedUser)
+    DBClient.session.commit()
     return 'Updated a User with id %s' % id
 
 
 def deleteAUser(id):
-    userToDelete = session.query(User).filter_by(id=id).one()
-    session.delete(userToDelete)
-    session.commit()
+    userToDelete = DBClient.session.query(DBClient.User).filter_by(id=id).one()
+    DBClient.session.delete(userToDelete)
+    DBClient.session.commit()
     return 'Removed User with id %s' % id
 
 
