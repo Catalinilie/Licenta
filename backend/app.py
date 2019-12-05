@@ -1,60 +1,93 @@
-import uuid
-import hashlib
-import DBClient
-import Register
-from datetime import datetime
+import jwt
+from flask import render_template, request, redirect, url_for, Response, jsonify
+from functools import wraps
 
-from flask import Flask, render_template, request, redirect, url_for
+from PlayingFieldModel import *
+from SecurityModel import *
+from UserModel import *
+from settings import *
 
-app = Flask(__name__)
-
-
-# landing page that will display all the users in our database
-# This function will operate on the Read operation.
-@app.route('/users')
-def showFirstPage():
-    users = DBClient.session.query(DBClient.User).all()
-    return render_template('users.html', users=users)
+app.config['SECRET_KEY'] = "secret"
 
 
-@app.route('/')
-@app.route('/register', methods=['POST'])
-def register(Credential):
-    Credential.password = hashlib.sha256(Credential.password)
-    if Register.verifyIfUserExist(Credential) == True:
-        return render_template(), 409
-    else:
-        return Register.createNewUser(Credential), 201
+def getUserId(_token):
+    return Security.getUserId(_token)
+
+
+def token_required(f):
+    @wraps(f)
+    def wrapper(*args, **kwargs):
+        token = request.args.get('token')
+        try:
+            jwt.decode(token, app.config['SECRET_KEY'])
+            return f(*args, **kwargs)
+        except:
+            return jsonify({'error': "Need a valid token to view this page"}), 401
+    return wrapper
 
 
 @app.route('/')
 @app.route('/login', methods=['POST'])
-def login(user, password):
-    users = DBClient.session.query(DBClient.User).all()
-    return render_template('users.html', users=users)
+def get_token():
+    requestData = json.loads(request.data)
+    username = requestData["username"]
+    password = requestData["password"]
+    userId = None
+    if User.usernameExist(username):
+        userId = User.getUserIdByUsername(username)
+    if User.username_password_match(username, password):
+        token = jwt.encode({"": requestData}, app.config['SECRET_KEY'], algorithm='HS256')
 
+        if not Security.verifyIfExist(userId, token):
+            Security.createSecurityObject(userId, token)
 
-# This will let us Create a new user and save it in our database
-@app.route('/users/new/', methods=['GET', 'POST'])
-def newUser():
-    if request.method == 'POST':
-        newUser = DBClient.User(id=uuid.uuid1(),
-                                username=request.form['username'],
-                                password_hash=request.form['password'],
-                                firstName=request.form['firstName'],
-                                createdOn=datetime.now(),
-                                updatedOn=datetime.now())
-        DBClient.session.add(newUser)
-        DBClient.session.commit()
-        return redirect(url_for('showFirstPage'))
+        return token
     else:
-        return render_template('newUser.html')
+        return Response('', 401, mimetype='application.json')
 
 
-# This will let us Update our user and save it in our database
+@app.route('/users', methods=['GET'])
+def getAllUsers():
+    users = User.getAllUsers()
+    return users, 200
+
+@app.route('/playingField', methods=['GET'])
+@token_required
+def getAllPlayingFields():
+    return PlayingField.getAllPlayingFields(), 200
+
+
+@app.route('/playingField', methods=['POST'])
+@token_required
+def createPlayingField():
+    playingField = json.loads(request.data)
+    PlayingField.createPlayingField(playingField["type"], playingField["numberOfPlayers"],
+                                    getUserId(playingField["token"]))
+
+
+@app.route('/')
+@app.route('/register', methods=['POST'])
+def register():
+    Credential = json.loads(request.data)
+    if User.usernameExist(Credential["username"]):
+        return "User already exist.", 409
+    if User.emailAlreadyExist(Credential["email"]):
+        return "Email already used by another user.", 409
+    else:
+        User.create_user(
+            Credential["email"],
+            Credential["username"],
+            Credential["firstName"],
+            Credential["lastName"],
+            Credential["password"]
+        )
+        return "User created with succes", 201
+
+
 @app.route("/users/<int:userId>/edit/", methods=['GET', 'POST'])
+@token_required
 def editUser(userId):
-    editedUser = DBClient.session.query(DBClient.User).filter_by(id=userId).one()
+    editedUser = db.session.query(db.User).filter_by(id=userId).one()
     if request.method == 'POST':
         if request.form['name']:
             editedUser.title = request.form['name']
@@ -63,58 +96,44 @@ def editUser(userId):
         return render_template('editUsers.html', user=editedUser)
 
 
-# This will let us Delete our user
-@app.route('/users/<int:user_id>/delete/', methods=['GET', 'POST'])
+@app.route('/users/<int:user_id>/delete/', methods=['DELETE'])
 def deleteUser(user_id):
-    userToDelete = DBClient.session.query(DBClient.User).filter_by(id=user_id).one()
-    if request.method == 'POST':
-        DBClient.session.delete(userToDelete)
-        DBClient.session.commit()
-        return redirect(url_for('showUsers', user_id=user_id))
-    else:
-        return render_template('deleteUser.html', user=userToDelete)
-
-
-"""
-api functions
-"""
-from flask import jsonify
-
+    User.deleteUser(user_id)
 
 def get_users():
-    users = DBClient.session.query(DBClient.User).all()
+    users = db.session.query(db.User).all()
     return jsonify(users=[b.serialize for b in users])
 
 
 def get_user(user_id):
-    users = DBClient.session.query(DBClient.User).filter_by(id=user_id).one()
+    users = db.session.query(db.User).filter_by(id=user_id).one()
     return jsonify(users=users.serialize)
 
 
 def makeANewUser(title, author, genre):
-    addeduser = DBClient.User(title=title, author=author, genre=genre)
-    DBClient.session.add(addeduser)
-    DBClient.session.commit()
+    addeduser = db.User(title=title, author=author, genre=genre)
+    db.session.add(addeduser)
+    db.session.commit()
     return jsonify(User=addeduser.serialize)
 
 
 def updateUser(id, title, author, genre):
-    updatedUser = DBClient.session.query(DBClient.User).filter_by(id=id).one()
+    updatedUser = db.session.query(db.User).filter_by(id=id).one()
     if not title:
         updatedUser.title = title
     if not author:
         updatedUser.author = author
     if not genre:
         updatedUser.genre = genre
-    DBClient.session.add(updatedUser)
-    DBClient.session.commit()
+    db.session.add(updatedUser)
+    db.session.commit()
     return 'Updated a User with id %s' % id
 
 
 def deleteAUser(id):
-    userToDelete = DBClient.session.query(DBClient.User).filter_by(id=id).one()
-    DBClient.session.delete(userToDelete)
-    DBClient.session.commit()
+    userToDelete = db.session.query(db.User).filter_by(id=id).one()
+    db.session.delete(userToDelete)
+    db.session.commit()
     return 'Removed User with id %s' % id
 
 

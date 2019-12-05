@@ -15,6 +15,7 @@ class User(Base):
     id = Column(Integer, primary_key=True)
     userName = Column(String(50), nullable=False)
     password_hash = Column(String(128))
+    email = Column(String(80), nullable=False, primary_key=True)
     firstName = Column(String(70), nullable=False)
     lastName = Column(String(70), nullable=False)
     createdOn = Column(DateTime, server_default=func.now())
@@ -25,9 +26,10 @@ class User(Base):
         return {
             'id': self.id,
             'userName': self.userName,
+            'password_hash': self.password_hash,
+            'email': self.email,
             'firstName': self.firstName,
             'lastName': self.lastName,
-            'password_hash': self.password_hash,
             'createdOn': self.createdOn,
             'updatenOn': self.updatedOn,
         }

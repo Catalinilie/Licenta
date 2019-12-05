@@ -1,18 +1,29 @@
 import DBClient
 import datetime
 
-def verifyIfUserExist(Credential):
-    result = DBClient.session.query()
-    return result.size != 0
+
+def verifyIfUserExist(credential):
+    result = DBClient.session.query(DBClient.User).filter_by(email=credential["email"]).first()
+    return result is not None
 
 
-def createNewUser(Credetial):
-    newUser = DBClient.User(id=Credetial.id,
-                            userName=Credetial.userName,
-                            password_hash=Credetial.password,
-                            firstName=Credetial.firstName,
-                            lastName=Credetial.lastName,
+def createNewUser(credetial):
+    newUser = DBClient.User(id=credetial["id"],
+                            userName=credetial["userName"],
+                            password_hash=credetial["password"],
+                            email=credetial["email"],
+                            firstName=credetial["firstName"],
+                            lastName=credetial["lastName"],
                             createdOn=datetime.datetime.now(),
                             updatedOn=datetime.datetime.now())
     DBClient.session.add(newUser)
     DBClient.session.commit()
+
+def changePassword(credential, newPassword):
+    if verifyIfUserExist(credential):
+        user = DBClient.session.query(DBClient.User).filter(DBClient.User.userName==credential["userName"]).one()
+        user.password_hash = newPassword
+
+        DBClient.session.commit()
+    else:
+        raise Exception("The user with username: " + credential["userName"] + " doesn't exist.")
