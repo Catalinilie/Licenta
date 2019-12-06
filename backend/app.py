@@ -23,6 +23,7 @@ def token_required(f):
             return f(*args, **kwargs)
         except:
             return jsonify({'error': "Need a valid token to view this page"}), 401
+
     return wrapper
 
 
@@ -50,6 +51,7 @@ def get_token():
 def getAllUsers():
     users = User.getAllUsers()
     return users, 200
+
 
 @app.route('/playingField', methods=['GET'])
 @token_required
@@ -85,7 +87,6 @@ def register():
 
 
 @app.route("/users/<int:userId>/edit/", methods=['GET', 'POST'])
-@token_required
 def editUser(userId):
     editedUser = db.session.query(db.User).filter_by(id=userId).one()
     if request.method == 'POST':
@@ -97,8 +98,40 @@ def editUser(userId):
 
 
 @app.route('/users/<int:user_id>/delete/', methods=['DELETE'])
+@token_required
 def deleteUser(user_id):
-    User.deleteUser(user_id)
+    result = User.deleteUser(user_id)
+    if result == False:
+        return "No user with id " + user_id + " exist.", 404
+    else:
+        return "User deleted with succes.", 200
+
+
+@app.route('/users/<int:user_id>/update', methods=['PATCH'])
+@token_required
+def updateUser(user_id):
+    data = json.loads(request.data)
+
+    if "password" in data and "username" in data:
+        user = User.updatePassword(user_id, data["password"],data["username"])
+        if not user:
+            return "User does not exist.", 404
+        else:
+            return "Username and password updated with success.", 200
+
+    if "password" in data:
+        user = User.updatePassword(user_id, data["password"])
+        if not user:
+            return "User does not exist.", 404
+        else:
+            return "User password updated with success.", 200
+    if "username" in data:
+        user = User.updateUserName(user_id, data["username"])
+        if user == False:
+            return "User does not exist.", 404
+        else:
+            return "Username updated with success.", 200
+
 
 def get_users():
     users = db.session.query(db.User).all()
