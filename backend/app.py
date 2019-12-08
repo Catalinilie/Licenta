@@ -1,8 +1,8 @@
-from functools import wraps
-
 import jwt
 from flask import request, Response
 
+from functools import wraps
+from AvailableTimeModel import AvailableTime
 from PlayingFieldModel import *
 from UserModel import *
 from settings import *
@@ -54,8 +54,8 @@ def getAllPlayingFields():
 def createPlayingField():
     playingField = json.loads(request.data)
     address = playingField["address"]
-    return  PlayingField.createPlayingField(playingField["type"], playingField["numberOfPlayers"],
-                                    playingField["userId"], address)
+    return PlayingField.createPlayingField(playingField["type"], playingField["numberOfPlayers"],
+                                           playingField["userId"], address)
 
 
 @app.route('/')
@@ -138,6 +138,27 @@ def getUserByUsername():
         return "No user with username:" + _username + " found"
     else:
         return result
+
+
+@app.route('/availableTime/<id>', methods=['POST', 'GET', 'PATCH'])
+def addAvailableTimeToPlayingField(id):
+    if request.method == 'GET':
+        return AvailableTime.getAvailableTimeByPlayingFieldId(id)
+
+    availableTime = json.loads(request.data)
+    dayOfWeekFrom = availableTime["dayOfWeekFrom"]
+    dayOfWeekTo = availableTime["dayOfWeekTo"]
+    hourOfOpening = availableTime["hourOfOpening"]
+    hourOfClosing = availableTime["hourOfClosing"]
+
+    if request.method == 'POST':
+
+        return AvailableTime.createAvailableTime(id, dayOfWeekFrom, dayOfWeekTo, hourOfOpening, hourOfClosing)
+
+    elif request.method == 'PATCH':
+
+        return AvailableTime.updateAvailableTimeByPlayingFieldId(id, dayOfWeekFrom, dayOfWeekTo, hourOfOpening,
+                                                                 hourOfClosing)
 
 
 if __name__ == '__main__':

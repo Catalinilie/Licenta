@@ -1,8 +1,6 @@
 import uuid
-
-from flask_sqlalchemy import SQLAlchemy
 import json
-
+from flask_sqlalchemy import SQLAlchemy
 from settings import app
 
 db = SQLAlchemy(app)
@@ -50,13 +48,12 @@ class Address(db.Model):
         return json.dumps(address_object)
 
     def addressExist(_street, _streetNr, _city, _region, _country, _addressCode):
-        return  Address.query.filter_by(street=_street) \
+        return Address.query.filter_by(street=_street) \
             .filter_by(streetNr=_streetNr) \
             .filter_by(city=_city) \
             .filter_by(region=_region) \
             .filter_by(country=_country) \
             .filter_by(addressCode=_addressCode).first()
-
 
     def createAddress(_playingFieldId, _street, _streetNr, _city, _region, _country, _addressCode):
         _id = generateUUID()
