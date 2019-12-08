@@ -1,5 +1,6 @@
 import uuid
 
+from flask import jsonify
 from flask_sqlalchemy import SQLAlchemy
 
 from settings import app
@@ -9,13 +10,13 @@ db = SQLAlchemy(app)
 
 
 def generateUUID():
-    return uuid.uuid4()
+    return str(uuid.uuid4())
 
 
 class User(db.Model):
     __tablename__ = 'Users'
 
-    id = db.Column(db.Integer, primary_key=True, unique=True)
+    id = db.Column(db.String, primary_key=True, unique=True)
     email = db.Column(db.String, nullable=False, unique=True)
     username = db.Column(db.String(80), unique=True, nullable=False)
     firstName = db.Column(db.String(80), nullable=False)
@@ -89,9 +90,16 @@ class User(db.Model):
         user = User.query.filter_by(username=_username).first()
         return user.id
 
+    def getUserByUsername(_username):
+        user = User.query.filter_by(username=_username).first()
+        return User.json(user)
+
     def getUserById(_id):
-        user = User.query.filter_by(id=_id)
-        return user
+        user = User.query.filter_by(id=_id).first()
+        if user is not None:
+            return User.json(user)
+        else:
+            return "No user with " + _id + " found."
 
     def usernameExist(_username):
         user = User.query.filter_by(username=_username).first()
@@ -115,17 +123,18 @@ class User(db.Model):
             return True
 
     def create_user(_email, _username, _firstName, _lastName, _password):
-        id1 = generateUUID()
-        if User.query.filter_by(id=id1).first() is not None:
-            new_user = User(email=_email, username=_username, firstName=_firstName, lastName=_lastName, password=_password)
+        _id = generateUUID()
+        if User.query.filter_by(id=_id).first() is None:
+            new_user = User(id=_id, email=_email, username=_username, firstName=_firstName, lastName=_lastName,
+                            password=_password)
             db.session.add(new_user)
             db.session.commit()
             return
         else:
-            User.create_user(_email, _username, _firstName, _lastName, _password)
+            User.create_user(_id, _email, _username, _firstName, _lastName, _password)
 
     def deleteUser(_id):
-        user = User.getUserById(_id)
+        user = User.query.filter_by(id=_id).first()
         if user is None:
             return False
         else:

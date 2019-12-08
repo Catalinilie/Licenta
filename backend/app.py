@@ -1,17 +1,13 @@
-import jwt
-from flask import render_template, request, redirect, url_for, Response, jsonify
 from functools import wraps
 
+import jwt
+from flask import request, Response
+
 from PlayingFieldModel import *
-from SecurityModel import *
 from UserModel import *
 from settings import *
 
 app.config['SECRET_KEY'] = "secret"
-
-
-def getUserId(_token):
-    return Security.getUserId(_token)
 
 
 def token_required(f):
@@ -33,18 +29,12 @@ def get_token():
     requestData = json.loads(request.data)
     username = requestData["username"]
     password = requestData["password"]
-    userId = None
-    if User.usernameExist(username):
-        userId = User.getUserIdByUsername(username)
+
     if User.username_password_match(username, password):
         token = jwt.encode({"": requestData}, app.config['SECRET_KEY'], algorithm='HS256')
-
-        if not Security.verifyIfExist(userId, token):
-            Security.createSecurityObject(userId, token)
-
         return token
     else:
-        return Response('', 401, mimetype='application.json')
+        return Response('The username or password are wrong.', 401, mimetype='application.json')
 
 
 @app.route('/users', methods=['GET'])
@@ -54,17 +44,18 @@ def getAllUsers():
 
 
 @app.route('/playingField', methods=['GET'])
-@token_required
+# @token_required
 def getAllPlayingFields():
     return PlayingField.getAllPlayingFields(), 200
 
 
 @app.route('/playingField', methods=['POST'])
-@token_required
+# @token_required
 def createPlayingField():
     playingField = json.loads(request.data)
-    PlayingField.createPlayingField(playingField["type"], playingField["numberOfPlayers"],
-                                    getUserId(playingField["token"]))
+    address = playingField["address"]
+    return  PlayingField.createPlayingField(playingField["type"], playingField["numberOfPlayers"],
+                                    playingField["userId"], address)
 
 
 @app.route('/')
@@ -86,19 +77,6 @@ def register():
         return "User created with succes", 201
 
 
-@app.route("/users/<int:userId>/edit/", methods=['GET', 'POST'])
-def editUser(userId):
-    editedUser = db.session.query(db.User).filter_by(id=userId).one()
-    if request.method == 'POST':
-        if request.form['name']:
-            editedUser.title = request.form['name']
-            return redirect(url_for('showUsers'))
-    else:
-        return render_template('editUsers.html', user=editedUser)
-
-
-@app.route('/users/<int:user_id>/delete/', methods=['DELETE'])
-@token_required
 def deleteUser(user_id):
     result = User.deleteUser(user_id)
     if result == False:
@@ -107,13 +85,11 @@ def deleteUser(user_id):
         return "User deleted with succes.", 200
 
 
-@app.route('/users/<int:user_id>/update', methods=['PATCH'])
-@token_required
 def updateUser(user_id):
     data = json.loads(request.data)
 
     if "password" in data and "username" in data:
-        user = User.updatePassword(user_id, data["password"],data["username"])
+        user = User.updateUsernameAndPassword(user_id, data["password"], data["username"])
         if not user:
             return "User does not exist.", 404
         else:
@@ -133,68 +109,35 @@ def updateUser(user_id):
             return "Username updated with success.", 200
 
 
-def get_users():
-    users = db.session.query(db.User).all()
-    return jsonify(users=[b.serialize for b in users])
+def getUser(_id):
+    result = User.getUserById(_id)
+    if result is None:
+        return "No user with id:" + _id + " found"
+    else:
+        return result
 
 
-def get_user(user_id):
-    users = db.session.query(db.User).filter_by(id=user_id).one()
-    return jsonify(users=users.serialize)
-
-
-def makeANewUser(title, author, genre):
-    addeduser = db.User(title=title, author=author, genre=genre)
-    db.session.add(addeduser)
-    db.session.commit()
-    return jsonify(User=addeduser.serialize)
-
-
-def updateUser(id, title, author, genre):
-    updatedUser = db.session.query(db.User).filter_by(id=id).one()
-    if not title:
-        updatedUser.title = title
-    if not author:
-        updatedUser.author = author
-    if not genre:
-        updatedUser.genre = genre
-    db.session.add(updatedUser)
-    db.session.commit()
-    return 'Updated a User with id %s' % id
-
-
-def deleteAUser(id):
-    userToDelete = db.session.query(db.User).filter_by(id=id).one()
-    db.session.delete(userToDelete)
-    db.session.commit()
-    return 'Removed User with id %s' % id
-
-
-@app.route('/')
-@app.route('/usersApi', methods=['GET', 'POST'])
-def usersFunction():
+@app.route('/users/<id>', methods=['GET', 'PATCH', 'DELETE'])
+def userFunction(id):
     if request.method == 'GET':
-        return get_users()
-    elif request.method == 'POST':
-        title = request.args.get('title', '')
-        author = request.args.get('author', '')
-        genre = request.args.get('genre', '')
-        return makeANewUser(title, author, genre)
+        return getUser(id)
 
-
-@app.route('/usersApi/<int:id>', methods=['GET', 'PUT', 'DELETE'])
-def userFunctionId(id):
-    if request.method == 'GET':
-        return get_user(id)
-
-    elif request.method == 'PUT':
-        title = request.args.get('title', '')
-        author = request.args.get('author', '')
-        genre = request.args.get('genre', '')
-        return updateUser(id, title, author, genre)
+    elif request.method == 'PATCH':
+        return updateUser(id)
 
     elif request.method == 'DELETE':
         return deleteUser(id)
+
+
+@app.route('/users/username', methods=['GET'])
+def getUserByUsername():
+    data = json.loads(request.data)
+    _username = data["username"]
+    result = User.getUserByUsername(_username)
+    if result is None:
+        return "No user with username:" + _username + " found"
+    else:
+        return result
 
 
 if __name__ == '__main__':
