@@ -1,30 +1,17 @@
 import jwt
 from flask import request, Response
-
-from functools import wraps
 from AvailableTimeModel import AvailableTime
 from PlayingFieldModel import *
 from UserModel import *
+from appUtil import deleteUser, updateUser, getUser
 from settings import *
 
 app.config['SECRET_KEY'] = "secret"
 
 
-def token_required(f):
-    @wraps(f)
-    def wrapper(*args, **kwargs):
-        token = request.args.get('token')
-        try:
-            jwt.decode(token, app.config['SECRET_KEY'])
-            return f(*args, **kwargs)
-        except:
-            return jsonify({'error': "Need a valid token to view this page"}), 401
-
-    return wrapper
-
-
 @app.route('/')
 @app.route('/login', methods=['POST'])
+@cross_origin()
 def get_token():
     requestData = json.loads(request.data)
     username = requestData["username"]
@@ -61,60 +48,21 @@ def createPlayingField():
 @app.route('/')
 @app.route('/register', methods=['POST'])
 def register():
-    Credential = json.loads(request.data)
-    if User.usernameExist(Credential["username"]):
+    data = json.loads(request.data)
+    if User.usernameExist(data["username"]):
         return "User already exist.", 409
-    if User.emailAlreadyExist(Credential["email"]):
+    if User.emailAlreadyExist(data["email"]):
         return "Email already used by another user.", 409
     else:
         User.create_user(
-            Credential["email"],
-            Credential["username"],
-            Credential["firstName"],
-            Credential["lastName"],
-            Credential["password"]
+            data["email"],
+            data["username"],
+            data["phoneNumber"],
+            data["firstName"],
+            data["lastName"],
+            data["password"]
         )
         return "User created with succes", 201
-
-
-def deleteUser(user_id):
-    result = User.deleteUser(user_id)
-    if result == False:
-        return "No user with id " + user_id + " exist.", 404
-    else:
-        return "User deleted with succes.", 200
-
-
-def updateUser(user_id):
-    data = json.loads(request.data)
-
-    if "password" in data and "username" in data:
-        user = User.updateUsernameAndPassword(user_id, data["password"], data["username"])
-        if not user:
-            return "User does not exist.", 404
-        else:
-            return "Username and password updated with success.", 200
-
-    if "password" in data:
-        user = User.updatePassword(user_id, data["password"])
-        if not user:
-            return "User does not exist.", 404
-        else:
-            return "User password updated with success.", 200
-    if "username" in data:
-        user = User.updateUserName(user_id, data["username"])
-        if user == False:
-            return "User does not exist.", 404
-        else:
-            return "Username updated with success.", 200
-
-
-def getUser(_id):
-    result = User.getUserById(_id)
-    if result is None:
-        return "No user with id:" + _id + " found"
-    else:
-        return result
 
 
 @app.route('/users/<id>', methods=['GET', 'PATCH', 'DELETE'])

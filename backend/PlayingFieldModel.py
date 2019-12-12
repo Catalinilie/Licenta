@@ -1,5 +1,4 @@
-import uuid
-
+from ModelUtil import generateUUID
 from flask_sqlalchemy import SQLAlchemy
 import json
 
@@ -7,10 +6,6 @@ from AddressModel import Address
 from settings import app
 
 db = SQLAlchemy(app)
-
-
-def generateUUID():
-    return str(uuid.uuid4())
 
 
 class PlayingField(db.Model):

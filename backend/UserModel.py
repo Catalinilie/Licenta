@@ -1,16 +1,9 @@
-import uuid
-
-from flask import jsonify
 from flask_sqlalchemy import SQLAlchemy
-
+from ModelUtil import generateUUID
 from settings import app
 import json
 
 db = SQLAlchemy(app)
-
-
-def generateUUID():
-    return str(uuid.uuid4())
 
 
 class User(db.Model):
@@ -19,6 +12,7 @@ class User(db.Model):
     id = db.Column(db.String, primary_key=True, unique=True)
     email = db.Column(db.String, nullable=False, unique=True)
     username = db.Column(db.String(80), unique=True, nullable=False)
+    phoneNumber = db.Column(db.String(20), nullable=False)
     firstName = db.Column(db.String(80), nullable=False)
     lastName = db.Column(db.String(80), nullable=False)
     password = db.Column(db.String(80), nullable=False)
@@ -27,6 +21,7 @@ class User(db.Model):
         return {
             "id": self.id,
             "username": self.username,
+            "phoneNumber": self.phoneNumber,
             "email": self.email,
             "firstName": self.firstName,
             "lastName": self.lastName,
@@ -37,6 +32,7 @@ class User(db.Model):
         user_object = str({
             "id": self.id,
             "username": self.username,
+            "phoneNumber": self.phoneNumber,
             "email": self.email,
             "firstName": self.firstName,
             "lastName": self.lastName,
@@ -78,8 +74,31 @@ class User(db.Model):
         if user is None:
             return False
 
+        user.password = _password
+        user.username = _username
+        db.session.commit()
+        return True
+
+
+    def updatePhoneNumber(_userId, _phoneNumber):
+        user = User.query.filter_by(id=_userId).first()
+
+        if user is None:
+            return False
+
+        user.phoneNumber = _phoneNumber
+        db.session.commit()
+        return True
+
+    def updateUser(_userId, _username, _password, _phoneNumber):
+        user = User.query.filter_by(id=_userId).first()
+
+        if user is None:
+            return False
+
         user.username = _username
         user.password = _password
+        user.phoneNumber = _phoneNumber
         db.session.commit()
         return True
 
@@ -122,16 +141,17 @@ class User(db.Model):
         else:
             return True
 
-    def create_user(_email, _username, _firstName, _lastName, _password):
+    def create_user(_email, _username, _phoneNumber, _firstName, _lastName, _password):
         _id = generateUUID()
         if User.query.filter_by(id=_id).first() is None:
-            new_user = User(id=_id, email=_email, username=_username, firstName=_firstName, lastName=_lastName,
+            new_user = User(id=_id, email=_email, phoneNumber=_phoneNumber, username=_username, firstName=_firstName,
+                            lastName=_lastName,
                             password=_password)
             db.session.add(new_user)
             db.session.commit()
             return
         else:
-            User.create_user(_id, _email, _username, _firstName, _lastName, _password)
+            User.create_user(_email, _phoneNumber, _username, _firstName, _lastName, _password)
 
     def deleteUser(_id):
         user = User.query.filter_by(id=_id).first()

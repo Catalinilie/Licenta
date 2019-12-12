@@ -1,13 +1,10 @@
-import uuid
+from ModelUtil import generateUUID
 import json
 from flask_sqlalchemy import SQLAlchemy
 from settings import app
 
 db = SQLAlchemy(app)
 
-
-def generateUUID():
-    return str(uuid.uuid4())
 
 
 class AvailableTime(db.Model):

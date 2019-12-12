@@ -1,13 +1,9 @@
-import uuid
+from ModelUtil import generateUUID
 import json
 from flask_sqlalchemy import SQLAlchemy
 from settings import app
 
 db = SQLAlchemy(app)
-
-
-def generateUUID():
-    return str(uuid.uuid4())
 
 
 class Address(db.Model):
@@ -21,6 +17,8 @@ class Address(db.Model):
     region = db.Column(db.String(60), nullable=False)
     country = db.Column(db.String(60), nullable=False)
     addressCode = db.Column(db.String(10), nullable=False)
+    contactPhone = db.Column(db.String(20), nullable=False)
+    contactEmail = db.Column(db.String(80), nullable=False)
 
     def json(self):
         return {
@@ -31,7 +29,9 @@ class Address(db.Model):
             "city": self.city,
             "region": self.region,
             "country": self.country,
-            "addressCode": self.addressCode
+            "addressCode": self.addressCode,
+            "contactPhone": self.contactPhone,
+            "contactEmail": self.contactEmail
         }
 
     def __repr__(self):
@@ -43,7 +43,9 @@ class Address(db.Model):
             "city": self.city,
             "region": self.region,
             "country": self.country,
-            "addressCode": self.addressCode
+            "addressCode": self.addressCode,
+            "contactPhone": self.contactPhone,
+            "contactEmail": self.contactEmail
         })
         return json.dumps(address_object)
 
@@ -55,7 +57,8 @@ class Address(db.Model):
             .filter_by(country=_country) \
             .filter_by(addressCode=_addressCode).first()
 
-    def createAddress(_playingFieldId, _street, _streetNr, _city, _region, _country, _addressCode):
+    def createAddress(_playingFieldId, _street, _streetNr, _city, _region, _country, _addressCode, _contactPhone,
+                      _contactEmail):
         _id = generateUUID()
         if Address.query.filter_by(id=_id).first() is None:
             newAddress = Address(
@@ -66,13 +69,17 @@ class Address(db.Model):
                 city=_city,
                 region=_region,
                 country=_country,
-                addressCode=_addressCode
+                addressCode=_addressCode,
+                contactPhone=_contactPhone,
+                contactEmail=_contactEmail
             )
             db.session.add(newAddress)
             db.session.commit()
             return _id
         else:
-            Address.createAddress(_playingFieldId, _street, _streetNr, _city, _region, _country, _addressCode)
+            Address.createAddress(_playingFieldId, _street, _streetNr, _city, _region, _country, _addressCode,
+                                  _contactPhone,
+                                  _contactEmail)
 
     def updateAddress(Address):
         address = Address.query.filter_by(id=Address.id).first()
@@ -82,6 +89,8 @@ class Address(db.Model):
         address.region = Address.region
         address.country = Address.country
         address.addressCode = Address.addressCode
+        address.contactPhone = Address.contactPhone
+        address.contactEmail = Address.contactEmail
 
         db.session.commit()
 
