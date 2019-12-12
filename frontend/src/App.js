@@ -1,43 +1,39 @@
-import React, { useState } from "react";
-import { Button, FormGroup, FormControl, FormLabel } from "react-bootstrap";
+import React from "react";
+import {Link} from "react-router-dom";
 import "./App.css";
+import Routes from "./Routes";
+import {LinkContainer} from 'react-router-bootstrap'
+import {Navbar} from "react-bootstrap";
+import Nav from "react-bootstrap/lib/Nav";
+import NavItem from "react-bootstrap/lib/NavItem";
 
-export default function Login(props) {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-
-    function validateForm() {
-        return email.length > 0 && password.length > 0;
-    }
-
-    function handleSubmit(event) {
-        event.preventDefault();
-    }
-
+function App(props) {
     return (
-        <div className="Login">
-            <form onSubmit={handleSubmit}>
-                <FormGroup controlId="email" bsSize="large">
-                    <FormLabel>Email</FormLabel>
-                    <FormControl
-                        autoFocus
-                        type="email"
-                        value={email}
-                        onChange={e => setEmail(e.target.value)}
-                    />
-                </FormGroup>
-                <FormGroup controlId="password" bsSize="large">
-                    <FormLabel>Password</FormLabel>
-                    <FormControl
-                        value={password}
-                        onChange={e => setPassword(e.target.value)}
-                        type="password"
-                    />
-                </FormGroup>
-                <Button block bsSize="large" disabled={!validateForm()} type="submit">
-                    Login
-                </Button>
-            </form>
+        <div className="App container">
+            <Navbar fluid collapseOnSelect>
+                <Navbar.Header>
+                    <Navbar.Brand>
+                        <Link to="/">Playing Fields</Link>
+                    </Navbar.Brand>
+                    <Navbar.Toggle/>
+                </Navbar.Header>
+                <Navbar.Collapse>
+                    <Nav pullRight>
+                        <LinkContainer to="/search">
+                            <NavItem>Search</NavItem>
+                        </LinkContainer>
+                        <LinkContainer to="/signup">
+                            <NavItem>SignUp</NavItem>
+                        </LinkContainer>
+                        <LinkContainer to="/login">
+                            <NavItem>Login</NavItem>
+                        </LinkContainer>
+                    </Nav>
+                </Navbar.Collapse>
+            </Navbar>
+            <Routes/>
         </div>
     );
 }
+
+export default App;
