@@ -4,6 +4,9 @@ body {
   font-family: "Open Sans", sans-serif;
   font-size: 16px;
   color: #333;
+  background-image: url("./2613287463.jpeg");
+  background-repeat: no-repeat;
+  background-size: 100%;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

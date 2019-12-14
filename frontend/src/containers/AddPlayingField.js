@@ -4,7 +4,7 @@ import "./Login.css";
 import ControlLabel from "react-bootstrap/lib/ControlLabel";
 import axios from 'axios';
 
-export default function Register(props) {
+export default function Login(props) {
     const [username, setUsername] = useState("");
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
@@ -28,7 +28,6 @@ export default function Register(props) {
         };
         const res = await axios.post('http://localhost:4996/register', params);
         console.log(res.data);
-        props.history.push("/home");
     }
 
     return (
