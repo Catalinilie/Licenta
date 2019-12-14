@@ -43,13 +43,14 @@ class PlayingField(db.Model):
     def getAllPlayingFields():
         return json.dumps([PlayingField.json(playingField) for playingField in PlayingField.query.all()])
 
-    def getPlayingFieldByUserId(_userId):
+    def getPlayingFieldsByUserId(_userId):
         playingFields = PlayingField.query.filter_by(userId=_userId).all()
-        return json.dumps(playingFields)
+        return json.dumps(
+            [PlayingField.json(playingField) for playingField in playingFields])
 
-    def getPlayingFieldByType(_type):
+    def getPlayingFieldsByType(_type):
         playingFields = PlayingField.query.filter_by(type=_type)
-        return playingFields
+        return json.dumps([PlayingField.json(playingField) for playingField in playingFields])
 
     def verifyIfPlayingFieldWithAddressExist(_type, _numberOfPlayers, _userId, address):
         playingField = PlayingField.query.filter_by(type=_type) \
@@ -65,7 +66,7 @@ class PlayingField(db.Model):
         else:
             return True
 
-    def createPlayingField(_type, _numberOfPlayers, _userId, address):
+    def createPlayingField(_type, _numberOfPlayers, _userId, address, _phoneNumber, _email):
         if PlayingField.verifyIfPlayingFieldWithAddressExist(_type, _numberOfPlayers, _userId, address) is False:
             _id = generateUUID()
             if PlayingField.query.filter_by(id=_id).first() is None:
@@ -75,7 +76,9 @@ class PlayingField(db.Model):
                                                   address["city"],
                                                   address["region"],
                                                   address["country"],
-                                                  address["addressCode"])
+                                                  address["addressCode"],
+                                                  _phoneNumber,
+                                                  _email)
 
                 if addressId is not None:
                     newPlayingField = PlayingField(
@@ -89,7 +92,7 @@ class PlayingField(db.Model):
                     db.session.commit()
                     return "Playing field created with succes.", 200
             else:
-                PlayingField.createPlayingField(_type, _numberOfPlayers, _userId)
+                PlayingField.createPlayingField(_type, _numberOfPlayers, _userId, address, _phoneNumber, _email)
         else:
             return "The playing field already exist.", 409
 

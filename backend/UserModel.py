@@ -79,7 +79,6 @@ class User(db.Model):
         db.session.commit()
         return True
 
-
     def updatePhoneNumber(_userId, _phoneNumber):
         user = User.query.filter_by(id=_userId).first()
 
@@ -112,6 +111,20 @@ class User(db.Model):
     def getUserByUsername(_username):
         user = User.query.filter_by(username=_username).first()
         return User.json(user)
+
+    def getPhoneNumber(_id):
+        user = User.query.filter_by(id=_id).first()
+        if user is None:
+            return False
+        else:
+            return user.phoneNumber
+
+    def getEmail(_id):
+        user = User.query.filter_by(id=_id).first()
+        if user is None:
+            return False
+        else:
+            return user.email
 
     def getUserById(_id):
         user = User.query.filter_by(id=_id).first()

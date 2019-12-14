@@ -3,7 +3,7 @@ from flask import request, Response
 from AvailableTimeModel import AvailableTime
 from PlayingFieldModel import *
 from UserModel import *
-from appUtil import deleteUser, updateUser, getUser
+from appUtil import deleteUser, updateUser, getUser, token_required
 from settings import *
 
 app.config['SECRET_KEY'] = "secret"
@@ -16,10 +16,15 @@ def get_token():
     requestData = json.loads(request.data)
     username = requestData["username"]
     password = requestData["password"]
+    userId = User.getUserIdByUsername(username)
 
     if User.username_password_match(username, password):
         token = jwt.encode({"": requestData}, app.config['SECRET_KEY'], algorithm='HS256')
-        return token
+        result = {
+            "token": str(token.decode()),
+            "id": userId
+        }
+        return json.dumps(result), 200
     else:
         return Response('The username or password are wrong.', 401, mimetype='application.json')
 
@@ -31,18 +36,30 @@ def getAllUsers():
 
 
 @app.route('/playingField', methods=['GET'])
+@token_required
+def getPlayingFields():
+    requestData = json.loads(request.data)
+    id = requestData["id"]
+    return PlayingField.getPlayingFieldsByUserId(id), 200
+
+
+@app.route('/playingFields', methods=['GET'])
 # @token_required
 def getAllPlayingFields():
     return PlayingField.getAllPlayingFields(), 200
 
 
 @app.route('/playingField', methods=['POST'])
-# @token_required
+@token_required
 def createPlayingField():
     playingField = json.loads(request.data)
+    userId = playingField["userId"]
+    type = playingField["type"]
+    numberOfPlayers = playingField["numberOfPlayers"]
     address = playingField["address"]
-    return PlayingField.createPlayingField(playingField["type"], playingField["numberOfPlayers"],
-                                           playingField["userId"], address)
+    phoneNumber = User.getPhoneNumber(userId)
+    email = User.getEmail(userId)
+    return PlayingField.createPlayingField(type, numberOfPlayers, userId, address, phoneNumber, email)
 
 
 @app.route('/')
