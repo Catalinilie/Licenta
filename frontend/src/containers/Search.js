@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import { FormGroup, FormControl} from "react-bootstrap";
+import {FormGroup, FormControl} from "react-bootstrap";
 import "./Login.css";
 import ControlLabel from "react-bootstrap/lib/ControlLabel";
 import axios from 'axios';
@@ -9,31 +9,28 @@ import {useFormFields} from "../libs/hooksLib";
 export default function Login(props) {
     const [isLoading, setIsLoading] = useState(false);
     const [fields, handleFieldChange] = useFormFields({
-        username: "",
-        password: ""
+        type: "",
+        numberOfPlayers: ""
     });
 
     function validateForm() {
-        return fields.username.length > 0 && fields.password.length > 0;
+        return fields.type.length > 0 && fields.numberOfPlayers.length > 0;
     }
 
-    async function handleSubmit(event) {
+    async function getResults(event) {
         event.preventDefault();
 
         setIsLoading(true);
 
         const params = {
-            "username": fields.username,
-            "password": fields.password
+            "type": fields.type,
+            "numberOfPlayers": fields.numberOfPlayers
         };
         try {
-            const res = await axios.post('http://localhost:4996/login', params);
+            const res = await axios.get('http://localhost:4996/playingFields', params);
 
-            props.userHasAuthenticated(true);
             console.log(res.data);
-            props.setUserId(res.data["userId"]);
-            props.setToken(res.data["token"]);
-            props.history.push("/home");
+
         } catch (e) {
             alert(e.message);
             setIsLoading(false);
@@ -42,24 +39,24 @@ export default function Login(props) {
 
     return (
         <div className="Login">
-            <form onSubmit={handleSubmit}>
-                <FormGroup controlId="username">
-                    <ControlLabel>Username</ControlLabel>
+            <form onSubmit={getResults}>
+                <FormGroup controlId="type">
+                    <ControlLabel>Type</ControlLabel>
                     <FormControl
                         autoFocus
-                        type="username"
-                        value={fields.username}
+                        type="type"
+                        value={fields.type}
                         onChange={handleFieldChange}
                     />
                 </FormGroup>
-                <FormGroup controlId="password">
-                    <ControlLabel>Password</ControlLabel>
+                <FormGroup controlId="numberOfPlayers">
+                    <ControlLabel>Number of players</ControlLabel>
                     <FormControl
-                        type="password"
-                        value={fields.password}
+                        type="numberOfPlayers"
+                        value={fields.numberOfPlayers}
                         onChange={handleFieldChange}
                     />
-                </FormGroup >
+                </FormGroup>
                 <LoaderButton
                     block
                     type="submit"
@@ -68,7 +65,7 @@ export default function Login(props) {
                     disabled={!validateForm()}
                     className="LoginButton"
                 >
-                    Login
+                    Search
                 </LoaderButton>
             </form>
         </div>

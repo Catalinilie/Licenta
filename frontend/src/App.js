@@ -6,11 +6,13 @@ import {LinkContainer} from 'react-router-bootstrap'
 import {Navbar} from "react-bootstrap";
 import Nav from "react-bootstrap/lib/Nav";
 import NavItem from "react-bootstrap/lib/NavItem";
-import {withRouter} from "react-router";
+import {withRouter} from 'react-router-dom';
 
 
 function App(props) {
     const [isAuthenticated, userHasAuthenticated] = useState(false);
+    const [userId, setUserId] = useState(null);
+    const [token, setToken] = useState(null);
 
     function handleLogout() {
         userHasAuthenticated(false);
@@ -53,7 +55,7 @@ function App(props) {
                     </Nav>
                 </Navbar.Collapse>
             </Navbar>
-            <Routes appProps={{isAuthenticated, userHasAuthenticated}}/>
+            <Routes appProps={{isAuthenticated, userHasAuthenticated, setUserId, userId, token, setToken}}/>
         </div>
     );
 }

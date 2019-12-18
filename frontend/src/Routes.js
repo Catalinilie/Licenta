@@ -6,6 +6,7 @@ import Login from "./containers/Login";
 import Register from "./containers/Register";
 import AddPlayingField from "./containers/AddPlayingField";
 import MyPlayingField from "./containers/MyPlayingField";
+import Search from "./containers/Search";
 import AppliedRoute from "./components/AppliedRoute";
 
 export default function Routes({ appProps }) {
@@ -15,6 +16,7 @@ export default function Routes({ appProps }) {
             <AppliedRoute path="/login" exact component={Login} appProps={appProps} />
             <AppliedRoute path="/home" exact component={Home} appProps={appProps} />
             <AppliedRoute path="/signup" exact component={Register} appProps={appProps} />
+            <AppliedRoute path="/search" exact component={Search} appProps={appProps} />
             <AppliedRoute path="/addPlayingField" exact component={AddPlayingField} appProps={appProps} />
             <AppliedRoute path="/myPlayingFields" exact component={MyPlayingField} appProps={appProps} />
             { /* Finally, catch all unmatched routes */ }

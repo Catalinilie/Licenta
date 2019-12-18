@@ -34,7 +34,7 @@ export default function Register(props) {
     return (
         <div className="Login">
             <form onSubmit={handleSubmit}>
-                <FormGroup controlId="email" bsSize="medium">
+                <FormGroup controlId="username">
                     <ControlLabel column={"username"}>Username</ControlLabel>
                     <FormControl
                         autoFocus
@@ -44,7 +44,7 @@ export default function Register(props) {
                     />
                 </FormGroup>
 
-                <FormGroup controlId="firstName" bsSize="medium">
+                <FormGroup controlId="firstName">
                     <ControlLabel column={"firstName"}>First Name</ControlLabel>
                     <FormControl
                         autoFocus
@@ -53,7 +53,7 @@ export default function Register(props) {
                         onChange={e => setFirstName(e.target.value)}
                     />
                 </FormGroup>
-                <FormGroup controlId="lastName" bsSize="medium">
+                <FormGroup controlId="lastName">
                     <ControlLabel column={"firstName"}>Last Name</ControlLabel>
                     <FormControl
                         autoFocus
@@ -62,7 +62,7 @@ export default function Register(props) {
                         onChange={e => setLastName(e.target.value)}
                     />
                 </FormGroup>
-                <FormGroup controlId="phoneNumber" bsSize="medium">
+                <FormGroup controlId="phoneNumber">
                     <ControlLabel column={"password"}>PhoneNumber</ControlLabel>
                     <FormControl
                         value={phoneNumber}
@@ -70,7 +70,7 @@ export default function Register(props) {
                         type="phoneNumber"
                     />
                 </FormGroup>
-                <FormGroup controlId="email" bsSize="medium">
+                <FormGroup controlId="email">
                     <ControlLabel column={"password"}>Email</ControlLabel>
                     <FormControl
                         value={email}
@@ -78,7 +78,7 @@ export default function Register(props) {
                         type="email"
                     />
                 </FormGroup>
-                <FormGroup controlId="password" bsSize="medium">
+                <FormGroup controlId="password">
                     <ControlLabel column={"password"}>Password</ControlLabel>
                     <FormControl
                         value={password}

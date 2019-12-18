@@ -35,6 +35,7 @@
     ]
   },
   "devDependencies": {
-    "cors": "^2.8.5"
+    "cors": "^2.8.5",
+    "reactstrap": "^8.2.0"
   }
 }

@@ -5,88 +5,119 @@ import ControlLabel from "react-bootstrap/lib/ControlLabel";
 import axios from 'axios';
 
 export default function Login(props) {
-    const [username, setUsername] = useState("");
-    const [firstName, setFirstName] = useState("");
-    const [lastName, setLastName] = useState("");
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [phoneNumber, setPhoneNumber] = useState("");
+    const [type, setType] = useState("");
+    const [numberOfPlayers, setNumberOfPlayers] = useState("");
+    const [street, setStreet] = useState("");
+    const [streetNr, setStreetNr] = useState("");
+    const [city, setCity] = useState("");
+    const [region, setRegion] = useState("");
+    const [country, setCountry] = useState("");
+    const [addressCode, setAddressCode] = useState("");
 
     function validateForm() {
-        return username.length > 0 && password.length > 0 && firstName.length > 0 && lastName.length > 0 && email.length > 0 && phoneNumber.length > 0;
+        return type.length > 0
+            && numberOfPlayers.length > 0
+            && street.length > 0
+            && streetNr.length > 0
+            && city.length > 0
+            && region.length > 0
+            && country.length > 0
+            && addressCode.length > 0;
     }
 
     async function handleSubmit(event) {
         event.preventDefault();
         const params = {
-            "username": username,
-            "firstName": firstName,
-            "lastName": lastName,
-            "phoneNumber": phoneNumber,
-            "email": email,
-            "password": password
+            "type": type,
+            "numberOfPlayers": numberOfPlayers,
+            "userId": props.userId,
+            "address": {
+                "street": street,
+                "streetNr": streetNr,
+                "city": city,
+                "region": region,
+                "country": country,
+                "addressCode": addressCode
+            }
         };
-        const res = await axios.post('http://localhost:4996/register', params);
+        const res = await axios.post('http://localhost:4996/playingField?token=' + props.token, params);
         console.log(res.data);
+        props.history.push("/myPlayingFields");
     }
 
     return (
         <div className="Login">
             <form onSubmit={handleSubmit}>
-                <FormGroup controlId="email" bsSize="medium">
-                    <ControlLabel column={"username"}>Username</ControlLabel>
+                <FormGroup controlId="type">
+                    <ControlLabel column={"type"}>Type</ControlLabel>
                     <FormControl
                         autoFocus
-                        type="username"
-                        value={username}
-                        onChange={e => setUsername(e.target.value)}
+                        type="type"
+                        value={type}
+                        onChange={e => setType(e.target.value)}
                     />
                 </FormGroup>
 
-                <FormGroup controlId="firstName" bsSize="medium">
-                    <ControlLabel column={"firstName"}>First Name</ControlLabel>
+                <FormGroup controlId="numberOfPlayers">
+                    <ControlLabel column={"numberOfPlayers"}>Number of players</ControlLabel>
                     <FormControl
                         autoFocus
-                        type="firstName"
-                        value={firstName}
-                        onChange={e => setFirstName(e.target.value)}
+                        type="numbeOfPlayers"
+                        value={numberOfPlayers}
+                        onChange={e => setNumberOfPlayers(e.target.value)}
                     />
                 </FormGroup>
-                <FormGroup controlId="lastName" bsSize="medium">
-                    <ControlLabel column={"firstName"}>Last Name</ControlLabel>
+                <FormGroup controlId="street">
+                    <ControlLabel column={"street"}>Street</ControlLabel>
                     <FormControl
                         autoFocus
-                        type="lastName"
-                        value={lastName}
-                        onChange={e => setLastName(e.target.value)}
+                        type="street"
+                        value={street}
+                        onChange={e => setStreet(e.target.value)}
                     />
                 </FormGroup>
-                <FormGroup controlId="phoneNumber" bsSize="medium">
-                    <ControlLabel column={"password"}>PhoneNumber</ControlLabel>
+                <FormGroup controlId="streetNr">
+                    <ControlLabel column={"streetNr"}>Street number</ControlLabel>
                     <FormControl
-                        value={phoneNumber}
-                        onChange={e => setPhoneNumber(e.target.value)}
-                        type="phoneNumber"
+                        value={streetNr}
+                        onChange={e => setStreetNr(e.target.value)}
+                        type="streetNr"
                     />
                 </FormGroup>
-                <FormGroup controlId="email" bsSize="medium">
-                    <ControlLabel column={"password"}>Email</ControlLabel>
+                <FormGroup controlId="city">
+                    <ControlLabel column={"city"}>City</ControlLabel>
                     <FormControl
-                        value={email}
-                        onChange={e => setEmail(e.target.value)}
-                        type="email"
+                        value={city}
+                        onChange={e => setCity(e.target.value)}
+                        type="city"
                     />
                 </FormGroup>
-                <FormGroup controlId="password" bsSize="medium">
-                    <ControlLabel column={"password"}>Password</ControlLabel>
+                <FormGroup controlId="region">
+                    <ControlLabel column={"region"}>Region</ControlLabel>
                     <FormControl
-                        value={password}
-                        onChange={e => setPassword(e.target.value)}
-                        type="password"
+                        value={region}
+                        onChange={e => setRegion(e.target.value)}
+                        type="region"
+                    />
+                </FormGroup>
+                <FormGroup controlId="country">
+                    <ControlLabel column={"country"}>Country</ControlLabel>
+                    <FormControl
+                        value={country}
+                        onChange={e => setCountry(e.target.value)}
+                        type="country"
+                    />
+                </FormGroup>
+                <FormGroup controlId="addressCode">
+                    <ControlLabel column={"addressCode"}>Postal Code</ControlLabel>
+                    <FormControl
+                        value={addressCode}
+                        onChange={e => setAddressCode(e.target.value)}
+                        type="addressCode"
                     />
                 </FormGroup>
                 <Button block bsSize="large" disabled={!validateForm()} type="submit">
-                    Register
+                    Add Playing Field
                 </Button>
             </form>
         </div>
