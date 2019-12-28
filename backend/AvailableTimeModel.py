@@ -6,7 +6,6 @@ from settings import app
 db = SQLAlchemy(app)
 
 
-
 class AvailableTime(db.Model):
     __tablename__ = 'AvailableTime'
 
@@ -89,3 +88,12 @@ class AvailableTime(db.Model):
             return "Available time updated with success."
         else:
             return "Available time with id: " + _playingFieldId + " does not exist."
+
+    def deleteAvailableTime(_id):
+        availableTime = AvailableTime.query.filter_by(id=_id).first()
+        if availableTime is None:
+            return False, 404
+        else:
+            AvailableTime.query.filter_by(id=_id).delete()
+            db.session.commit()
+            return True, 200

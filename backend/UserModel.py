@@ -106,11 +106,10 @@ class User(db.Model):
 
     def getUserIdByUsername(_username):
         user = User.query.filter_by(username=_username).first()
-        return user.id
-
-    def getUserByUsername(_username):
-        user = User.query.filter_by(username=_username).first()
-        return User.json(user)
+        if user is None:
+            return False
+        else:
+            return user.id
 
     def getPhoneNumber(_id):
         user = User.query.filter_by(id=_id).first()

@@ -16,6 +16,7 @@ class PlayingField(db.Model):
     numberOfPlayers = db.Column(db.Integer, nullable=False)
     userId = db.Column(db.String, nullable=False)
     addressId = db.Column(db.String, nullable=False)
+    description = db.Column(db.String)
     createdOn = db.Column(db.DateTime, server_default=db.func.now())
     updatedOn = db.Column(db.DateTime, server_default=db.func.now(), server_onupdate=db.func.now())
 
@@ -26,6 +27,7 @@ class PlayingField(db.Model):
             "numberOfPlayers": self.numberOfPlayers,
             "userId": self.userId,
             "addressId": self.addressId,
+            "description": self.description,
             "address": Address.getAddressByPlayingFieldId(self.id)
         }
 
@@ -36,12 +38,14 @@ class PlayingField(db.Model):
             "numberOfPlayers": self.numberOfPlayers,
             "userId": self.userId,
             "addressId": self.addressId,
+            "description": self.description,
             "address": Address.getAddressByPlayingFieldId(self.id)
         })
         return json.dumps(palyingField_object)
 
-    def getAllPlayingFields():
-        return json.dumps([PlayingField.json(playingField) for playingField in PlayingField.query.all()])
+    def getAllPlayingFields(index, count):
+        playingFields = PlayingField.query.order_by(PlayingField.description).limit(count).offset(index)
+        return json.dumps([PlayingField.json(playingField) for playingField in playingFields])
 
     def getPlayingFieldsByUserId(_userId):
         playingFields = PlayingField.query.filter_by(userId=_userId).all()
@@ -66,7 +70,7 @@ class PlayingField(db.Model):
         else:
             return True
 
-    def createPlayingField(_type, _numberOfPlayers, _userId, address, _phoneNumber, _email):
+    def createPlayingField(_type, _numberOfPlayers, _userId, _description, address, _phoneNumber, _email):
         if PlayingField.verifyIfPlayingFieldWithAddressExist(_type, _numberOfPlayers, _userId, address) is False:
             _id = generateUUID()
             if PlayingField.query.filter_by(id=_id).first() is None:
@@ -86,22 +90,70 @@ class PlayingField(db.Model):
                         type=_type,
                         numberOfPlayers=_numberOfPlayers,
                         userId=_userId,
+                        description=_description,
                         addressId=addressId
                     )
                     db.session.add(newPlayingField)
                     db.session.commit()
                     return "Playing field created with succes.", 200
             else:
-                PlayingField.createPlayingField(_type, _numberOfPlayers, _userId, address, _phoneNumber, _email)
+                PlayingField.createPlayingField(_type, _numberOfPlayers, _userId, _description, address, _phoneNumber,
+                                                _email)
         else:
             return "The playing field already exist.", 409
 
+    def updatePlayingField(_id, _type, _numberOfPlayers, _description):
+        playingField = PlayingField.query.filter_by(id=_id).first()
+        if playingField is None:
+            return False
+        else:
+            if _type is not None:
+                playingField.type = _type
+            if _numberOfPlayers is not None:
+                playingField.numberOfPlayers = _numberOfPlayers
+            if _description is not None:
+                playingField.description = _description
+            db.session.commit()
+            return True
+
     def updatePlyingFieldType(_id, _type):
         playingField = PlayingField.query.filter_by(id=_id).first()
-        playingField.type = _type
-        db.session.commit()
+        if playingField is None:
+            return False
+        else:
+            playingField.type = _type
+            db.session.commit()
+            return True
 
     def updatePlayingFieldNumberOfPlayers(_id, _numberOfPlayers):
         playingField = PlayingField.query.filter_by(id=_id).first()
-        playingField.numberOfPlayers = _numberOfPlayers
-        db.session.commit()
+        if playingField is None:
+            return False
+        else:
+            playingField.numberOfPlayers = _numberOfPlayers
+            db.session.commit()
+            return True
+
+    def updatePlayingFieldDescription(_id, _description):
+        playingField = PlayingField.query.filter_by(id=_id).first()
+        if playingField is None:
+            return False
+        else:
+            playingField.description = _description
+            db.session.commit()
+            return True
+
+    def search(_type, _numberOfPlayers):
+        playingFields = PlayingField.query.filter_by(type=_type).filter_by(numberOfPlayers=_numberOfPlayers).all()
+        if playingFields is None:
+            return "No Playing Field found.", 404
+        return json.dumps([PlayingField.json(playingField) for playingField in playingFields]), 200
+
+    def deletePlayingField(_id):
+        playingField = PlayingField.query.filter_by(id=_id).first()
+        if playingField is None:
+            return False, 404
+        else:
+            PlayingField.query.filter_by(id=_id).delete()
+            db.session.commit()
+            return True, 200
