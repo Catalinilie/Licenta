@@ -1,44 +1,47 @@
-import React, {useState} from "react";
+import React from "react";
 import "./Login.css";
 import axios from 'axios';
+import Async from 'react-async';
+import "./MyPlayingField.css"
 import PlayingFieldCard from "../components/PlayingFieldCard";
 
 export default function GetMyPlayingFields(props) {
-    const [imageRoute, setImageRoute] = useState(null);
-    const [playingFieldType, setPlayingFieldType] = useState(null);
-    const [playingFieldDescription, setPlayingFieldDescription] = useState(null);
-    const [address, setAddress] = useState(null);
+    let playingFieldsResult;
 
-    async function getMyPlayingFields(event) {
-        event.preventDefault();
-        const params = {
+    async function getPlayingFieldImage(){
+        let playingFieldsImageResult;
+        const imagesParams = {
+            "playingFieldId":props.playingFieldId
+        };
+        playingFieldsImageResult = await axios.get('http://localhost:4996/uploadImage', {params: playingFieldsImageResult});
+    }
+
+    async function getPlayingFields() {
+        const playingFieldsParams = {
             "userId": props.userId,
             "token": props.token
         };
-        try {
-            const res = await axios.get('http://localhost:4996/playingField', params);
-
-            setImageRoute(res.data["imageRoute"]);
-            setPlayingFieldType(res.data["type"]);
-            setPlayingFieldDescription(res.data["description"]);
-            setAddress(res.data["street"] + " " + res.data["streetNr"]
-                + ", " + res.data["city"] + ", " + res.data["addressCode"]);
-            console.log(res.data);
-        } catch (e) {
-            alert(e.message);
-        }
+        playingFieldsResult = await axios.get('http://localhost:4996/playingField', {params: playingFieldsParams});
+        console.log(playingFieldsResult);
+        return playingFieldsResult;
     }
 
-    return (
-        <PlayingFieldCard
-            imageRoute={imageRoute}
-            playingFieldType={playingFieldType}
-            playingFieldDescription={playingFieldDescription}
-            address={address}
-            block
-            bsSize="large"
-            className="LoginButton">
-            {getMyPlayingFields()}
-        </PlayingFieldCard>
-    );
+        return (
+            <div>
+                <Async promiseFn={getPlayingFields}>
+                    {({data, err, isLoading}) => {
+                        if (isLoading) return "Loading...";
+                        if (err) return `Something went wrong: ${err.message}`;
+
+                        if (data)
+                            return (<div>
+                                {data.data.map(playingField => (
+
+                                    <PlayingFieldCard field={playingField}/>
+                                ))}
+                            </div>);
+                    }}
+                </Async>
+            </div>
+        );
 }

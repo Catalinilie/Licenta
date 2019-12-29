@@ -1,4 +1,4 @@
-@media all and (min-width: 480px) {
+@media all and (min-width: 280px) {
     .Login {
         padding: 60px 0;
     }
@@ -6,13 +6,11 @@
     .Login form {
         margin: 0 auto;
         text-align: center;
-        color: #ffffff;
         max-width: 320px;
     }
 }
 
 .LoginButton {
-    background: rgb(142, 23, 255);
     font-weight: bold;
     text-effect: emboss;
     margin: 3em auto;

@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import { FormGroup, FormControl} from "react-bootstrap";
+import {FormGroup, FormControl} from "react-bootstrap";
 import "./Login.css";
 import ControlLabel from "react-bootstrap/lib/ControlLabel";
 import axios from 'axios';
@@ -8,6 +8,7 @@ import {useFormFields} from "../libs/hooksLib";
 
 export default function Login(props) {
     const [isLoading, setIsLoading] = useState(false);
+    const [wrongCredential, setWrongCredential] = useState(false);
     const [fields, handleFieldChange] = useFormFields({
         username: "",
         password: ""
@@ -35,7 +36,11 @@ export default function Login(props) {
             props.setToken(res.data["token"]);
             props.history.push("/home");
         } catch (e) {
-            alert(e.message);
+            if (e.message !== "Network Error") {
+                if (e.response.status === 401)
+                    setWrongCredential(true);
+            } else
+                alert(e.message);
             setIsLoading(false);
         }
     }
@@ -50,6 +55,7 @@ export default function Login(props) {
                         type="username"
                         value={fields.username}
                         onChange={handleFieldChange}
+                        placeholder="Enter username"
                     />
                 </FormGroup>
                 <FormGroup controlId="password">
@@ -58,15 +64,23 @@ export default function Login(props) {
                         type="password"
                         value={fields.password}
                         onChange={handleFieldChange}
+                        placeholder="Password"
                     />
-                </FormGroup >
+                </FormGroup>
+                {wrongCredential &&
+                < div className="form-group has-danger">
+                    <label className="form-control-label is-invalid" id="inputInvalid" htmlFor="inputDanger1"/>
+                    <div className="invalid-feedback" style={{'font-size': "1rem"}}>Wrong credential. Please try again
+                    </div>
+                </div>
+                }
                 <LoaderButton
                     block
                     type="submit"
                     bsSize="large"
                     isLoading={isLoading}
                     disabled={!validateForm()}
-                    className="LoginButton"
+                    className="btn btn-primary LoginButton"
                 >
                     Login
                 </LoaderButton>

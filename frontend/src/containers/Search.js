@@ -5,6 +5,8 @@ import ControlLabel from "react-bootstrap/lib/ControlLabel";
 import axios from 'axios';
 import LoaderButton from "../components/LoaderButton";
 import {useFormFields} from "../libs/hooksLib";
+import Async from "react-async";
+import PlayingFieldCard from "../components/PlayingFieldCard";
 
 export default function Login(props) {
     const [isLoading, setIsLoading] = useState(false);
@@ -18,8 +20,7 @@ export default function Login(props) {
     }
 
     async function getResults(event) {
-        event.preventDefault();
-
+        if(event) event.preventDefault();
         setIsLoading(true);
 
         const params = {
@@ -27,7 +28,7 @@ export default function Login(props) {
             "numberOfPlayers": fields.numberOfPlayers
         };
         try {
-            const res = await axios.get('http://localhost:4996/playingFields', params);
+            const res = await axios.get('http://localhost:4996/search', params);
 
             console.log(res.data);
 
@@ -37,9 +38,30 @@ export default function Login(props) {
         }
     }
 
+    function display(event) {
+        if(event) event.preventDefault();
+        return (
+            <div>
+                <Async promiseFn={getResults}>
+                    {({data, err, isLoading}) => {
+                        if (isLoading) return "Loading...";
+                        if (err) return `Something went wrong: ${err.message}`;
+
+                        if (data)
+                            return (<div>
+                                {data.data.map(playingField => (
+                                    <PlayingFieldCard field={playingField}/>
+                                ))}
+                            </div>);
+                    }}
+                </Async>
+            </div>
+        );
+    }
+
     return (
         <div className="Login">
-            <form onSubmit={getResults}>
+            <form onSubmit={display}>
                 <FormGroup controlId="type">
                     <ControlLabel>Type</ControlLabel>
                     <FormControl
@@ -63,7 +85,7 @@ export default function Login(props) {
                     bsSize="large"
                     isLoading={isLoading}
                     disabled={!validateForm()}
-                    className="LoginButton"
+                    className="btn btn-primary"
                 >
                     Search
                 </LoaderButton>

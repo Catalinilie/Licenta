@@ -86,7 +86,8 @@ export default function Register(props) {
                         type="password"
                     />
                 </FormGroup>
-                <Button block bsSize="large" disabled={!validateForm()} type="submit">
+                <Button block bsSize="large" disabled={!validateForm()} type="submit"
+                        className="btn btn-primary">
                     Register
                 </Button>
             </form>
