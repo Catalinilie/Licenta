@@ -5,10 +5,12 @@ import ControlLabel from "react-bootstrap/lib/ControlLabel";
 import axios from 'axios';
 import "./AddPlayingField.css"
 import ImageUploader from 'react-images-upload';
+import LoaderButton from "../components/LoaderButton";
+import {Link} from "react-router-dom";
+import Alert from "react-bootstrap/lib/Alert";
 
 
-
-class Login extends Component {
+class AddPlayingField extends Component {
 
 
     constructor(props) {
@@ -22,46 +24,52 @@ class Login extends Component {
             region: "",
             country: "",
             addressCode: "",
-            description: "",
-            image: ""
+            description: ""
         };
-        // const [type, setType] = useState("");
-        // const [numberOfPlayers, setNumberOfPlayers] = useState("");
-        // const [street, setStreet] = useState("");
-        // const [streetNr, setStreetNr] = useState("");
-        // const [city, setCity] = useState("");
-        // const [region, setRegion] = useState("");
-        // const [country, setCountry] = useState("");
-        // const [addressCode, setAddressCode] = useState("");
-        // const [description, setDescription] = useState("");
-        // const [image, setImage] = useState(null);
+
+        this.state = {images: []};
+        this.onDrop = this.onDrop.bind(this);
     }
 
     validateForm() {
-        return this.state.type.length > 0
-            && this.state.numberOfPlayers.length > 0
-            && this.state.street.length > 0
-            && this.state.streetNr.length > 0
-            && this.state.city.length > 0
-            && this.state.region.length > 0
-            && this.state.country.length > 0
-            && this.state.addressCode.length > 0;
+        if (
+            this.state.type === undefined
+            || this.state.numberOfPlayers === undefined
+            || this.state.street === undefined
+            || this.state.streetNr === undefined
+            || this.state.city === undefined
+            || this.state.region === undefined
+            || this.state.country === undefined
+            || this.state.addressCode === undefined
+            || this.state.description === undefined
+        )
+            return false;
+        else
+            return (
+                this.state.type.length > 0
+                && this.state.numberOfPlayers.length > 0
+                && this.state.street.length > 0
+                && this.state.streetNr.length > 0
+                && this.state.city.length > 0
+                && this.state.region.length > 0
+                && this.state.country.length > 0
+                && this.state.addressCode.length > 0
+                && this.state.description.length > 0
+            );
     }
 
-    onDrop(picture) {
-        this.setState({
-            pictures: this.state.pictures.concat(picture),
-        });
+    onDrop(image) {
+        this.state.images.append('image', image);
     }
 
     onClickHandler() {
         const data = new FormData();
         data.append('image', this.state.image);
-        axios.post('http://localhost:4996/uploadImage?playingFieldId=' + "30f7d752-d0d0-4458-866d-c55101ca8a58", data)
+        axios.post('http://localhost:4996/uploadImage?playingFieldId=' + '30f7d752-d0d0-4458-866d-c55101ca8a58', data)
             .then(res => console.log(res.statusText));
     }
 
-    async handleSubmit(e) {
+    async handleSubmit(state, e) {
         e.preventDefault();
         const params = {
             "type": this.state.type,
@@ -77,18 +85,53 @@ class Login extends Component {
                 "addressCode": this.state.addressCode
             }
         };
-        const res = await axios.post('http://localhost:4996/playingField?token=' + this.props.token, params);
-        console.log(res.data);
+        let playingFieldId = "";
+        const res = await axios.post('http://localhost:4996/playingField?token=' + this.props.token, params)
+            .then(res => (playingFieldId = res.data.id));
+
+
+        let imgFormData = new FormData();
+        imgFormData.append(this.state.images);
+        const imgParam = {
+            "playingFieldId": playingFieldId
+        };
+        const resImg = await axios.post('http://localhost:4996/uploadImage',
+            imgFormData
+            ,
+            {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            }
+        )
+            .then(res => (console.log(res.data)));
         this.props.history.push("/myPlayingFields");
+        return res;
     }
 
     render() {
-        if (this.props.token == null)
-            return this.props.history.push("/login");
+        if (this.props.token === null)
+            return (
+                <div className="container-fluid">
+                    <div className="col-sm-12">
+                        <div className="as">
+                            <div className="card text-white bg-danger mb-3"
+                                 style={{"text-align": "center", "margin-top": "3rem"}}>
+                                <div className="card-header">You don't have access here!</div>
+                                <div className="card-body">
+                                    <h4 className="card-title">Access restricted</h4>
+                                    <p className="card-text">Please go to login page. </p>
+                                    <Link className="btn btn-primary" to="/login">Login</Link>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
         else
             return (
                 <div className="Login">
-                    <form onSubmit={e => this.handleSubmit({e})}>
+                    <form>
                         <FormGroup controlId="type">
                             <ControlLabel column={"type"}>Type</ControlLabel>
                             <FormControl
@@ -172,13 +215,17 @@ class Login extends Component {
                             imgExtension={['.jpg', '.gif', '.png', '.gif']}
                             maxFileSize={5242880}
                         />
-                        <Button block bsSize="large" disabled={!this.validateForm()} type="submit">
+                        <LoaderButton block bsSize="large"
+                                      className="btn btn-primary LoginButton"
+                                      onClick={(e) => this.handleSubmit(this.state, e)}
+                                      disabled={!this.validateForm()}
+                                      type="submit">
                             Add Playing Field
-                        </Button>
+                        </LoaderButton>
                     </form>
                 </div>
             );
     }
 }
 
-export default Login;
+export default AddPlayingField;

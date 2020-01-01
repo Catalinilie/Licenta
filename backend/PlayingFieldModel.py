@@ -95,7 +95,7 @@ class PlayingField(db.Model):
                     )
                     db.session.add(newPlayingField)
                     db.session.commit()
-                    return "Playing field created with succes.", 200
+                    return json.dumps({"id": _id}), 200
             else:
                 PlayingField.createPlayingField(_type, _numberOfPlayers, _userId, _description, address, _phoneNumber,
                                                 _email)
@@ -152,8 +152,8 @@ class PlayingField(db.Model):
     def deletePlayingField(_id):
         playingField = PlayingField.query.filter_by(id=_id).first()
         if playingField is None:
-            return False, 404
+            return "No Playing Fieldwith id " + _id + " found .", 404
         else:
             PlayingField.query.filter_by(id=_id).delete()
             db.session.commit()
-            return True, 200
+            return "Playing Field deleted with success.", 200

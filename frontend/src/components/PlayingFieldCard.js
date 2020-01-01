@@ -1,24 +1,17 @@
 import React, {Component} from "react";
 import "./LoaderButton.css";
+import Button from "react-bootstrap/lib/Button";
+import axios from 'axios';
 
-// class Card extends Component {
-//     render() {
-//         return (
-//             <div className="cardComponent" style={{margin: '1rem'}}>
-//                 Card
-//             </div>
-//         );
-//     }
-// }
-//
-// const CardList = (props) => {
-//     <div>
-//         <Card />
-//     </div>
-// }
 
 class PlayingFieldCard extends Component {
 
+
+    async deletePlayingField(id, e) {
+        await axios.delete('http://localhost:4996/deletePlayingField', {params: {playingFieldId: id}})
+            .then(res => console.log(res.statusText));
+        window.location.reload();
+    }
 
     render() {
         return (
@@ -32,6 +25,9 @@ class PlayingFieldCard extends Component {
                         <p className="my-4">{this.props.field.description}</p>
                         <p className="card-text">{this.props.field.numberOfPlayers}</p>
                     </div>
+                    <Button variant="primary" className="btn btn-primary"
+                            onClick={e => this.deletePlayingField(this.props.field.id, e)}>
+                        Delete Playing Field</Button>
                 </div>
             </div>
         );

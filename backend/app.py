@@ -98,6 +98,7 @@ def resetPassword():
 
 
 @app.route('/uploadImage', methods=['POST', 'GET'])
+@cross_origin()
 def upload_image():
     if request.method == 'POST':
         playingFieldId = request.args.get('playingFieldId')
@@ -169,9 +170,10 @@ def getUserByUsername():
         return result
 
 
-@app.route('/deletePlayingField/<id>', methods=['DELETE'])
-def deletePlayingField(id):
-    return PlayingField.deletePlayingField(id)
+@app.route('/deletePlayingField', methods=['DELETE'])
+def deletePlayingField():
+    playingFieldId = request.args.get('playingFieldId')
+    return PlayingField.deletePlayingField(playingFieldId)
 
 
 @app.route('/addAvailableTime', methods=['POST'])
