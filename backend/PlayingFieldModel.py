@@ -14,6 +14,7 @@ class PlayingField(db.Model):
     id = db.Column(db.String, primary_key=True, unique=True)
     type = db.Column(db.String(250), nullable=False)
     numberOfPlayers = db.Column(db.Integer, nullable=False)
+    price = db.Column(db.String, nullable=False)
     userId = db.Column(db.String, nullable=False)
     addressId = db.Column(db.String, nullable=False)
     description = db.Column(db.String)
@@ -25,6 +26,7 @@ class PlayingField(db.Model):
             "id": self.id,
             "type": self.type,
             "numberOfPlayers": self.numberOfPlayers,
+            "price": self.price,
             "userId": self.userId,
             "addressId": self.addressId,
             "description": self.description,
@@ -36,6 +38,7 @@ class PlayingField(db.Model):
             "id": self.id,
             "type": self.type,
             "numberOfPlayers": self.numberOfPlayers,
+            "price": self.price,
             "userId": self.userId,
             "addressId": self.addressId,
             "description": self.description,
@@ -70,7 +73,7 @@ class PlayingField(db.Model):
         else:
             return True
 
-    def createPlayingField(_type, _numberOfPlayers, _userId, _description, address, _phoneNumber, _email):
+    def createPlayingField(_type, _numberOfPlayers, _price, _userId, _description, address, _phoneNumber, _email):
         if PlayingField.verifyIfPlayingFieldWithAddressExist(_type, _numberOfPlayers, _userId, address) is False:
             _id = generateUUID()
             if PlayingField.query.filter_by(id=_id).first() is None:
@@ -89,6 +92,7 @@ class PlayingField(db.Model):
                         id=_id,
                         type=_type,
                         numberOfPlayers=_numberOfPlayers,
+                        price=_price,
                         userId=_userId,
                         description=_description,
                         addressId=addressId
@@ -97,12 +101,13 @@ class PlayingField(db.Model):
                     db.session.commit()
                     return json.dumps({"id": _id}), 200
             else:
-                PlayingField.createPlayingField(_type, _numberOfPlayers, _userId, _description, address, _phoneNumber,
+                PlayingField.createPlayingField(_type, _numberOfPlayers, _price, _userId, _description, address,
+                                                _phoneNumber,
                                                 _email)
         else:
             return "The playing field already exist.", 409
 
-    def updatePlayingField(_id, _type, _numberOfPlayers, _description):
+    def updatePlayingField(_id, _type, _numberOfPlayers, _description, _price):
         playingField = PlayingField.query.filter_by(id=_id).first()
         if playingField is None:
             return False
@@ -113,6 +118,8 @@ class PlayingField(db.Model):
                 playingField.numberOfPlayers = _numberOfPlayers
             if _description is not None:
                 playingField.description = _description
+            if _price is not None:
+                playingField.price = _price
             db.session.commit()
             return True
 
@@ -149,11 +156,17 @@ class PlayingField(db.Model):
             return "No Playing Field found.", 404
         return json.dumps([PlayingField.json(playingField) for playingField in playingFields]), 200
 
+    def getLastsAddedPlayingFields(numberOfFields):
+        playingFields = PlayingField.query.order_by(PlayingField.createdOn.desc()).limit(numberOfFields).all()
+        if playingFields is None:
+            return "No Playing Field found.", 404
+        return json.dumps([PlayingField.json(playingField) for playingField in playingFields]), 200
+
     def deletePlayingField(_id):
         playingField = PlayingField.query.filter_by(id=_id).first()
         if playingField is None:
-            return "No Playing Fieldwith id " + _id + " found .", 404
+            return False
         else:
             PlayingField.query.filter_by(id=_id).delete()
             db.session.commit()
-            return "Playing Field deleted with success.", 200
+            return True

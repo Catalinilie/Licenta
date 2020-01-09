@@ -8,12 +8,14 @@ import AddPlayingField from "../containers/AddPlayingField";
 import MyPlayingField from "../containers/MyPlayingField";
 import Search from "../containers/Search";
 import AppliedRoute from "../components/AppliedRoute";
+import MyProfile from "../containers/MyProfile";
 
 export default function Routes({ appProps }) {
     return (
         <Switch>
             <AppliedRoute path="/" exact component={Home} appProps={appProps} />
             <AppliedRoute path="/login" exact component={Login} appProps={appProps} />
+            <AppliedRoute path="/myProfile" exact component={MyProfile} appProps={appProps} />
             <AppliedRoute path="/home" exact component={Home} appProps={appProps} />
             <AppliedRoute path="/signup" exact component={Register} appProps={appProps} />
             <AppliedRoute path="/search" exact component={Search} appProps={appProps} />

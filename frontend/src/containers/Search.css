@@ -1,0 +1,11 @@
+.searchContainer{
+    margin: 0 !important;
+    text-align: left !important;
+    padding: 0 !important;
+}
+@media all and (min-width: 280px) {
+    .Search {
+        padding: 60px 0;
+        background: rgba(76, 175, 80, 0.3)
+    }
+}

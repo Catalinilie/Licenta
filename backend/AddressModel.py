@@ -101,3 +101,12 @@ class Address(db.Model):
             return "No address found for playingField with id: " + _playingFieldId, 404
         else:
             return address.json()
+
+    def deleteByPlayingFieldId(_playingFieldId):
+        address = Address.query.filter_by(playingFieldId=_playingFieldId).first()
+        if address is None:
+            return False
+        else:
+            Address.query.filter_by(playingFieldId=_playingFieldId).delete()
+            db.session.commit()
+            return True

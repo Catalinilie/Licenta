@@ -1,0 +1,17 @@
+.image{
+    padding: 0 !important;
+}
+.description{
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
+}
+
+.cardFieldContainer{
+
+}
+
+.palyingFieldCard{
+
+}

@@ -11,3 +11,6 @@ db.create_all()
 from AddressModel import *
 
 db.create_all()
+from ImageModel import *
+
+db.create_all()

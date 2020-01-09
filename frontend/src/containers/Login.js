@@ -30,10 +30,10 @@ export default function Login(props) {
         try {
             const res = await axios.post('http://localhost:4996/login', params);
 
-            props.userHasAuthenticated(true);
+            sessionStorage.setItem("isAuthenticated", "true");
             console.log(res.data);
-            props.setUserId(res.data["userId"]);
-            props.setToken(res.data["token"]);
+            sessionStorage.setItem("userId", res.data["userId"]);
+            sessionStorage.setItem("token", res.data["token"]);
             props.history.push("/home");
         } catch (e) {
             if (e.message !== "Network Error") {

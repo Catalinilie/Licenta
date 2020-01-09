@@ -1,0 +1,16 @@
+.description{
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
+}
+
+.sidePlayingFields{
+    text-align: left ;
+    padding: 0 !important;
+}
+
+.type{
+    text-align: center !important;
+    font-size: 2em !important;
+}

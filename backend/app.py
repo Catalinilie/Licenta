@@ -8,7 +8,8 @@ from AvailableTimeModel import AvailableTime
 from ImageModel import Image
 from PlayingFieldModel import *
 from UserModel import *
-from appUtil import deleteUser, updateUser, getUser, token_required, updatePlayingFieldById, allowed_file
+from appUtil import deleteUser, updateUser, getUser, token_required, updatePlayingFieldById, allowed_file, \
+    deletePlayingFieldById
 from settings import *
 from flask_mail import Message
 
@@ -63,6 +64,12 @@ def search():
     return PlayingField.search(type, numberOfPlayers)
 
 
+@app.route('/lastAdded', methods=['GET'])
+def lastAdded():
+    numberOfFields = request.args.get('numberOfFields')
+    return PlayingField.getLastsAddedPlayingFields(numberOfFields)
+
+
 @app.route('/playingField', methods=['POST'])
 @token_required
 def createPlayingField():
@@ -71,10 +78,12 @@ def createPlayingField():
     description = playingField["description"]
     type = playingField["type"]
     numberOfPlayers = playingField["numberOfPlayers"]
+    price = playingField["price"]
     address = playingField["address"]
     phoneNumber = User.getPhoneNumber(userId)
     email = User.getEmail(userId)
-    return PlayingField.createPlayingField(type, numberOfPlayers, userId, description, address, phoneNumber, email)
+    return PlayingField.createPlayingField(type, numberOfPlayers, price, userId, description, address, phoneNumber,
+                                           email)
 
 
 @app.route('/playingField', methods=['PATCH'])
@@ -117,14 +126,16 @@ def upload_image():
                 else:
                     return "File not allowed."
             return "Image added."
+        else:
+            return "No image was received from request.", 400
     if request.method == "GET":
         playingFieldId = request.args.get('playingFieldId')
         imagesPath = Image.getImage(playingFieldId)
         result = list()
         for imagePath in imagesPath:
             result.append(url_for("static", filename=imagePath.split("\\")[-1]))
-    result = {i: result[i] for i in range(0, len(result))}
-    return json.dumps(result)
+        result = {i: result[i] for i in range(0, len(result))}
+        return json.dumps(result)
 
 
 @app.route('/')
@@ -132,7 +143,7 @@ def upload_image():
 def register():
     data = json.loads(request.data)
     if User.usernameExist(data["username"]):
-        return "User already exist.", 409
+        return "Username already exist.", 409
     if User.emailAlreadyExist(data["email"]):
         return "Email already used by another user.", 409
     else:
@@ -147,8 +158,10 @@ def register():
         return "User created with succes", 201
 
 
-@app.route('/users/<id>', methods=['GET', 'PATCH', 'DELETE'])
-def userFunction(id):
+@app.route('/users', methods=['GET', 'PATCH', 'DELETE'])
+@token_required
+def userFunction():
+    id = request.data["userId"]
     if request.method == 'GET':
         return getUser(id)
 
@@ -173,7 +186,7 @@ def getUserByUsername():
 @app.route('/deletePlayingField', methods=['DELETE'])
 def deletePlayingField():
     playingFieldId = request.args.get('playingFieldId')
-    return PlayingField.deletePlayingField(playingFieldId)
+    return deletePlayingFieldById(playingFieldId)
 
 
 @app.route('/addAvailableTime', methods=['POST'])

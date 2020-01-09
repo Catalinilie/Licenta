@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import Routes from "./Routes";
 import {Link, withRouter} from 'react-router-dom';
 import "./main-page.css";
@@ -7,12 +7,10 @@ import "../css/bootstrap.css"
 
 
 function App(props) {
-    const [isAuthenticated, userHasAuthenticated] = useState(false);
-    const [userId, setUserId] = useState(null);
-    const [token, setToken] = useState(null);
 
     function handleLogout() {
-        userHasAuthenticated(false);
+        sessionStorage.clear();
+        sessionStorage.setItem("isAuthenticated","false");
         props.history.push("/login");
     }
 
@@ -31,7 +29,7 @@ function App(props) {
                         <li className="nav-item ">
                             <Link className="nav-link" to="/search">Search <span className="sr-only">(current)</span></Link>
                         </li>
-                        {isAuthenticated
+                        {sessionStorage.getItem("isAuthenticated") === "true"
                             ? <>
                                 <li className="nav-item">
                                     <Link className="nav-link" to="/addPlayingField">Add Field</Link>
@@ -40,12 +38,15 @@ function App(props) {
                                     <Link className="nav-link" to="/myPlayingFields">My playing Fields</Link>
                                 </li>
                                 <li className="nav-item">
+                                    <Link className="nav-link" to="/myProfile">My Profile</Link>
+                                </li>
+                                <li className="nav-item">
                                     <Link className="nav-link" to="/" onClick={handleLogout}>Logout</Link>
                                 </li>
                             </>
                             : <>
                                 <li className="nav-item">
-                                    <Link className="nav-link" to="/signup">Signup</Link>
+                                    <Link className="nav-link" to="/signup">Register</Link>
                                 </li>
                                 <li className="nav-item">
                                     <Link className="nav-link" to="/login">Login</Link>
@@ -56,7 +57,7 @@ function App(props) {
                 </div>
                 </div>
             </nav>
-            <Routes appProps={{isAuthenticated, userHasAuthenticated, setUserId, userId, token, setToken}}/>
+            <Routes appProps={{}}/>
         </>
 );
 }

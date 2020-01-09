@@ -89,15 +89,21 @@ class User(db.Model):
         db.session.commit()
         return True
 
-    def updateUser(_userId, _username, _password, _phoneNumber):
+    def updateUser(_userId, _username, _password, _phoneNumber, _firstName, _lastName):
         user = User.query.filter_by(id=_userId).first()
 
         if user is None:
             return False
-
-        user.username = _username
-        user.password = _password
-        user.phoneNumber = _phoneNumber
+        if _username is not None:
+            user.username = _username
+        if _password is not None:
+            user.password = _password
+        if _phoneNumber is not None:
+            user.phoneNumber = _phoneNumber
+        if _firstName is not None:
+            user.firstName = _firstName
+        if _lastName is not None:
+            user.lastName = _lastName
         db.session.commit()
         return True
 
