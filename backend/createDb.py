@@ -14,3 +14,6 @@ db.create_all()
 from ImageModel import *
 
 db.create_all()
+from AvailableSlotsModel import *
+
+db.create_all()

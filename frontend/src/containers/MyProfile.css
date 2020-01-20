@@ -1,0 +1,37 @@
+.TextField .textFieldClassColor {
+    color: red !important;
+}
+
+.buttonClassControl {
+    display: flex;
+    justify-content: center;
+}
+
+.buttonClassControl > Button {
+    margin: 0 2rem 0 2rem;
+    text-align: center;
+}
+
+.myProfileContainerClass {
+    padding: 1rem;
+    margin: 3rem !important;
+    text-align: left !important;
+    height: fit-content;
+    border-radius: 0.2em;
+    background: rgba(255, 255, 255, 0.3);
+    -webkit-box-shadow: 0px 0px 28px 3px rgba(0,0,0,0.37);
+    box-shadow: 0 0 28px 3px rgba(0,0,0,0.37);
+}
+
+.textFieldColClass {
+    margin-bottom: 2em;
+}
+
+.myProfileBoxClass {
+    text-align: center;
+}
+
+.myProfileUpdateButtonClass {
+    margin: auto;
+    display: table;
+}

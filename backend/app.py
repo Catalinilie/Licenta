@@ -4,6 +4,7 @@ import jwt
 from flask import request, Response, flash, send_from_directory, jsonify
 from flask import url_for
 
+from AvailableSlotsModel import AvailableSlots
 from AvailableTimeModel import AvailableTime
 from ImageModel import Image
 from PlayingFieldModel import *
@@ -39,18 +40,27 @@ def get_token():
         return Response('The username or password are wrong.', 401, mimetype='application.json')
 
 
-@app.route('/users', methods=['GET'])
-def getAllUsers():
-    users = User.getAllUsers()
-    return users, 200
+@app.route('/playingFields', methods=['GET'])
+# @token_required
+def getPlayingFields():
+    id = request.args.get('userId')
+    return PlayingField.getPlayingFieldsByUserId(id), 200
 
 
 @app.route('/playingField', methods=['GET'])
 # @token_required
-def getPlayingFields():
-    id = request.args.get('userId')
-    index = request.args.get('index')
-    count = request.args.get('count')
+def getPlayingField():
+    id = request.args.get('playingFieldId')
+    if "index" in request.args:
+        index = request.args.get('index')
+    else:
+        index = 1
+    if "count" in request.args:
+        count = request.args.get('count')
+    else:
+        count = 1
+    if count == index == 1:
+        return PlayingField.getPlayingFieldsById(id), 200
     if id is None:
         return PlayingField.getAllPlayingFields(index, count), 200
     else:
@@ -59,9 +69,19 @@ def getPlayingFields():
 
 @app.route('/search', methods=['GET'])
 def search():
-    type = request.args.get('type')
-    numberOfPlayers = request.args.get('numberOfPlayers')
-    return PlayingField.search(type, numberOfPlayers)
+    if request.args.get('type') != "":
+        type = request.args.get('type')
+    else:
+        type = None
+    if request.args.get('city') != "":
+        city = request.args.get('city')
+    else:
+        city = None
+    if request.args.get('numberOfPlayers') != "":
+        numberOfPlayers = request.args.get('numberOfPlayers')
+    else:
+        numberOfPlayers = None
+    return PlayingField.search(type, numberOfPlayers, city)
 
 
 @app.route('/lastAdded', methods=['GET'])
@@ -76,13 +96,15 @@ def createPlayingField():
     playingField = json.loads(request.data)
     userId = playingField["userId"]
     description = playingField["description"]
+    title = playingField["title"]
     type = playingField["type"]
     numberOfPlayers = playingField["numberOfPlayers"]
     price = playingField["price"]
     address = playingField["address"]
     phoneNumber = User.getPhoneNumber(userId)
     email = User.getEmail(userId)
-    return PlayingField.createPlayingField(type, numberOfPlayers, price, userId, description, address, phoneNumber,
+    return PlayingField.createPlayingField(title, type, numberOfPlayers, price, userId, description, address,
+                                           phoneNumber,
                                            email)
 
 
@@ -161,14 +183,18 @@ def register():
 @app.route('/users', methods=['GET', 'PATCH', 'DELETE'])
 @token_required
 def userFunction():
-    id = request.data["userId"]
     if request.method == 'GET':
+        id = request.args.get("userId")
         return getUser(id)
 
     elif request.method == 'PATCH':
+        data = json.loads(request.data)
+        id = data["userId"]
         return updateUser(id)
 
     elif request.method == 'DELETE':
+        data = json.loads(request.data)
+        id = data["userId"]
         return deleteUser(id)
 
 
@@ -189,7 +215,16 @@ def deletePlayingField():
     return deletePlayingFieldById(playingFieldId)
 
 
+@app.route('/deleteAvailableSlot', methods=['DELETE'])
+@token_required
+@cross_origin()
+def deleteAvailableSlot():
+    id = request.args.get('id')
+    return AvailableSlots.deleteAvailableSlot(id)
+
+
 @app.route('/addAvailableTime', methods=['POST'])
+@token_required
 def addAvailableTime():
     data = json.loads(request.data)
     playingFieldId = data["playingFieldId"]
@@ -198,6 +233,23 @@ def addAvailableTime():
     hourOfOpening = data["hourOfOpening"]
     hourOfClosing = data["hourOfClosing"]
     return AvailableTime.createAvailableTime(playingFieldId, dayOfWeekFrom, dayOfWeekTo, hourOfOpening, hourOfClosing)
+
+
+@app.route('/getAvailableSlots', methods=['GET'])
+def getAvailableSlots():
+    playingFieldId = request.args.get('playingFieldId')
+    return AvailableSlots.getAvailableSlotsByPlayingFieldId(playingFieldId)
+
+
+@app.route('/addAvailableSlot', methods=['POST'])
+@token_required
+def addAvailableSlot():
+    data = json.loads(request.data)
+    playingFieldId = data["playingFieldId"]
+    start = data["start"]
+    end = data["end"]
+    title = data["title"]
+    return AvailableSlots.createAvailableSlot(playingFieldId, start, end, title)
 
 
 @app.route('/updateAvailableTime', methods=['PATCH'])
@@ -212,7 +264,7 @@ def updateAvailableTime():
                                                              hourOfClosing)
 
 
-@app.route('/deleteAvailableTime', methods=['DELETE'])
+@app.route('/deleteAvailableSlot', methods=['DELETE'])
 def deleteAvailableTime():
     data = json.loads(request.data)
     id = data["id"]

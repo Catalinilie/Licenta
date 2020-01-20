@@ -9,6 +9,8 @@ import MyPlayingField from "../containers/MyPlayingField";
 import Search from "../containers/Search";
 import AppliedRoute from "../components/AppliedRoute";
 import MyProfile from "../containers/MyProfile";
+import PlayingField from "../containers/PlayingField";
+import MyCalendar from "../components/CalendarSlot";
 
 export default function Routes({ appProps }) {
     return (
@@ -21,6 +23,8 @@ export default function Routes({ appProps }) {
             <AppliedRoute path="/search" exact component={Search} appProps={appProps} />
             <AppliedRoute path="/addPlayingField" exact component={AddPlayingField} appProps={appProps} />
             <AppliedRoute path="/myPlayingFields" exact component={MyPlayingField} appProps={appProps} />
+            <AppliedRoute path="/playingField/:id" exact component={PlayingField} appProps={appProps} />
+            <AppliedRoute path="/calendar" exact component={MyCalendar} appProps={appProps} />
             <Route component={NotFound} />
         </Switch>
     );

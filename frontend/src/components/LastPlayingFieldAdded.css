@@ -8,6 +8,26 @@
 .sidePlayingFields{
     text-align: left ;
     padding: 0 !important;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19) !important;
+}
+
+.addressCorner{
+    padding-left: 0.3em;
+    background-color:rgba(0, 0, 0, 0.5);
+    position: absolute; bottom: 0px; right: 0px;
+    border-radius: 0.2rem 0 0 0 ;
+}
+.typeCornerLastAdded{
+    padding-right: 0.3em;
+    float: left;
+    background-color:rgba(0, 0, 0, 0.5);
+    border-radius: 0 0 0.2rem 0 ;
+}
+
+.cardFieldContainerLastAdded{
+    margin-top: 1rem;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19) !important;
+    margin-bottom: 1rem;
 }
 
 .type{

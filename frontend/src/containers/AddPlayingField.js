@@ -1,7 +1,6 @@
 import React, {Component} from "react";
-import {FormGroup, FormControl} from "react-bootstrap";
-import "./Login.css";
-import ControlLabel from "react-bootstrap/lib/ControlLabel";
+import {FormGroup} from "react-bootstrap";
+import "./AddPlayingField.css";
 import axios from 'axios';
 import "./AddPlayingField.css"
 import LoaderButton from "../components/LoaderButton";
@@ -10,6 +9,8 @@ import Container from "reactstrap/es/Container";
 import Col from "react-bootstrap/lib/Col";
 import TextField from "@material-ui/core/TextField";
 import makeStyles from "@material-ui/core/styles/makeStyles";
+import countryList from 'react-select-country-list';
+import Autocomplete from '@material-ui/lab/Autocomplete';
 
 
 class AddPlayingField extends Component {
@@ -17,7 +18,10 @@ class AddPlayingField extends Component {
 
     constructor(props) {
         super(props);
+        this.options = countryList().getData();
         this.state = {
+            options: this.options,
+            title: "",
             type: "",
             numberOfPlayers: "",
             price: "",
@@ -32,10 +36,6 @@ class AddPlayingField extends Component {
             imagePreview: null,
             classes: this.useStyles()
         };
-
-
-        this.handleImagePreview = this.handleImagePreview.bind(this);
-        this.handleImageUpload = this.handleImageUpload.bind(this);
     }
 
     useStyles() {
@@ -49,9 +49,19 @@ class AddPlayingField extends Component {
         }));
     }
 
+    onTagsChange = (event, values) => {
+        if (values)
+            this.setState({
+                country: values.label
+            }, () => {
+                console.log(this.state.country);
+            });
+    };
+
     validateForm() {
         if (
             this.state.type === undefined
+            || this.state.title === undefined
             || this.state.numberOfPlayers === undefined
             || this.state.price === undefined
             || this.state.street === undefined
@@ -65,7 +75,8 @@ class AddPlayingField extends Component {
             return false;
         else
             return (
-                this.state.type.length > 0
+                this.state.title.length > 0
+                && this.state.type.length > 0
                 && this.state.numberOfPlayers.length > 0
                 && this.state.price.length > 0
                 && this.state.street.length > 0
@@ -90,6 +101,7 @@ class AddPlayingField extends Component {
     async handleSubmit(state, e) {
         e.preventDefault();
         const params = {
+            "title": this.state.title,
             "type": this.state.type,
             "numberOfPlayers": this.state.numberOfPlayers,
             "price": this.state.price,
@@ -131,31 +143,6 @@ class AddPlayingField extends Component {
         return res;
     }
 
-
-    handleImagePreview(previewEvent) {
-        this.setState({
-            file: URL.createObjectURL(previewEvent.target.files[0])
-        })
-    }
-
-    handleImageUpload(uploadEvent) {
-        uploadEvent.preventDefault();
-        let fileToUpload = this.state.file;
-        const formData = new FormData();
-
-        formData.append("file", fileToUpload);
-
-        axios({
-            method: 'post',
-            url: 'http://localhost:4996/uploadImage?playingFieldId=6755d469-e4f1-480b-a6ae-5a21d80cd8d2',
-            data: formData,
-            config: {headers: {'Content-Type': 'multipart/form-data'}}
-        })
-            .then(response => console.log(response))
-            .catch(errors => console.log(errors));
-
-    }
-
     render() {
         if (sessionStorage.getItem("isAuthenticated") === "false")
             return (
@@ -178,125 +165,66 @@ class AddPlayingField extends Component {
         else
             return (
                 <Container>
-                    <form className="{this.state.classes.root} row" style={{"margin-top": "2em"}}>
-                        <Col md={6} style={{"text-position": "center"}}>
-                            {/*<FormGroup controlId="type">*/}
-                            {/*<ControlLabel column={"type"}>Type</ControlLabel>*/}
-                            {/*<FormControl
-                                    autoFocus
-                                    type="type"
-                                    value={this.state.type}
-                                    onChange={e => this.setState({type: e.target.value})}
-                                />
-                            </FormGroup>*/}
+                    <form className="{this.state.classes.root}">
+                        <div className="addPlayingFieldContainer row">
+                            <Col md={6} className="addPlayingFieldClass">
+                                <TextField className="textFieldClass" id="outlined-title" label="Title"
+                                           autoFocus
+                                           variant="outlined" value={this.state.title}
+                                           onChange={e => this.setState({title: e.target.value})}/>
 
-                            <TextField className="textFieldClass" id="outlined-type" label="Type"
-                                       autoFocus
-                                       variant="outlined" value={this.state.type}
-                                       onChange={e => this.setState({type: e.target.value})}/>
-                            {/*<FormGroup controlId="numberOfPlayers">
-                                <ControlLabel column={"numberOfPlayers"}>Number of players</ControlLabel>
-                                <FormControl
-                                    type="numbeOfPlayers"
-                                    value={this.state.numberOfPlayers}
-                                    onChange={e => this.setState({numberOfPlayers: e.target.value})}
+                                <TextField className="textFieldClass" id="outlined-type" label="Type"
+                                           variant="outlined" value={this.state.type}
+                                           onChange={e => this.setState({type: e.target.value})}/>
+                                <TextField className="textFieldClass" id="outlined-number-of-players"
+                                           label="Number of players"
+                                           variant="outlined" value={this.state.numberOfPlayers}
+                                           onChange={e => this.setState({numberOfPlayers: e.target.value})}/>
+                                <TextField className="textFieldClass" id="outlined-price" label="Price/hour"
+                                           variant="outlined" value={this.state.price}
+                                           onChange={e => this.setState({price: e.target.value})}/>
+                                <TextField className="textFieldClass" id="outlined-street" label="Street"
+                                           variant="outlined" value={this.state.street}
+                                           onChange={e => this.setState({street: e.target.value})}/>
+
+                            </Col>
+                            <Col md={6}>
+                                <TextField className="textFieldClass" id="outlined-street-number" label="Street number"
+                                           variant="outlined" value={this.state.streetNr}
+                                           onChange={e => this.setState({streetNr: e.target.value})}/>
+                                <Autocomplete
+                                    id="autoCompleteField"
+                                    options={this.state.options}
+                                    getOptionLabel={option => option.label}
+                                    onChange={this.onTagsChange}
+                                    renderInput={params => (
+                                        <TextField {...params} className="textFieldClass" id="outlined-country"
+                                                   label="Country"
+                                                   variant="outlined" value={this.state.country}
+                                        />
+                                    )}
                                 />
-                            </FormGroup><FormGroup controlId="price">*/}
-                            <TextField className="textFieldClass" id="outlined-number-of-players"
-                                       label="Number of players"
-                                       variant="outlined" value={this.state.numberOfPlayers}
-                                       onChange={e => this.setState({numberOfPlayers: e.target.value})}/>
-                            {/*<ControlLabel column={"price"}>Price per hour.</ControlLabel>*/}
-                            {/*<FormControl
-                                type="price"
-                                value={this.state.price}
-                                onChange={e => this.setState({price: e.target.value})}
-                            />*/}
-                            <TextField className="textFieldClass" id="outlined-price" label="Price"
-                                       variant="outlined" value={this.state.price}
-                                       onChange={e => this.setState({price: e.target.value})}/>
-                            {/*</FormGroup>*/}
-                            {/* <FormGroup controlId="street">
-                                <ControlLabel column={"street"}>Street</ControlLabel>
-                                <FormControl
-                                    type="street"
-                                    value={this.state.street}
-                                    onChange={e => this.setState({street: e.target.value})}
-                                />
-                            </FormGroup>*/}
-                            <TextField className="textFieldClass" id="outlined-street" label="Street"
-                                       variant="outlined" value={this.state.street}
-                                       onChange={e => this.setState({street: e.target.value})}/>
-                            {/*<FormGroup controlId="streetNr">
-                                <ControlLabel column={"streetNr"}>Street number</ControlLabel>
-                                <FormControl
-                                    value={this.state.streetNr}
-                                    onChange={e => this.setState({streetNr: e.target.value})}
-                                    type="streetNr"
-                                />
-                            </FormGroup>*/}
-                            <TextField className="textFieldClass" id="outlined-street-number" label="Street number"
-                                       variant="outlined" value={this.state.streetNr}
-                                       onChange={e => this.setState({streetNr: e.target.value})}/>
-                        </Col>
-                        <Col md={6}>
-                            {/*<FormGroup controlId="city">
-                                <ControlLabel column={"city"}>City</ControlLabel>
-                                <FormControl
-                                    value={this.state.city}
-                                    onChange={e => this.setState({city: e.target.value})}
-                                    type="city"
-                                />
-                            </FormGroup>*/}
-                            <TextField className="textFieldClass" id="outlined-city" label="City"
-                                       variant="outlined" value={this.state.city}
-                                       onChange={e => this.setState({city: e.target.value})}/>
-                            {/*<FormGroup controlId="region">
-                                <ControlLabel column={"region"}>Region</ControlLabel>
-                                <FormControl
-                                    value={this.state.region}
-                                    onChange={e => this.setState({region: e.target.value})}
-                                    type="region"
-                                />
-                            </FormGroup>*/}
-                            <TextField className="textFieldClass" id="outlined-region" label="Region"
-                                       variant="outlined" value={this.state.region}
-                                       onChange={e => this.setState({region: e.target.value})}/>
-                            {/*<FormGroup controlId="country">
-                                <ControlLabel column={"country"}>Country</ControlLabel>
-                                <FormControl
-                                    value={this.state.country}
-                                    onChange={e => this.setState({country: e.target.value})}
-                                    type="country"
-                                />
-                            </FormGroup>*/}
-                            <TextField className="textFieldClass" id="outlined-country" label="Country"
-                                       variant="outlined" value={this.state.country}
-                                       onChange={e => this.setState({country: e.target.value})}/>
-                            {/*<FormGroup controlId="this.addressCode">
-                                <ControlLabel column={"addressCode"}>Postal Code</ControlLabel>
-                                <FormControl
-                                    value={this.state.addressCode}
-                                    onChange={e => this.setState({addressCode: e.target.value})}
-                                    type="addressCode"
-                                />
-                            </FormGroup>*/}
-                            <TextField className="textFieldClass" id="outlined-postal-code" label="Postal Code"
-                                       variant="outlined" value={this.state.addressCode}
-                                       onChange={e => this.setState({addressCode: e.target.value})}/>
-                            {/*<FormGroup controlId="description">*/}
-                            {/*    <ControlLabel column={"description"}>Description</ControlLabel>*/}
-                            {/*    <FormControl*/}
-                            {/*        value={this.state.description}*/}
-                            {/*        onChange={e => this.setState({description: e.target.value})}*/}
-                            {/*        type="description"*/}
-                            {/*    />*/}
-                            {/*</FormGroup>*/}
-                            <TextField className="textFieldClass" id="outlined-description" label="Description"
-                                       variant="outlined" value={this.state.description}
-                                       onChange={e => this.setState({description: e.target.value})}/>
-                        </Col>
-                        <div className="col align-self-center" style={{"text-align": " center"}}>
+                                <TextField className="textFieldClass" id="outlined-city" label="City"
+                                           variant="outlined" value={this.state.city}
+                                           onChange={e => this.setState({city: e.target.value})}/>
+                                <TextField className="textFieldClass" id="outlined-region" label="Region"
+                                           variant="outlined" value={this.state.region}
+                                           onChange={e => this.setState({region: e.target.value})}/>
+                                <TextField className="textFieldClass" id="outlined-postal-code" label="Postal Code"
+                                           variant="outlined" value={this.state.addressCode}
+                                           onChange={e => this.setState({addressCode: e.target.value})}/>
+
+                            </Col>
+
+                            <Col md={12}>
+                                <TextField className="textFieldClass" id="outlined-description" label="Description"
+                                           multiline
+                                           variant="outlined" value={this.state.description}
+                                           onChange={e => this.setState({description: e.target.value})}/>
+                            </Col>
+                        </div>
+
+                        <div className="col align-self-center addPlayingFieldButtonClass">
                             <div style={{"margin": "auto", "display": "table"}}>
                                 <FormGroup style={{"margin": "auto", "display": "table"}}>
                                     <div className="form-group">
@@ -307,19 +235,14 @@ class AddPlayingField extends Component {
                                 </FormGroup>
 
                             </div>
-                            <div className="col align-self-center" style={{"text-align": " center"}}>
+                            <div className="col align-self-center addPlayingFieldButtonClass">
                                 <div style={{"margin": "auto", "display": "table"}}>
                                     <FormGroup style={{"margin": "auto", "display": "table"}}>
                                         <div className="form-group">
                                             <LoaderButton block bsSize="large"
-                                                          className="btn btn-primary LoginButton"
+                                                          className="btn btn-primary LoginButtonClass"
                                                           onClick={(e) => this.handleSubmit(this.state, e)}
                                                           disabled={!this.validateForm()}
-                                                          style={{
-                                                              "margin": "auto",
-                                                              "display": "table",
-                                                              "margin-bottom": "3em"
-                                                          }}
                                                           type="submit">
                                                 Add Playing Field
                                             </LoaderButton>

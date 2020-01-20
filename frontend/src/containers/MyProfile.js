@@ -1,12 +1,12 @@
 import React, {Component} from "react";
-import {Button, FormControl, FormGroup} from "react-bootstrap";
+import {Button} from "react-bootstrap";
 import "./Login.css";
-import ControlLabel from "react-bootstrap/lib/ControlLabel";
 import axios from 'axios';
-import "./AddPlayingField.css"
+import "./MyProfile.css"
 import {Link} from "react-router-dom";
 import Container from "reactstrap/es/Container";
 import Col from "react-bootstrap/lib/Col";
+import TextField from "@material-ui/core/TextField";
 
 
 class MyProfile extends Component {
@@ -15,8 +15,6 @@ class MyProfile extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            email: "",
-            username: "",
             phoneNumber: "",
             firstName: "",
             lastName: "",
@@ -29,15 +27,21 @@ class MyProfile extends Component {
     }
 
 
-    async updateFieldFlag() {
+    updateFieldFlag() {
         this.setState({
             updateField: true
         });
     }
 
+    cancelUpdate() {
+        this.setState({
+            updateField: false
+        });
+    }
+
     validateForm() {
-        return this.state.username.length > 0 && this.state.password.length > 0 && this.state.firstName.length > 0
-            && this.state.lastName.length > 0 && this.state.email.length > 0 && this.state.phoneNumber.length > 0;
+        return this.state.firstName.length > 0 && this.state.lastName.length > 0
+            && this.state.password.length > 0 && this.state.phoneNumber.length > 0;
     }
 
     async getData() {
@@ -49,19 +53,13 @@ class MyProfile extends Component {
             .then(res => {
                 if (res) {
                     this.setState({
-                        "email": res.data[0]["email"]
+                        "phoneNumber": res.data.phoneNumber
                     });
                     this.setState({
-                        "username": res.data[0]["username"]
+                        "firstName": res.data.firstName
                     });
                     this.setState({
-                        "phoneNumber": res.data[0]["phoneNumber"]
-                    });
-                    this.setState({
-                        "firstName": res.data[0]["firstName"]
-                    });
-                    this.setState({
-                        "lastName": res.data[0]["lastName"]
+                        "lastName": res.data.lastName
                     });
                 }
             });
@@ -71,8 +69,6 @@ class MyProfile extends Component {
         e.preventDefault();
         const params = {
             "userId": sessionStorage.getItem("userId"),
-            "email": this.state.email,
-            "username": this.state.username,
             "phoneNumber": this.state.phoneNumber,
             "firstName": this.state.firstName,
             "lastName": this.state.lastName,
@@ -81,21 +77,13 @@ class MyProfile extends Component {
         let token = sessionStorage.getItem("token");
         let res;
         try {
-            res = await axios.post('http://localhost:4996/users?token=' + token, params)
+            res = await axios.patch('http://localhost:4996/users?token=' + token, params)
                 .then(res => console.log(res.data));
         } catch (e) {
-            if (e.message !== "Network Error") {
-                if (e.response.data === "Username already exist.")
-                    this.setState({
-                        "usernameAlreadyUsed": true
-                    });
-                else if (e.response.data === "Email already used by another user.")
-                    this.setState({
-                        "emailAlreadyUsed": true
-                    });
-            } else
-                alert(e.message);
         }
+        if (e.message === "Network Error")
+            alert(e.message);
+
         window.location.reload();
         return res;
     }
@@ -122,85 +110,41 @@ class MyProfile extends Component {
         else
             return (
                 <Container>
-                    <form className="row" onSubmit={this.handleSubmit} style={{"margin-top": "3em"}}>
-                        <Col md={6} style={{"margin-bottom": "2em"}}>
-                            <FormGroup controlId="usernameInputField">
-                                <ControlLabel column={"username"}>Username</ControlLabel>
-                                <FormControl
-                                    autoFocus
-                                    type="username"
-                                    value={this.state.username}
-                                    disabled={(this.state.updateField) ? "" : "disabled"}
-                                    placeholder={this.state.username}
-                                    onChange={e => this.setState({
-                                        "username": e.target.value
-                                    })}
-                                />
-                            </FormGroup>
-                            <FormGroup controlId="emailInputField">
-                                <ControlLabel column={"password"}>Email</ControlLabel>
-                                <FormControl
-                                    value={this.state.email}
-                                    placeholder={this.state.email}
-                                    onChange={e => this.setState({
-                                        "email": e.target.value
-                                    })}
-                                    type="email"
-                                    disabled={(this.state.updateField) ? "" : "disabled"}
-                                />
-                            </FormGroup>
-                            <FormGroup controlId="passwordInputField">
-                                <ControlLabel column={"password"}>Password</ControlLabel>
-                                <FormControl
-                                    placeholder="Enter password"
-                                    onChange={e => this.setState({
-                                        "password": e.target.value
-                                    })}
-                                    value={this.state.password}
-                                    type="password"
-                                    disabled={(this.state.updateField) ? "" : "disabled"}
-                                />
-                            </FormGroup>
+                    <form className="row myProfileContainerClass">
+                        <Col md={6} className="textFieldColClass">
+                            <TextField className="textFieldClass" id="outlined-password" label="Password"
+                                       variant="outlined" placeholder="Enter password"
+                                       onChange={e => this.setState({
+                                           "password": e.target.value
+                                       })}
+                                       value={this.state.password}
+                                       type="password"
+                                       disabled={(!this.state.updateField)}/>
+                            <TextField className="textFieldClass" id="outlined-phoneNumber" label="PhoneNumber"
+                                       variant="outlined" value={this.state.phoneNumber}
+                                       placeholder={this.state.phoneNumber}
+                                       disabled={(!this.state.updateField)}
+                                       onChange={e => this.setState({
+                                           "phoneNumber": e.target.value
+                                       })}/>
                         </Col>
-                        <Col md={6} style={{"margin-bottom": "2em"}}>
-                            <FormGroup controlId="firstNameInputField">
-                                <ControlLabel column={"firstName"}>First Name</ControlLabel>
-                                <FormControl
-                                    type="firstName"
-                                    placeholder={this.state.firstName}
-                                    value={this.state.firstName}
-                                    disabled={(this.state.updateField) ? "" : "disabled"}
-                                    onChange={e => this.setState({
-                                        "firstName": e.target.value
-                                    })}
-                                />
-                            </FormGroup>
-                            <FormGroup controlId="lastNameInputField">
-                                <ControlLabel column={"lastName"}>Last Name</ControlLabel>
-                                <FormControl
-                                    type="lastName"
-                                    placeholder={this.state.lastName}
-                                    value={this.state.lastName}
-                                    disabled={(this.state.updateField) ? "" : "disabled"}
-                                    onChange={e => this.setState({
-                                        "lastName": e.target.value
-                                    })}
-                                />
-                            </FormGroup>
-                            <FormGroup controlId="phoneNumberNameInputField">
-                                <ControlLabel column={"password"}>PhoneNumber</ControlLabel>
-                                <FormControl
-                                    value={this.state.phoneNumber}
-                                    placeholder={this.state.phoneNumber}
-                                    disabled={(this.state.updateField) ? "" : "disabled"}
-                                    onChange={e => this.setState({
-                                        "phoneNumber": e.target.value
-                                    })}
-                                    type="phoneNumber"
-                                />
-                            </FormGroup>
+                        <Col md={6} className="textFieldColClass">
+                            <TextField className="textFieldClass" id="outlined-firstName" label="First Name"
+                                       variant="outlined" placeholder={this.state.firstName}
+                                       value={this.state.firstName}
+                                       disabled={(!this.state.updateField)}
+                                       onChange={e => this.setState({
+                                           "firstName": e.target.value
+                                       })}/>
+                            <TextField className="textFieldClass" id="outlined-lastName" label="Last Name"
+                                       variant="outlined" placeholder={this.state.lastName}
+                                       value={this.state.lastName}
+                                       disabled={(!this.state.updateField)}
+                                       onChange={e => this.setState({
+                                           "lastName": e.target.value
+                                       })}/>
                         </Col>
-                        <div className="col align-self-center" style={{"text-align": " center"}}>
+                        <div className="col align-self-center myProfileBoxClass">
                             <div style={{"margin": "auto", "display": "table"}}>
                                 {this.state.emailAlreadyUsed &&
                                 < div className="form-group has-danger">
@@ -225,7 +169,7 @@ class MyProfile extends Component {
                                 }
                             </div>
                             {!this.state.updateField &&
-                            <div style={{"margin": "auto", "display": "table"}}>
+                            <div className="myProfileUpdateButtonClass">
                                 <Button block bsSize="large" onClick={this.updateFieldFlag.bind(this)}
                                         className="btn btn-primary" style={{"margin": "auto", "display": "table"}}>
                                     Update
@@ -233,13 +177,22 @@ class MyProfile extends Component {
                             </div>
                             }
                             {this.state.updateField &&
-                            <div style={{"margin": "auto", "display": "table"}}>
-                                <Button block bsSize="large" onClick={this.updateFieldFlag.bind(this)}
-                                        disabled={!this.validateForm()} type="submit"
-                                        className="btn btn-primary" style={{"margin": "auto", "display": "table"}}>
-                                    Save
-                                </Button>
-                            </div>
+                            <>
+                                <div className="container-fluid">
+                                    <div className="row buttonClassControl">
+                                        <Button bsSize="large" onClick={(e) => this.handleSubmit(this.state, e)}
+                                                disabled={!this.validateForm()} type="submit"
+                                                className="btn btn-primary">
+                                            Save
+                                        </Button>
+                                        <Button bsSize="large" onClick={this.cancelUpdate.bind(this)}
+                                                type="submit"
+                                                className="btn btn-primary">
+                                            Cancel
+                                        </Button>
+                                    </div>
+                                </div>
+                            </>
                             }
                         </div>
                     </form>

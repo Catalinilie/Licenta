@@ -635,7 +635,7 @@
 
   var ARROW_RIGHT_KEYCODE = 39; // KeyboardEvent.which value for right arrow key
 
-  var TOUCHEVENT_COMPAT_WAIT = 500; // Time for mouse compat events to fire after touch
+  var TOUCHEVENT_COMPAT_WAIT = 500; // Time for mouse compat events.js to fire after touch
 
   var SWIPE_THRESHOLD = 40;
   var Default = {
@@ -904,12 +904,12 @@
 
         if (_this3._config.pause === 'hover') {
           // If it's a touch-enabled device, mouseenter/leave are fired as
-          // part of the mouse compatibility events on first tap - the carousel
+          // part of the mouse compatibility events.js on first tap - the carousel
           // would stop cycling until user tapped out of it;
           // here, we listen for touchend, explicitly pause the carousel
           // (as if it's the second time we tap on it, mouseenter compat event
           // is NOT fired) and after a timeout (to allow for mouse compatibility
-          // events to fire) we explicitly restart cycling
+          // events.js to fire) we explicitly restart cycling
           _this3.pause();
 
           if (_this3.touchTimeout) {
@@ -2642,7 +2642,7 @@
   }
 
   /**
-   * It will add resize/scroll events and start recalculating
+   * It will add resize/scroll events.js and start recalculating
    * position of the popper element when they are triggered.
    * @method
    * @memberof Popper
@@ -2677,7 +2677,7 @@
   }
 
   /**
-   * It will remove resize/scroll events and won't recalculate popper position
+   * It will remove resize/scroll events.js and won't recalculate popper position
    * when they are triggered. It also won't trigger `onUpdate` callback anymore,
    * unless you call `update` method manually.
    * @method
@@ -3987,7 +3987,7 @@
     positionFixed: false,
 
     /**
-     * Whether events (resize, scroll) are initially enabled.
+     * Whether events.js (resize, scroll) are initially enabled.
      * @prop {Boolean} eventsEnabled=true
      */
     eventsEnabled: true,
@@ -4905,7 +4905,7 @@
         return $(htmlElement).off(EVENT_KEY$5);
       });
       /**
-       * `document` has 2 events `Event.FOCUSIN` and `Event.CLICK_DATA_API`
+       * `document` has 2 events.js `Event.FOCUSIN` and `Event.CLICK_DATA_API`
        * Do not move `document` in `htmlElements` array
        * It will remove `Event.CLICK_DATA_API` event that should remain
        */
@@ -6246,7 +6246,7 @@
     };
 
     _proto.setContent = function setContent() {
-      var $tip = $(this.getTipElement()); // We use append for html objects to maintain js events
+      var $tip = $(this.getTipElement()); // We use append for html objects to maintain js events.js
 
       this.setElementContent($tip.find(Selector$7.TITLE), this.getTitle());
 

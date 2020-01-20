@@ -1,0 +1,53 @@
+.leftSideInformation{
+    margin: 0 1rem 2rem 1rem !important;
+    background: rgba(255, 255, 255, 0.3);
+    -webkit-box-shadow: 0px 0px 28px 3px rgba(0,0,0,0.37);
+    box-shadow: 0 0 28px 3px rgba(0,0,0,0.37);
+}
+.imageContainer img{
+    max-height: 100%;
+    max-width: 100%;
+}
+.playingFieldButtons{
+    margin: 2rem;
+}
+.playingFieldButton{
+    margin: 1rem 1rem 1rem 1rem;
+}
+.closeButtonModal{
+    float: right;
+}
+
+.leftSideListGroup{
+    background: #2FA4E7 !important;
+    color: white !important;
+}
+
+.modalContentPlayingField{
+    height: 30rem;
+}
+.playingFieldUpdateModalClass{
+    max-height: calc(100vh - 200px);
+    overflow-y: auto;
+}
+
+.calendarClass{
+    padding: 1rem ;
+    border-radius: 0.3rem;
+    margin: 3rem 0 3rem 0 !important;
+    background: rgba(255, 255, 255, 0.3);
+    -webkit-box-shadow: 0px 0px 28px 3px rgba(0,0,0,0.37);
+    box-shadow: 0 0 28px 3px rgba(0,0,0,0.37);
+}
+
+.titleContainerClass{
+    padding-top: 1rem !important;
+    background: rgba(255, 255, 255, 0.3);
+    -webkit-box-shadow: 0px 0px 28px 3px rgba(0,0,0,0.37);
+    box-shadow: 0 0 28px 3px rgba(0,0,0,0.37);
+}
+
+.spanTitleClass{
+    font-size: 1.8rem;
+    padding: 0 40% 0 40%;
+}

@@ -8,13 +8,21 @@
     margin: 0;
     width: 100% !important;
 }
-.files input:focus{     outline: 2px dashed #92b0b3;  outline-offset: -10px;
+
+.files input:focus {
+    outline: 2px dashed #92b0b3;
+    outline-offset: -10px;
     -webkit-transition: outline-offset .15s ease-in-out, background-color .15s linear;
-    transition: outline-offset .15s ease-in-out, background-color .15s linear; border:1px solid #92b0b3;
+    transition: outline-offset .15s ease-in-out, background-color .15s linear;
+    border: 1px solid #92b0b3;
 }
 
-.files{ position:relative}
-.files:after {  pointer-events: none;
+.files {
+    position: relative
+}
+
+.files:after {
+    pointer-events: none;
     position: absolute;
     top: 60px;
     left: 0;
@@ -28,11 +36,16 @@
     background-size: 100%;
     background-repeat: no-repeat;
 }
-.color input{ background-color:#f1f1f1;}
+
+.color input {
+    background-color: #f1f1f1;
+}
+
 .files:before {
     position: absolute;
     bottom: 10px;
-    left: 0;  pointer-events: none;
+    left: 0;
+    pointer-events: none;
     width: 100%;
     right: 0;
     height: 57px;
@@ -44,9 +57,42 @@
     text-transform: capitalize;
     text-align: center;
 }
-.textFieldClass{
-    width:90% !important;
+
+.textFieldClass {
+    width: 100% !important;
 
     margin-top: 1rem !important;
     margin-bottom: 1rem !important;
+}
+
+.addPlayingFieldButtonClass {
+    text-align: center;
+}
+
+.addPlayingFieldClass {
+    text-position: center;
+}
+
+.formContainerAdd {
+    margin: auto;
+    display: table;
+}
+
+.LoginButtonClass {
+    font-weight: bold;
+    text-effect: emboss;
+    width: 40%;
+    display: table;
+    margin: auto auto 3em;
+}
+
+.addPlayingFieldContainer{
+    padding: 1rem;
+    margin: 3rem !important;
+    text-align: left !important;
+    height: fit-content;
+    border-radius: 0.2em;
+    background: rgba(255, 255, 255, 0.3);
+    -webkit-box-shadow: 0px 0px 28px 3px rgba(0,0,0,0.37);
+    box-shadow: 0 0 28px 3px rgba(0,0,0,0.37);
 }

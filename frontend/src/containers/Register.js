@@ -1,10 +1,13 @@
 import React, {useState} from "react";
-import {Button, FormGroup, FormControl} from "react-bootstrap";
-import "./Login.css";
-import ControlLabel from "react-bootstrap/lib/ControlLabel";
+import {Button} from "react-bootstrap";
+import "./Register.css";
 import axios from 'axios';
 import Container from "reactstrap/es/Container";
 import Col from "react-bootstrap/lib/Col";
+import TextField from "@material-ui/core/TextField";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import {ReactComponent as VisibilityOff} from "../icons/turn-visibility-off-button.svg";
+import {ReactComponent as VisibilityOn} from "../icons/visibility-button.svg";
 
 export default function Register(props) {
     const [username, setUsername] = useState("");
@@ -15,9 +18,26 @@ export default function Register(props) {
     const [phoneNumber, setPhoneNumber] = useState("");
     const [emailAlreadyUsed, setEmailAlreadyUsed] = useState(false);
     const [usernameAlreadyUsed, seUsernameAlreadyUsed] = useState(false);
+    const [type, setType] = useState("password");
 
     function validateForm() {
         return username.length > 0 && password.length > 0 && firstName.length > 0 && lastName.length > 0 && email.length > 0 && phoneNumber.length > 0;
+    }
+
+    function selectLogo(type) {
+        if (type === "text")
+            return <VisibilityOff id="logoId" fill="gray"/>;
+        else
+            return <VisibilityOn id="logoId" fill="gray"/>;
+    }
+
+    function showPassword(txt) {
+        if (txt === "text") {
+            setType("password");
+        } else {
+            setType("text");
+        }
+        return true;
     }
 
     async function handleSubmit(event) {
@@ -49,61 +69,59 @@ export default function Register(props) {
 
     return (
         <Container>
-            <form className="row" onSubmit={handleSubmit} style={{"margin-top": "3em"}}>
-                <Col md={6} style={{"margin-bottom": "2em"}}>
-                    <FormGroup controlId="username">
-                        <ControlLabel column={"username"}>Username</ControlLabel>
-                        <FormControl
-                            autoFocus
-                            type="username"
-                            value={username}
-                            onChange={e => setUsername(e.target.value)}
+            <form onSubmit={handleSubmit} style={{"margin-top": "3em"}}>
+                <div className="registerContainer row">
+                    <Col md={6} style={{"margin-bottom": "2em"}}>
+                        <TextField className="textFieldClass"
+                                   autofocus
+                                   id="outlined-username" label="Username"
+                                   variant="outlined" value={username}
+                                   onChange={(e) => setUsername(e.target.value)}/>
+                        <TextField className="textFieldClass"
+                                   autofocus
+                                   id="outlined-username" label="Email"
+                                   variant="outlined" value={email}
+                                   onChange={e => setEmail(e.target.value)}/>
+                        <TextField className="textFieldClass"
+                                   autofocus
+                                   id="outlined-username" label="Password"
+                                   variant="outlined" value={password}
+                                   type={type}
+                                   InputProps={{
+                                       endAdornment: (
+                                           <InputAdornment position='end'>
+                                       <span onClick={() => showPassword(type)}>
+                                           {selectLogo(type)}
+                                       </span>
+
+                                           </InputAdornment>
+                                       ),
+                                   }}
+                                   onChange={e => setPassword(e.target.value)}
                         />
-                    </FormGroup>
-                    <FormGroup controlId="email">
-                        <ControlLabel column={"password"}>Email</ControlLabel>
-                        <FormControl
-                            value={email}
-                            onChange={e => setEmail(e.target.value)}
-                            type="email"
+                    </Col>
+                    <Col md={6} style={{"margin-bottom": "2em"}}>
+                        <TextField className="textFieldClass"
+                                   autofocus
+                                   id="outlined-username" label="First Name"
+                                   variant="outlined" value={firstName}
+                                   onChange={e => setFirstName(e.target.value)}
                         />
-                    </FormGroup>
-                    <FormGroup controlId="password">
-                        <ControlLabel column={"password"}>Password</ControlLabel>
-                        <FormControl
-                            value={password}
-                            onChange={e => setPassword(e.target.value)}
-                            type="password"
+                        <TextField className="textFieldClass"
+                                   autofocus
+                                   id="outlined-username" label="Last Name"
+                                   variant="outlined" value={lastName}
+                                   onChange={e => setLastName(e.target.value)}
                         />
-                    </FormGroup>
-                </Col>
-                <Col md={6} style={{"margin-bottom": "2em"}}>
-                    <FormGroup controlId="firstName">
-                        <ControlLabel column={"firstName"}>First Name</ControlLabel>
-                        <FormControl
-                            type="firstName"
-                            value={firstName}
-                            onChange={e => setFirstName(e.target.value)}
+                        <TextField className="textFieldClass"
+                                   autofocus
+                                   id="outlined-username" label="Phone Number"
+                                   variant="outlined" value={phoneNumber}
+                                   onChange={e => setPhoneNumber(e.target.value)}
                         />
-                    </FormGroup>
-                    <FormGroup controlId="lastName">
-                        <ControlLabel column={"lastName"}>Last Name</ControlLabel>
-                        <FormControl
-                            type="lastName"
-                            value={lastName}
-                            onChange={e => setLastName(e.target.value)}
-                        />
-                    </FormGroup>
-                    <FormGroup controlId="phoneNumber">
-                        <ControlLabel column={"password"}>PhoneNumber</ControlLabel>
-                        <FormControl
-                            value={phoneNumber}
-                            onChange={e => setPhoneNumber(e.target.value)}
-                            type="phoneNumber"
-                        />
-                    </FormGroup>
-                </Col>
-                <div className="col align-self-center" style={{"text-align":" center"}}>
+                    </Col>
+                </div>
+                <div className="col align-self-center" style={{"text-align": " center"}}>
                     <div style={{"margin": "auto", "display": "table"}}>
                         {emailAlreadyUsed &&
                         < div className="form-group has-danger">

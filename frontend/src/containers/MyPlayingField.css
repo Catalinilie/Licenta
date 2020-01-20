@@ -6,11 +6,30 @@
 }
 
 .leftSide {
+    height: fit-content;
     text-align: center;
     border-radius: 0.2em;
-    background: rgba(79, 83, 175, 0.3)
+    background: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19) !important;
 }
 
-.cardField{
+#lastPlayingFieldAdded {
+    font-family: "Comic Sans MS", cursive, sans-serif;
+    font-size: 22px;
+    letter-spacing: 0px;
+    word-spacing: 0px;
+    color: #959595;
+    font-weight: 400;
+    text-decoration: none;
+    font-style: italic;
+    font-variant: normal;
+    text-transform: none;
+}
 
+.cardField {
+
+}
+
+.myPlayingFieldClass {
+    margin-top: 2em;
 }

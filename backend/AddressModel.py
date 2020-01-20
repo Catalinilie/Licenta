@@ -81,18 +81,24 @@ class Address(db.Model):
                                   _contactPhone,
                                   _contactEmail)
 
-    def updateAddress(Address):
-        address = Address.query.filter_by(id=Address.id).first()
-        address.street = Address.street
-        address.streetNr = Address.streetNr
-        address.city = Address.city
-        address.region = Address.region
-        address.country = Address.country
-        address.addressCode = Address.addressCode
-        address.contactPhone = Address.contactPhone
-        address.contactEmail = Address.contactEmail
+    def updateAddress(_playingFieldId, _street, _streetNr, _city, _region, _country, _addressCode):
+        address = Address.query.filter_by(playingFieldId=_playingFieldId).first()
+
+        if _street is not None:
+            address.street = _street
+        if _streetNr is not None:
+            address.streetNr = _streetNr
+        if _city is not None:
+            address.city = _city
+        if _region is not None:
+            address.region = _region
+        if _country is not None:
+            address.country = _country
+        if _addressCode is not None:
+            address.addressCode = _addressCode
 
         db.session.commit()
+        return True
 
     def getAddressByPlayingFieldId(_playingFieldId):
         address = Address.query.filter_by(playingFieldId=_playingFieldId).first()

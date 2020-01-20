@@ -63,8 +63,8 @@ class AvailableTime(db.Model):
                 db.session.commit()
                 return "Available Time created with success.", 200
             else:
-                AvailableTime.createAddress(_playingFieldId, _dayOfWeekFrom, _dayOfWeekTo, _hourOfOpening,
-                                            _hourOfClosing)
+                AvailableTime.createAvailableTime(_playingFieldId, _dayOfWeekFrom, _dayOfWeekTo, _hourOfOpening,
+                                                  _hourOfClosing)
 
     def getAvailableTimeByPlayingFieldId(_playingFieldId):
         availableTime = AvailableTime.query.filter_by(playingFieldId=_playingFieldId).first()

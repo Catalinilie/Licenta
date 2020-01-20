@@ -4,6 +4,7 @@ import jwt
 from flask import request, jsonify
 
 from AddressModel import Address
+from AvailableSlotsModel import AvailableSlots
 from ImageModel import Image
 from PlayingFieldModel import PlayingField
 from UserModel import User
@@ -60,6 +61,10 @@ def updateUser(user_id):
 
 def updatePlayingFieldById(playingFieldId):
     data = json.loads(request.data)
+    if "title" in data:
+        title = data["title"]
+    else:
+        title = None
     if "type" in data:
         type = data["type"]
     else:
@@ -77,8 +82,34 @@ def updatePlayingFieldById(playingFieldId):
     else:
         price = None
 
-    playingField = PlayingField.updatePlayingField(playingFieldId, type, numberOfPlayers, description, price)
-    if not playingField:
+    if "street" in data:
+        street = data["street"]
+    else:
+        street = None
+    if "streetNr" in data:
+        streetNr = data["streetNr"]
+    else:
+        streetNr = None
+    if "city" in data:
+        city = data["city"]
+    else:
+        city = None
+    if "region" in data:
+        region = data["region"]
+    else:
+        region = None
+    if "country" in data:
+        country = data["country"]
+    else:
+        country = None
+    if "addressCode" in data:
+        addressCode = data["addressCode"]
+    else:
+        addressCode = None
+
+    playingField = PlayingField.updatePlayingField(playingFieldId, title, type, numberOfPlayers, description, price)
+    address = Address.updateAddress(playingFieldId, street, streetNr, city, region, country, addressCode)
+    if not playingField and not address:
         return "PlayingField does not exist.", 404
     else:
         return "PlayingField updated with success.", 200
@@ -103,7 +134,8 @@ def deletePlayingFieldById(playingFieldId):
     playingFieldDeleted = PlayingField.deletePlayingField(playingFieldId)
     addressDeleted = Address.deleteByPlayingFieldId(playingFieldId)
     imageDeleted = Image.deleteByPlayingFieldId(playingFieldId)
-    if playingFieldDeleted and addressDeleted and imageDeleted:
+    timeSlots = AvailableSlots.deleteByPlayingFieldId(playingFieldId)
+    if playingFieldDeleted and addressDeleted and imageDeleted and timeSlots:
         return "Playing Field deleted with success.", 200
     else:
         return "Something went wrong. Playing Field couldn't be deleted.", 404

@@ -8,6 +8,10 @@
     font-weight: 600;
 }
 
+.homeClass {
+    margin-top: 2em;
+}
+
 .Home .lander p {
     color: #999;
 }

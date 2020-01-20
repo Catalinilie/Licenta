@@ -10,13 +10,14 @@ import Col from "react-bootstrap/lib/Col";
 
 export default function GetMyPlayingFields(props) {
     let playingFieldsResult;
+    sessionStorage.setItem("search","false");
 
     async function getPlayingFields() {
         const playingFieldsParams = {
             "userId": sessionStorage.getItem("userId"),
             "token": sessionStorage.getItem("token")
         };
-        playingFieldsResult = await axios.get('http://localhost:4996/playingField', {params: playingFieldsParams});
+        playingFieldsResult = await axios.get('http://localhost:4996/playingFields', {params: playingFieldsParams});
         console.log(playingFieldsResult);
         return playingFieldsResult;
     }
@@ -52,7 +53,7 @@ export default function GetMyPlayingFields(props) {
     else
         return (
             <div>
-                <div className="container-fluid" style={{"margin-top": "2em"}}>
+                <div className="container-fluid myPlayingFieldClass" >
                     <div className="row">
                         <div className="col-sm-9">
                             <Async promiseFn={getPlayingFields}>
@@ -65,7 +66,7 @@ export default function GetMyPlayingFields(props) {
                                             <div className="container-fluid">
                                                 <div className="row cardField">
                                                     {data.data.map(playingField => (
-                                                        <Col md="4">
+                                                        <Col md={4} key={playingField.id}>
                                                             <PlayingFieldCard field={playingField} key={playingField.id}/>
                                                         </Col>
                                                     ))}
@@ -76,7 +77,7 @@ export default function GetMyPlayingFields(props) {
                             </Async>
                         </div>
                         <div className="col-sm-3 leftSide">
-                            <h3>Last added Playing Fields</h3>
+                            <h3 id="lastPlayingFieldAdded">The latest 5 playing field added</h3>
                             <Async promiseFn={getLastPlayingFieldsAdded}>
                                 {({data, err, isLoading}) => {
                                     if (isLoading) return "Loading...";

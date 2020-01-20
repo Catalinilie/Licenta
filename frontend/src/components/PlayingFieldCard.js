@@ -2,17 +2,30 @@ import React, {Component} from "react";
 import "./PlayingFieldCard.css";
 import Button from "react-bootstrap/lib/Button";
 import axios from 'axios';
-import UpdatePlayingField from "./UpdatePlayingField";
-import ButtonToolbar from "react-bootstrap/lib/ButtonToolbar";
-import Col from "react-bootstrap/lib/Col";
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import CardMedia from "@material-ui/core/CardMedia";
-import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import CardActions from "@material-ui/core/CardActions";
 import makeStyles from "@material-ui/core/styles/makeStyles";
+import {Link} from "react-router-dom";
+import {ReactComponent as Logo} from '../icons/6dd9e91b5f916e049aea8d4a381c14f8.svg';
+import Modal from "react-modal";
+import UpdatePlayingField from "./UpdatePlayingField";
 
+
+const customStyles = {
+    content: {
+        height: "85%",
+        width: "75%",
+        top: '50%',
+        left: '50%',
+        right: 'auto',
+        bottom: 'auto',
+        marginRight: '-50%',
+        transform: 'translate(-50%, -50%)'
+    }
+};
 
 class PlayingFieldCard extends Component {
 
@@ -20,7 +33,9 @@ class PlayingFieldCard extends Component {
         super(props);
         this.state = {
             imageURL: "",
-            modalShow: false,
+            url: "",
+            modalIsOpen: false,
+            search: sessionStorage.getItem("search"),
             classes: makeStyles({
                 card: {
                     maxWidth: 345,
@@ -30,6 +45,21 @@ class PlayingFieldCard extends Component {
                 },
             })
         };
+        this.openModal = this.openModal.bind(this);
+        this.afterOpenModal = this.afterOpenModal.bind(this);
+        this.closeModal = this.closeModal.bind(this);
+    }
+
+    openModal() {
+        this.setState({modalIsOpen: true});
+    }
+
+    afterOpenModal() {
+        this.subtitle.style.color = '#f00';
+    }
+
+    closeModal() {
+        this.setState({modalIsOpen: false});
     }
 
     async componentDidMount() {
@@ -37,10 +67,16 @@ class PlayingFieldCard extends Component {
             "playingFieldId": this.props.field.id
         };
         await axios.get('http://localhost:4996/uploadImage', {params: imagesParams})
-            .then(playingFieldsImageResult => this.setState({
-                imageURL: 'http://localhost:4996' + playingFieldsImageResult.data[0]
-            }));
+            .then(playingFieldsImageResult => {
+                this.setState({
+                    imageURL: 'http://localhost:4996' + playingFieldsImageResult.data[0]
+                });
+                this.setState({
+                    url: "/playingField/" + this.props.field.id
+                });
+            });
     }
+
 
     async deletePlayingField(id, e) {
         try {
@@ -55,89 +91,68 @@ class PlayingFieldCard extends Component {
 
     render() {
         return (
-            {/*<div key={this.props.field.type}>
-                <div className="jumbotron row palyingFieldCard">
-                    <Col md={6}>
-                        <div className="display-3">
-                            {this.props.field.type}
-                        </div>
-                        <div className="card-body">
-                            <h5 className="lead">Playing Field type: {this.props.field.type}</h5>
-
-                            <p className="card-text">Number of players: {this.props.field.numberOfPlayers}</p>
-                            <p className="card-text">Address:{this.props.field.address.region},&nbsp;
-                                {this.props.field.address.city}, str. {this.props.field.address.street},&nbsp;
-                                nr. {this.props.field.address.streetNr}
-                            </p>
-                            <p className="card-text">Contact:
-                                <br/>
-                               Phone number: {this.props.field.address.contactPhone}
-                                <br/>
-                               Email address: {this.props.field.address.contactEmail}</p>
-                        </div>
-                    </Col>
-                    <Col md={6}>
-                        <img src={this.state.imageURL} className="img-thumbnail image" alt=""/>
-                    </Col>
-                    <br/>
-                    <div className="card-body">
-                        <p className="my-4">Description: {this.props.field.description}</p>
-                    </div>
-                    <Col md={12}>
-                        <ButtonToolbar style={{"margin-top": "1em"}}>
-                            <Button variant="primary" className="btn btn-primary"
-                                    onClick={e => this.deletePlayingField(this.props.field.id, e)}>
-                                Delete Playing Field
-                            </Button>
-                            <Button variant="primary" className="btn btn-primary"
-                                    style={{"margin-left": "1em"}}
-                                    onClick={e => this.setState({modalShow: true})}>
-                                Update Playing Field
-                            </Button>
-                            <UpdatePlayingField
-                                show={this.state.modalShow}
-                                onHide={() => this.setState({modalShow: false})}
-                            />
-                        </ButtonToolbar>
-                    </Col>
-                </div>
-            </div>*/
-            } &&
-            {/*<div className="card cardFieldContainer" style={{"width": "18rem"}}>
-                <img className="card-img-top" src={this.state.imageURL} style={{"height":"10rem"}} alt="Card image cap"/>
-                    <div className="card-body">
-                        <h5 className="card-title">{this.props.field.type}</h5>
-                        <p className="card-text description">{this.props.field.description}</p>
-                        <p className="card-text">{this.props.field.address.region},&nbsp;
-                            {this.props.field.address.city}, str. {this.props.field.address.street},&nbsp;
-                            nr. {this.props.field.address.streetNr}</p>
-                        <a href="#" className="btn btn-primary">Go somewhere</a>
-                    </div>
-            </div>*/
-            } &&
-            <Card className={this.state.classes.card}>
-                <CardActionArea to="/login">
+            <Card className="this.state.classes.card cardFieldContainer">
+                <CardActionArea component={Link} style={{textDecoration: 'none', color: 'white'}} to={this.state.url}>
                     <CardMedia
-                        style={{"height":"10rem"}}
+                        className="imageCard"
                         image={this.state.imageURL}
-                        title={this.props.field.type}/>
-                    <CardContent>
-                        <Typography gutterBottom variant="h5" component="h2">
+                        title={this.props.field.type}>
+
+                        <span className="typeCorner">
                             {this.props.field.type}
-                        </Typography>
-                        <Typography variant="body2" color="textSecondary" component="p">
-                            {this.props.field.description}
-                        </Typography>
-                    </CardContent>
+                        </span>
+                        <span className="titleCard">
+                            {this.props.field.title}
+                        </span>
+                        <span className="typeCornerPrice">
+                            {this.props.field.price}/h
+                        </span>
+                    </CardMedia>
                 </CardActionArea>
-                <CardActions>
-                    <Button size="small" color="primary" onClick={e => this.deletePlayingField(this.props.field.id, e)}>
-                       Delete
-                    </Button>
-                    <Button size="small" color="primary">
-                        Update
-                    </Button>
-                </CardActions>
+                <CardActionArea className="componentLink" component={Link}
+                                style={{textDecoration: 'none', color: 'white'}} to={this.state.url}>
+                    <Typography className="addressCard" variant="body2" color="textSecondary" component="div">
+                            <span className="addressCardSpanClass">
+                                {this.props.field.address.city}, str. {this.props.field.address.street}&nbsp;
+                                {this.props.field.address.streetNr}&nbsp;
+                            </span>
+                        <span>
+                            <Logo id="logoId" fill="gray"/>
+                        </span>
+                    </Typography>
+                </CardActionArea>
+                <CardActionArea component="div">
+                    {this.state.search === "false" &&
+                    <CardActions className="cardActionArea">
+                        <button className="btn btn-primary playingFieldButton" color="primary"
+                                onClick={e => this.deletePlayingField(this.props.field.id, e)}
+                        >
+                            Delete
+                        </button>
+                        <button className="btn btn-primary playingFieldButton" onClick={this.openModal}>Update</button>
+                        <Modal
+                            isOpen={this.state.modalIsOpen}
+                            // onAfterOpen={this.afterOpenModal}
+                            onRequestClose={this.closeModal}
+                            style={customStyles}
+                            contentLabel="Update Playing Field"
+                        >
+                            <Button className="btn btn-primary closeButtonModal"
+                                    onClick={this.closeModal}>Close</Button>
+                            <UpdatePlayingField playingFieldId={this.props.field.id}/>
+
+                        </Modal>
+
+                        <button className="btn btn-primary playingFieldButton" color="primary" show={this.state.modalShow}
+                                onClick={() => this.setState({
+                                    modalShow: true
+                                })}>
+                           TimeSlot
+                        </button>
+                    </CardActions>
+                    }
+                </CardActionArea>
+
             </Card>
         );
     }

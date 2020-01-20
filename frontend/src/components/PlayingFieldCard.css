@@ -1,17 +1,93 @@
-.image{
+.image {
     padding: 0 !important;
 }
-.description{
+
+.description {
     overflow: hidden;
     display: -webkit-box;
     -webkit-line-clamp: 5;
     -webkit-box-orient: vertical;
 }
 
-.cardFieldContainer{
+.cardFieldContainer {
+    margin-top: 1rem;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19) !important;
 
 }
 
-.palyingFieldCard{
+.cardActionArea {
+    margin-top: 3rem !important;
+    padding-top: 0 !important;
+}
 
+.addressCard {
+
+    padding-right: 0.3rem;
+    vertical-align: bottom;
+    position: relative;
+    float: right;
+    display: flex;
+    height: 100%;
+    text-align: right;
+    margin: 1rem auto 1rem auto !important;
+}
+
+.componentLink {
+    position: relative;
+}
+
+.addressCard > span > #logoId {
+    bottom: 0;
+    height: 1.1rem;
+    width: 1.1rem;
+    display: inline-block;
+    align-self: flex-end;
+}
+
+.typeCornerPrice {
+    padding-left: 0.3em;
+    padding-right: 0.3em;
+    background-color: rgba(0, 0, 0, 0.5);
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    border-radius: 0.2rem 0 0 0;
+}
+
+.typeCorner {
+    padding-left: 0.3em;
+    padding-right: 0.3em;
+    background-color: rgba(0, 0, 0, 0.5);
+    position: absolute;
+    float: left;
+    bottom: 0px;
+    border-radius: 0.2rem 0 0 0;
+}
+
+.titleCard {
+    padding-right: 0.3em;
+    padding-left: 0.3em;
+    float: left;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 0 0 0.2rem 0;
+}
+
+@media screen and (max-height: 420px) and (min-width: 420px) {
+    .imageCard {
+        height: 8rem;
+    }
+}
+
+.imageCard {
+    height: 12rem;
+}
+
+
+.palyingFieldCard {
+
+}
+
+.addressCardSpanClass {
+    padding-top: 0.2rem ;
+    display: inline-block;
 }
