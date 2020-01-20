@@ -2,34 +2,20 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e93de24b-1313-4b1f-b438-ca81f5058a39" name="Default Changelist" comment="Added endpoint for upload image and refactor">
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AvailableSlotsModel.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database.db" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/58269.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/bec1d2a6acdb0a20803bc0a703479f76.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/download (1).jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/download (2).jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/download.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/images (1).jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/images.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/pardoseala20modulara20pvc20teren20de20baschet1.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/teren-fotbal-sintetic-craiova-6.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/volleyball-court-flooring-service-500x500.jpg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AddressModel.py" beforeDir="false" afterPath="$PROJECT_DIR$/AddressModel.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AvailableTimeModel.py" beforeDir="false" afterPath="$PROJECT_DIR$/AvailableTimeModel.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PlayingFieldModel.py" beforeDir="false" afterPath="$PROJECT_DIR$/PlayingFieldModel.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/appUtil.py" beforeDir="false" afterPath="$PROJECT_DIR$/appUtil.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/createDb.py" beforeDir="false" afterPath="$PROJECT_DIR$/createDb.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/components/LastPlayingFieldAdded.css" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/LastPlayingFieldAdded.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/components/LastPlayingFieldAddes.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/LastPlayingFieldAddes.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/components/PlayingFieldCard.css" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/PlayingFieldCard.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/components/PlayingFieldCard.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/PlayingFieldCard.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/components/UpdatePlayingField.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/UpdatePlayingField.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/containers/AddPlayingField.css" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/containers/AddPlayingField.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/containers/AddPlayingField.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/containers/AddPlayingField.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/containers/Home.css" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/containers/Home.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/containers/Home.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/containers/Home.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/containers/Login.css" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/containers/Login.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/containers/Login.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/containers/Login.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/containers/MyPlayingField.css" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/containers/MyPlayingField.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/containers/MyPlayingField.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/containers/MyPlayingField.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/containers/MyProfile.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/containers/MyProfile.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/containers/Register.css" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/containers/Register.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/containers/Register.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/containers/Register.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/containers/Search.css" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/containers/Search.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/containers/Search.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/containers/Search.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/main-page/Routes.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/main-page/Routes.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -279,7 +265,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="-10" />
     <option name="y" value="-10" />
     <option name="width" value="1940" />
@@ -659,7 +645,8 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1550" height="838" extended-state="7" />
+    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.16325182" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
