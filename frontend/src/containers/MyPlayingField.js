@@ -77,7 +77,7 @@ export default function GetMyPlayingFields(props) {
                             </Async>
                         </div>
                         <div className="col-sm-3 leftSide">
-                            <h3 id="lastPlayingFieldAdded">The latest 5 playing field added</h3>
+                            <h3 id="lastPlayingFieldAdded">The latest 5 playing fields added</h3>
                             <Async promiseFn={getLastPlayingFieldsAdded}>
                                 {({data, err, isLoading}) => {
                                     if (isLoading) return "Loading...";

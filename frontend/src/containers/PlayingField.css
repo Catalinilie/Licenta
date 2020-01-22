@@ -1,53 +1,97 @@
-.leftSideInformation{
-    margin: 0 1rem 2rem 1rem !important;
+.leftSideInformation {
+    margin: 0 1em 2em 1em !important;
     background: rgba(255, 255, 255, 0.3);
-    -webkit-box-shadow: 0px 0px 28px 3px rgba(0,0,0,0.37);
-    box-shadow: 0 0 28px 3px rgba(0,0,0,0.37);
+    -webkit-box-shadow: 0px 0px 28px 3px rgba(0, 0, 0, 0.37);
+    box-shadow: 0 0 28px 3px rgba(0, 0, 0, 0.37);
 }
-.imageContainer img{
+
+.imageContainer img {
     max-height: 100%;
     max-width: 100%;
 }
-.playingFieldButtons{
-    margin: 2rem;
+
+.playingFieldButtons {
+    margin: 2em;
 }
-.playingFieldButton{
-    margin: 1rem 1rem 1rem 1rem;
+
+.playingFieldButton {
+    margin: 1em 1em 1em 1em;
+    -webkit-box-shadow: 0px 0px 28px 3px rgba(0, 0, 0, 0.37);
+    box-shadow: 0 0 28px 3px rgba(0, 0, 0, 0.37);
 }
-.closeButtonModal{
+
+.closeButtonModal {
     float: right;
 }
 
-.leftSideListGroup{
+div > Modal{
+    z-index: 9;
+}
+
+.imageBox{
+    border-radius: 5px;
+    margin-bottom: 1em;
+    -webkit-box-shadow: 0px 0px 28px 3px rgba(0, 0, 0, 0.37);
+    box-shadow: 0 0 28px 3px rgba(0, 0, 0, 0.37);
+}
+
+.leftSideListGroup {
     background: #2FA4E7 !important;
     color: white !important;
 }
 
-.modalContentPlayingField{
-    height: 30rem;
+.modalContentPlayingField {
+    height: 30em;
 }
-.playingFieldUpdateModalClass{
+
+.playingFieldUpdateModalClass {
     max-height: calc(100vh - 200px);
     overflow-y: auto;
 }
 
-.calendarClass{
-    padding: 1rem ;
-    border-radius: 0.3rem;
-    margin: 3rem 0 3rem 0 !important;
+.calendarClass {
+    padding: 1em;
+    border-radius: 0.3em;
+    margin: 3em 0 3em 0 !important;
     background: rgba(255, 255, 255, 0.3);
-    -webkit-box-shadow: 0px 0px 28px 3px rgba(0,0,0,0.37);
-    box-shadow: 0 0 28px 3px rgba(0,0,0,0.37);
+    -webkit-box-shadow: 0px 0px 28px 3px rgba(0, 0, 0, 0.37);
+    box-shadow: 0 0 28px 3px rgba(0, 0, 0, 0.37);
 }
 
-.titleContainerClass{
-    padding-top: 1rem !important;
-    background: rgba(255, 255, 255, 0.3);
-    -webkit-box-shadow: 0px 0px 28px 3px rgba(0,0,0,0.37);
-    box-shadow: 0 0 28px 3px rgba(0,0,0,0.37);
+#logoId {
+    margin: 0 0 0 1em;
+    padding-bottom: 0.5em;
 }
 
-.spanTitleClass{
-    font-size: 1.8rem;
+.addressTextPlayingFieldClass {
+    padding-bottom: 0.4em;
+}
+
+.titleContainerClass {
+    white-space: pre-wrap;
+    padding: 1em 0 1em 1em !important;
+    background: rgba(255, 255, 255, 0.3);
+    -webkit-box-shadow: 0px 0px 28px 3px rgba(0, 0, 0, 0.37);
+    box-shadow: 0 0 28px 3px rgba(0, 0, 0, 0.37);
+}
+
+.spanTitleClass {
+    font-size: 1.8em;
     padding: 0 40% 0 40%;
+}
+
+.playingFieldDescriptionClass {
+    padding: 0 1em 0 1em;
+}
+
+.facilitiesModalContainerClass {
+}
+
+.ReactModalPortal > div {
+    z-index: 5;
+    background: rgba(3, 3, 7, 0.6) !important;
+}
+
+.facilityRemoveButtonClass{
+    margin: 0 0.5em 0.5em 0.5em !important;
 }

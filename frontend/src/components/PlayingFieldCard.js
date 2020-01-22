@@ -117,7 +117,7 @@ class PlayingFieldCard extends Component {
                                 {this.props.field.address.streetNr}&nbsp;
                             </span>
                         <span>
-                            <Logo id="logoId" fill="gray"/>
+                            <Logo id="logoIdCard" fill="gray"/>
                         </span>
                     </Typography>
                 </CardActionArea>

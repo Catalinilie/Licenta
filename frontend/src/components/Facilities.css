@@ -1,0 +1,18 @@
+.facilitiesModalClass{
+    height: 20rem;
+}
+.addFacilityButton{
+    margin: 1rem;
+}
+
+.textFieldColClass{
+    margin: 0;
+}
+.facilityRemoveButtonClass{
+    margin: 0 1rem 1rem 1rem;
+}
+
+.facilityRemoveButtonClassx{
+    color: white !important;
+    margin-left: 0.5rem;
+}

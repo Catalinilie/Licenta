@@ -7,12 +7,41 @@ import Button from "react-bootstrap/lib/Button";
 import UpdatePlayingField from "../components/UpdatePlayingField";
 import Modal from 'react-modal';
 import MyCalendar from "../components/CalendarSlot";
+import {ReactComponent as Logo} from "../icons/6dd9e91b5f916e049aea8d4a381c14f8.svg";
+import AvailableTime from "../components/AvailableTime";
+import Facilities from "../components/Facilities";
 
 
-const customStyles = {
+const updateModalStyle = {
     content: {
-        height: "85%",
-        width: "75%",
+        height: "40em",
+        width: "50em",
+        top: '50%',
+        left: '50%',
+        right: '50%',
+        bottom: '50%',
+        marginRight: '-50%',
+        transform: 'translate(-50%, -50%)'
+    }
+};
+
+const addAvailableTimeModalStyle = {
+    content: {
+        height: "25em",
+        width: "45em",
+        top: '50%',
+        left: '50%',
+        right: '50%',
+        bottom: '50%',
+        marginRight: '-50%',
+        transform: 'translate(-50%, -50%)'
+    }
+};
+
+const addFacilitiesModalStyle = {
+    content: {
+        height: "23em",
+        width: "45em",
         top: '50%',
         left: '50%',
         right: '50%',
@@ -30,8 +59,10 @@ class PlayingField extends Component {
         super(props);
         this.state = {
             imageURL: "",
-            facilities: "",
-            modalIsOpen: false,
+            facilities: [],
+            modalUpdatePlayingField: false,
+            modalAddAvailableTime: false,
+            modalAddFacilities: false,
             playingField: "",
             classes: makeStyles({
                 card: {
@@ -42,13 +73,20 @@ class PlayingField extends Component {
                 },
             })
         };
-        this.openModal = this.openModal.bind(this);
         this.afterOpenModal = this.afterOpenModal.bind(this);
         this.closeModal = this.closeModal.bind(this);
     }
 
-    openModal() {
-        this.setState({modalIsOpen: true});
+    openUpdateModal() {
+        this.setState({modalUpdatePlayingField: true});
+    }
+
+    openAddAvailableTimeModal() {
+        this.setState({modalAddAvailableTime: true});
+    }
+
+    openAddFacilitiesModal() {
+        this.setState({modalAddFacilities: true});
     }
 
     afterOpenModal() {
@@ -56,7 +94,9 @@ class PlayingField extends Component {
     }
 
     closeModal() {
-        this.setState({modalIsOpen: false});
+        this.setState({modalUpdatePlayingField: false});
+        this.setState({modalAddAvailableTime: false});
+        this.setState({modalAddFacilities: false});
     }
 
     async deletePlayingField(id, e) {
@@ -85,6 +125,8 @@ class PlayingField extends Component {
             .then(playingFieldResult => this.setState({
                 playingField: playingFieldResult.data
             }));
+        await axios.get('http://localhost:4996/getFacilities', {params: playingFieldParam})
+            .then(playingFieldResult => this.setState({facilities: this.state.facilities.concat(playingFieldResult.data)}));
 
     }
 
@@ -96,20 +138,25 @@ class PlayingField extends Component {
                     <Col md={9}>
                         <div className="jumbotron titleContainerClass">
                             <h1 className="display-3">{this.state.playingField.title}</h1>
-                            <p className="lead">Address: {this.state.playingField.address.city},
-                                str. {this.state.playingField.address.street}&nbsp;
-                                {this.state.playingField.address.streetNr},&nbsp; {this.state.playingField.address.country}&nbsp;
-                                {this.state.playingField.address.postalCode}&nbsp;</p>
+                            <div className="row">
+                                <Logo id="logoId" fill="gray"/>
+                                <p className="lead addressTextPlayingFieldClass">{this.state.playingField.address.city},
+                                    str. {this.state.playingField.address.street}
+                                    &nbsp;nr. {this.state.playingField.address.streetNr},&nbsp; {this.state.playingField.address.country}&nbsp;
+                                    {this.state.playingField.address.postalCode}&nbsp;</p>
+                            </div>
                         </div>
 
                         <div className="calendarClass">
-                            <span className="spanTitleClass" >Calendar</span>
-                            <MyCalendar playingFieldId={this.props.match.params.id} userId={this.state.playingField.userId}/>
+                            <span className="spanTitleClass">Calendar</span>
+                            <MyCalendar playingFieldId={this.props.match.params.id}
+                                        userId={this.state.playingField.userId}/>
                         </div>
 
 
                         <div className="jumbotron titleContainerClass">
-                            <p>{this.state.playingField.description}</p>
+                            <h1 className="display-6">Description</h1>
+                            <p className="playingFieldDescriptionClass">{this.state.playingField.description}</p>
                         </div>
 
                         {this.state.playingField.userId === sessionStorage.getItem("userId") &&
@@ -120,24 +167,14 @@ class PlayingField extends Component {
                             >
                                 Delete
                             </button>
-                            {/*<button className="btn btn-primary playingFieldButton" color="primary">
-                                Update
-                            </button>
-                            <Popup trigger={<button className="btn btn-primary playingFieldButton"> Trigger</button>}
-                                   position="right center"
-                            >
-                                <div>Popup content here !!
-                                    <MyProfile>as</MyProfile></div>
-                            </Popup>*/}
 
-
-                            <button className="btn btn-primary playingFieldButton" onClick={this.openModal}>Update
+                            <button className="btn btn-primary playingFieldButton"
+                                    onClick={this.openUpdateModal.bind(this)}>Update
                             </button>
                             <Modal
-                                isOpen={this.state.modalIsOpen}
-                                // onAfterOpen={this.afterOpenModal}
+                                isOpen={this.state.modalUpdatePlayingField}
                                 onRequestClose={this.closeModal}
-                                style={customStyles}
+                                style={updateModalStyle}
                                 contentLabel="Update Playing Field"
                             >
                                 <Button className="btn btn-primary closeButtonModal"
@@ -146,25 +183,42 @@ class PlayingField extends Component {
 
                             </Modal>
 
-                            <button className="btn btn-primary playingFieldButton" color="primary"
-                                    show={this.state.modalShow}
-                                    onClick={() => this.setState({
-                                        modalShow: true
-                                    })}>
-                                Add available time
+                            <button className="btn btn-primary playingFieldButton"
+                                    onClick={this.openAddAvailableTimeModal.bind(this)}>Add Available Time
                             </button>
+                            <Modal
+                                isOpen={this.state.modalAddAvailableTime}
+                                onRequestClose={this.closeModal}
+                                style={addAvailableTimeModalStyle}
+                                contentLabel="Add Available Time"
+                            >
+                                <Button className="btn btn-primary closeButtonModal"
+                                        onClick={this.closeModal}>Close</Button>
+                                <AvailableTime playingFieldId={this.props.match.params.id}/>
 
-                            <button className="btn btn-primary playingFieldButton" color="primary"
-                                    show={this.state.modalShow}
-                                    onClick={() => this.setState({
-                                        modalShow: true
-                                    })}>
-                                Add facilities
+                            </Modal>
+
+                            <button className="btn btn-primary playingFieldButton"
+                                    onClick={this.openAddFacilitiesModal.bind(this)}>Add or Update Facilities
                             </button>
+                            <Modal
+                                isOpen={this.state.modalAddFacilities}
+                                enforceFocus={true}
+                                onRequestClose={this.closeModal}
+                                style={addFacilitiesModalStyle}
+                                contentLabel="Add Facilities"
+                            >
+                                <Button className="btn btn-primary closeButtonModal"
+                                        onClick={this.closeModal}>Close</Button>
+                                <Facilities facilities={this.state.facilities.map(facility => (facility.facility))}
+                                            playingFieldId={this.props.match.params.id}/>
+
+                            </Modal>
                         </div>
                         }
                         <div className="imageContainer">
                             <img
+                                className="imageBox"
                                 src={this.state.imageURL}
                                 alt="new"
                             />
@@ -185,7 +239,7 @@ class PlayingField extends Component {
                                     Phone Number: {this.state.playingField.address.contactPhone}
                                 </p>
                                 <p className="mb-1">
-                                    Email Address: {this.state.playingField.address.contactEmail}
+                                    Email: {this.state.playingField.address.contactEmail}
                                 </p>
                             </div>
                         </div>
@@ -197,13 +251,22 @@ class PlayingField extends Component {
                             <div
                                 className="list-group-item list-group-item-action flex-column align-items-start">
                                 <p className="mb-1">
+                                    Type: {this.state.playingField.type}&nbsp;
+                                </p>
+                                <p className="mb-1">
                                     Address: {this.state.playingField.address.city},
                                     str. {this.state.playingField.address.street}&nbsp;
                                     {this.state.playingField.address.streetNr},&nbsp; {this.state.playingField.address.country}&nbsp;
-                                    {this.state.playingField.address.postalCode}&nbsp;
+                                    {this.state.playingField.address.region}&nbsp;
+                                </p>
+                                <p className="mb-1">
+                                    Postal code: {this.state.playingField.address.addressCode}&nbsp;
                                 </p>
                                 <p className="mb-1">
                                     Number of players: {this.state.playingField.numberOfPlayers}
+                                </p>
+                                <p className="mb-1">
+                                    Price: {this.state.playingField.price} / hour
                                 </p>
                             </div>
                         </div>
@@ -215,7 +278,12 @@ class PlayingField extends Component {
                             <div
                                 className="list-group-item list-group-item-action flex-column align-items-start">
                                 <p className="mb-1">
-                                    {this.state.facilities}
+                                    {this.state.facilities.map(item => (
+                                        <span key={item.facility}
+                                              className="badge badge-primary badge-pill facilityRemoveButtonClass">{item.facility}
+                                        </span>
+                                    ))}
+                                    {/*{this.state.facilities}*/}
                                 </p>
                             </div>
                         </div>
