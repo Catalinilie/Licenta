@@ -62,6 +62,14 @@ class PlayingField(db.Model):
         playingFields = PlayingField.query.filter_by(type=_type)
         return json.dumps([PlayingField.json(playingField) for playingField in playingFields])
 
+    def getPlayingFieldInfo():
+        playingFieldType = PlayingField.query.group_by(PlayingField.type).all()
+        playingFieldCity = Address.query.group_by(Address.city).all()
+        playingFieldNumberOfPlayers = PlayingField.query.group_by(PlayingField.numberOfPlayers).all()
+        return json.dumps([[playingFieldType.type for playingFieldType in playingFieldType],
+                          [playingFieldType.city for playingFieldType in playingFieldCity],
+                          [playingFieldType.numberOfPlayers for playingFieldType in playingFieldNumberOfPlayers]]), 200
+
     def getPlayingFieldsById(_id):
         playingField = PlayingField.query.filter_by(id=_id).first()
         return PlayingField.json(playingField)

@@ -6,6 +6,7 @@ from flask import url_for
 
 from AvailableSlotsModel import AvailableSlots
 from AvailableTimeModel import AvailableTime
+from FacilitiesModel import Facility
 from ImageModel import Image
 from PlayingFieldModel import *
 from UserModel import *
@@ -223,6 +224,12 @@ def deleteAvailableSlot():
     return AvailableSlots.deleteAvailableSlot(id)
 
 
+@app.route('/getPlayingFieldInfo', methods=['GET'])
+@cross_origin()
+def getPlayingFieldInfo():
+    return PlayingField.getPlayingFieldInfo()
+
+
 @app.route('/addAvailableTime', methods=['POST'])
 @token_required
 def addAvailableTime():
@@ -252,16 +259,44 @@ def addAvailableSlot():
     return AvailableSlots.createAvailableSlot(playingFieldId, start, end, title)
 
 
-@app.route('/updateAvailableTime', methods=['PATCH'])
-def updateAvailableTime():
+@app.route('/getAvailableTime', methods=['GET'])
+def getAvailableTime():
+    id = request.args.get("playingFieldId")
+    return AvailableTime.getAvailableTimeByPlayingFieldId(id)
+
+
+@app.route('/addOrUpdateAvailableTime', methods=['POST'])
+def addOrUpdateAvailableTime():
     data = json.loads(request.data)
     playingFieldId = data["playingFieldId"]
     dayOfWeekFrom = data["dayOfWeekFrom"]
     dayOfWeekTo = data["dayOfWeekTo"]
     hourOfOpening = data["hourOfOpening"]
     hourOfClosing = data["hourOfClosing"]
-    return AvailableTime.updateAvailableTimeByPlayingFieldId(playingFieldId, dayOfWeekFrom, dayOfWeekTo, hourOfOpening,
-                                                             hourOfClosing)
+
+    if AvailableTime.availableTimeExist(playingFieldId):
+        return AvailableTime.updateAvailableTimeByPlayingFieldId(playingFieldId, dayOfWeekFrom, dayOfWeekTo,
+                                                                 hourOfOpening, hourOfClosing)
+    else:
+        return AvailableTime.createAvailableTime(playingFieldId, dayOfWeekFrom, dayOfWeekTo, hourOfOpening,
+                                                 hourOfClosing)
+
+
+@app.route('/addOrUpdateFacilities', methods=['POST'])
+@token_required
+def addOrUpdateFacilities():
+    data = json.loads(request.data)
+    playingFieldId = data["playingFieldId"]
+    facilities = data["facilities"]
+
+    return Facility.addOrUpdateFacilities(playingFieldId, facilities)
+
+
+@app.route('/getFacilities', methods=['GET'])
+def getFacilities():
+    playingFieldId = request.args.get("playingFieldId")
+
+    return Facility.getFacilitiesByPlayingFieldId(playingFieldId)
 
 
 @app.route('/deleteAvailableSlot', methods=['DELETE'])

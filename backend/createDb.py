@@ -17,3 +17,6 @@ db.create_all()
 from AvailableSlotsModel import *
 
 db.create_all()
+from FacilitiesModel import *
+
+db.create_all()

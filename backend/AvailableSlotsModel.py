@@ -25,14 +25,14 @@ class AvailableSlots(db.Model):
         }
 
     def __repr__(self):
-        availableTime_object = str({
+        availableSlot_object = str({
             "id": self.id,
             "playingFieldId": self.playingFieldId,
             "start": self.start,
             "end": self.end,
             "title": self.title
         })
-        return json.dumps(availableTime_object)
+        return json.dumps(availableSlot_object)
 
     def availableSlotExist(_playingFieldId):
         availableTime = AvailableSlots.query.filter_by(playingFieldId=_playingFieldId).first()
