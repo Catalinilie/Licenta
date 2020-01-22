@@ -3,12 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="e93de24b-1313-4b1f-b438-ca81f5058a39" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AvailableSlotsModel.py" beforeDir="false" afterPath="$PROJECT_DIR$/AvailableSlotsModel.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PlayingFieldModel.py" beforeDir="false" afterPath="$PROJECT_DIR$/PlayingFieldModel.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/createDb.py" beforeDir="false" afterPath="$PROJECT_DIR$/createDb.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database.db" beforeDir="false" afterPath="$PROJECT_DIR$/database.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/settings.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/src/components/PlayingFieldCard.css" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/PlayingFieldCard.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/src/components/PlayingFieldCard.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/PlayingFieldCard.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/src/containers/Home.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/containers/Home.js" afterDir="false" />
@@ -75,12 +69,12 @@
           <entry key="Python Console" value="226" />
           <entry key="dummy" value="46" />
           <entry key="py" value="26836" />
-          <entry key="txt" value="235" />
+          <entry key="txt" value="252" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="PLAIN_TEXT" value="281" />
+          <entry key="PLAIN_TEXT" value="298" />
           <entry key="Python" value="27062" />
         </counts>
       </usages-collector>
@@ -153,8 +147,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/FacilitiesModel.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="296">
-              <caret line="57" lean-forward="true" selection-start-line="57" selection-end-line="57" />
+            <state relative-caret-position="365">
+              <caret line="60" column="13" lean-forward="true" selection-start-line="60" selection-start-column="13" selection-end-line="60" selection-end-column="13" />
               <folding>
                 <element signature="e#0#34#0" expanded="true" />
                 <marker date="1579702067889" expanded="true" signature="1654:1658" ph="..." />
@@ -731,7 +725,14 @@
       <option name="project" value="LOCAL" />
       <updated>1579543178539</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Added Facilities">
+      <created>1579704579061</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1579704579061</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TodoView">
@@ -777,7 +778,8 @@
     <MESSAGE value="Update models." />
     <MESSAGE value="Added endpoint for upload image and refactor." />
     <MESSAGE value="Refactor" />
-    <option name="LAST_COMMIT_MESSAGE" value="Refactor" />
+    <MESSAGE value="Added Facilities" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added Facilities" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1149,8 +1151,8 @@ db.session.commit()</expression-string>
     </entry>
     <entry file="file://$PROJECT_DIR$/FacilitiesModel.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="296">
-          <caret line="57" lean-forward="true" selection-start-line="57" selection-end-line="57" />
+        <state relative-caret-position="365">
+          <caret line="60" column="13" lean-forward="true" selection-start-line="60" selection-start-column="13" selection-end-line="60" selection-end-column="13" />
           <folding>
             <element signature="e#0#34#0" expanded="true" />
             <marker date="1579702067889" expanded="true" signature="1654:1658" ph="..." />
