@@ -102,7 +102,6 @@ class PlayingField extends Component {
     async deletePlayingField(id, e) {
         try {
             await axios.delete('http://localhost:4996/deletePlayingField', {params: {playingFieldId: id}})
-                .then(res => console.log(res.statusText))
                 .then(() => this.props.history.push("/myPlayingFields"));
         } catch (e) {
             if (e.response.status === 404)
@@ -231,7 +230,7 @@ class PlayingField extends Component {
                                 <p className="mb-1">Contact data </p>
                             </div>
                             <div
-                                className="list-group-item list-group-item-action flex-column align-items-start">
+                                className="list-group-item list-group-item-action flex-column align-items-start leftSideContentClass">
                                 <div className="d-flex w-100 justify-content-between">
                                     <h5 className="mb-1">You can contact the owner at:</h5>
                                 </div>
@@ -249,14 +248,14 @@ class PlayingField extends Component {
                                 <p className="mb-1">Playing Field details </p>
                             </div>
                             <div
-                                className="list-group-item list-group-item-action flex-column align-items-start">
+                                className="list-group-item list-group-item-action flex-column align-items-start leftSideContentClass">
                                 <p className="mb-1">
                                     Type: {this.state.playingField.type}&nbsp;
                                 </p>
                                 <p className="mb-1">
                                     Address: {this.state.playingField.address.city},
-                                    str. {this.state.playingField.address.street}&nbsp;
-                                    {this.state.playingField.address.streetNr},&nbsp; {this.state.playingField.address.country}&nbsp;
+                                    str. {this.state.playingField.address.street}
+                                    &nbsp;nr. {this.state.playingField.address.streetNr},&nbsp; {this.state.playingField.address.country}&nbsp;
                                     {this.state.playingField.address.region}&nbsp;
                                 </p>
                                 <p className="mb-1">

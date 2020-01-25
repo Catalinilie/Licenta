@@ -53,8 +53,7 @@ export default function Register(props) {
             "password": password
         };
         try {
-            const res = await axios.post('http://localhost:4996/register', params);
-            console.log(res.data);
+            await axios.post('http://localhost:4996/register', params);
             props.history.push("/home");
         } catch (e) {
             if (e.message !== "Network Error") {

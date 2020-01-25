@@ -21,8 +21,7 @@ class Facilities extends Component {
             facility: "",
             classes: this.useStyles()
         };
-        this.getData().then(r => console.log(r));
-        console.log(this.props.facilities)
+        this.getData();
     }
 
     useStyles() {
@@ -53,8 +52,7 @@ class Facilities extends Component {
         };
         try {
             let token = sessionStorage.getItem("token");
-            await axios.post('http://localhost:4996/addOrUpdateFacilities?token=' + token, params)
-                .then(res => console.log(res));
+            await axios.post('http://localhost:4996/addOrUpdateFacilities?token=' + token, params);
         } catch (e) {
         }
         if (e.message === "Network Error")

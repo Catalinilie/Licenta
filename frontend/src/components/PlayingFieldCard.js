@@ -81,7 +81,6 @@ class PlayingFieldCard extends Component {
     async deletePlayingField(id, e) {
         try {
             await axios.delete('http://localhost:4996/deletePlayingField', {params: {playingFieldId: id}})
-                .then(res => console.log(res.statusText))
                 .then(() => window.location.reload());
         } catch (e) {
             if (e.response.status === 404)
@@ -121,15 +120,15 @@ class PlayingFieldCard extends Component {
                         </span>
                     </Typography>
                 </CardActionArea>
-                <CardActionArea component="div">
+                <CardActionArea className="cardActionAreaClass" component="div">
                     {this.state.search === "false" &&
                     <CardActions className="cardActionArea">
-                        <button className="btn btn-primary playingFieldButton" color="primary"
+                        <button className="btn btn-primary playingFieldButtonCard" color="primary"
                                 onClick={e => this.deletePlayingField(this.props.field.id, e)}
                         >
                             Delete
                         </button>
-                        <button className="btn btn-primary playingFieldButton" onClick={this.openModal}>Update</button>
+                        <button className="btn btn-primary playingFieldButtonUpdate" onClick={this.openModal}>Update</button>
                         <Modal
                             isOpen={this.state.modalIsOpen}
                             // onAfterOpen={this.afterOpenModal}
@@ -142,13 +141,6 @@ class PlayingFieldCard extends Component {
                             <UpdatePlayingField playingFieldId={this.props.field.id}/>
 
                         </Modal>
-
-                        <button className="btn btn-primary playingFieldButton" color="primary" show={this.state.modalShow}
-                                onClick={() => this.setState({
-                                    modalShow: true
-                                })}>
-                           TimeSlot
-                        </button>
                     </CardActions>
                     }
                 </CardActionArea>

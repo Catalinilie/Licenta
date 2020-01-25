@@ -21,6 +21,21 @@
 .App-intro {
     font-size: large;
 }
+.closeButtonModal {
+
+    float: right;
+}
+
+.addEventButtonClass{
+    position: relative;
+    margin: auto;
+    margin-top: 25% !important;
+}
+
+.ReactModalPortal > div {
+    z-index: 5;
+    background: rgba(3, 3, 7, 0.6) !important;
+}
 
 @keyframes App-logo-spin {
     from { transform: rotate(0deg); }

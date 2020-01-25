@@ -15,7 +15,14 @@
     }
 }
 
+.myPlayingFieldClassCardSearch{
+    margin: 1rem;
+    width: 21em;
+}
+
 .searchResults{
+    padding: 0 !important;
+    margin: 0;
 }
 
 .textFieldClassSearch{

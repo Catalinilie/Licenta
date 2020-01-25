@@ -23,7 +23,7 @@ class MyProfile extends Component {
             usernameAlreadyUsed: false,
             updateField: false
         };
-        this.getData().then(r => console.log(r));
+        this.getData();
     }
 
 
@@ -77,8 +77,7 @@ class MyProfile extends Component {
         let token = sessionStorage.getItem("token");
         let res;
         try {
-            res = await axios.patch('http://localhost:4996/users?token=' + token, params)
-                .then(res => console.log(res.data));
+            res = await axios.patch('http://localhost:4996/users?token=' + token, params);
         } catch (e) {
         }
         if (e.message === "Network Error")

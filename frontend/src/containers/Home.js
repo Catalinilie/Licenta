@@ -16,7 +16,6 @@ export default function Home() {
             "count": 9
         };
         playingFieldsResult = await axios.get('http://localhost:4996/playingField', {params: playingFieldsParams});
-        console.log(playingFieldsResult);
         return playingFieldsResult;
     }
 
@@ -26,7 +25,6 @@ export default function Home() {
             "numberOfFields": 5
         };
         playingFieldsResult = await axios.get('http://localhost:4996/lastAdded', {params: params});
-        console.log(playingFieldsResult);
         return playingFieldsResult;
     }
 
@@ -45,7 +43,7 @@ export default function Home() {
                                         <div className="container-fluid">
                                             <div className="row cardField">
                                                 {data.data.map(playingField => (
-                                                    <Col md={4} key={playingField.id}>
+                                                    <Col className="myPlayingFieldClassCard" key={playingField.id}>
                                                         <PlayingFieldCard field={playingField} key={playingField.id}/>
                                                     </Col>
                                                 ))}

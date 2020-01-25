@@ -34,7 +34,7 @@ class UpdatePlayingField extends Component {
             imagePreview: null,
             classes: this.useStyles()
         };
-        this.getData().then(r => console.log(r));
+        this.getData().then();
     }
 
     useStyles() {
@@ -58,8 +58,6 @@ class UpdatePlayingField extends Component {
         if (values)
             this.setState({
                 country: values.label
-            }, () => {
-                console.log(this.state.country);
             });
     };
 
@@ -74,21 +72,21 @@ class UpdatePlayingField extends Component {
             || this.state.region === undefined || this.state.region === null
             || this.state.country === undefined || this.state.country === null
             || this.state.addressCode === undefined || this.state.addressCode === null
-            || this.state.description === undefined || this.state.description === null ;
+            || this.state.description === undefined || this.state.description === null;
         if (Boolean(res))
             return false;
         else
             return Boolean(this.state.title.length > 0
-            && this.state.type.length > 0
-            && this.state.numberOfPlayers.length > 0
-            && this.state.price.length > 0
-            && this.state.street.length > 0
-            && this.state.streetNr.length > 0
-            && this.state.city.length > 0
-            && this.state.region.length > 0
-            && this.state.country.length > 0
-            && this.state.addressCode.length > 0
-            && this.state.description.length > 0);
+                && this.state.type.length > 0
+                && this.state.numberOfPlayers.length > 0
+                && this.state.price.length > 0
+                && this.state.street.length > 0
+                && this.state.streetNr.length > 0
+                && this.state.city.length > 0
+                && this.state.region.length > 0
+                && this.state.country.length > 0
+                && this.state.addressCode.length > 0
+                && this.state.description.length > 0);
     }
 
     cancelUpdate() {
@@ -158,8 +156,7 @@ class UpdatePlayingField extends Component {
         };
         let res;
         try {
-            res = await axios.patch('http://localhost:4996/playingField?id=' + this.props.playingFieldId, params)
-                .then(res => console.log(res.data));
+            res = await axios.patch('http://localhost:4996/playingField?id=' + this.props.playingFieldId, params);
         } catch (e) {
         }
         if (e.message === "Network Error")

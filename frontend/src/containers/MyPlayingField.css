@@ -26,9 +26,19 @@
     text-transform: none;
 }
 
-.cardField {
-
+.playingFieldColClass{
+    margin: 1em;
+    width: 21em;
 }
+
+.cardField {
+}
+
+.myPlayingFieldClassCard{
+    margin: auto;
+    width: 21em;
+}
+
 
 .myPlayingFieldClass {
     margin-top: 2em;

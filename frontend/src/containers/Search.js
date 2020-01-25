@@ -63,7 +63,6 @@ export default class Login extends Component {
         this.setState({
             playingFieldResult: await axios.get('http://localhost:4996/search', {params: playingFieldsParams})
         });
-        console.log(this.state.playingFieldResult);
         this.setState({
             search: true
         });
@@ -93,9 +92,6 @@ export default class Login extends Component {
                         }
                 }
             );
-        console.log(this.state.typeList);
-        console.log(this.state.cityList);
-        console.log(this.state.numberOfPlayersList);
     }
 
     showData() {
@@ -104,7 +100,7 @@ export default class Login extends Component {
                 <div className="container-fluid">
                     <div className="row cardField">
                         {this.state.playingFieldResult.data.map(playingField => (
-                            <Col md={4} key={playingField.id}>
+                            <Col className="myPlayingFieldClassCardSearch" key={playingField.id}>
                                 <PlayingFieldCard field={playingField} key={playingField.id}/>
                             </Col>
                         ))}

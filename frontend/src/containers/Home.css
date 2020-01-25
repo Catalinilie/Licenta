@@ -12,6 +12,11 @@
     margin-top: 2em;
 }
 
+.myPlayingFieldClassCard{
+    margin: auto;
+    width: 21em;
+}
+
 .Home .lander p {
     color: #999;
 }

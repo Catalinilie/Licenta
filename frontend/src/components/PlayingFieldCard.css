@@ -10,13 +10,19 @@
 }
 
 .cardFieldContainer {
-    margin-top: 1rem;
+    margin-bottom: 2rem;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19) !important;
 
 }
 
+.cardActionAreaClass{
+    width: 100%;
+}
+
 .cardActionArea {
-    margin-top: 3rem !important;
+    width: 100%;
+    margin-top: 1em !important;
+    margin-bottom: 0.5em !important;
     padding-top: 0 !important;
 }
 
@@ -34,6 +40,14 @@
 
 .componentLink {
     position: relative;
+}
+.playingFieldButtonCard{
+    margin: auto !important;
+}
+
+.playingFieldButtonUpdate{
+    margin: auto !important;
+    float: right!important;
 }
 
 .addressCard > span > #logoIdCard {

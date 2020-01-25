@@ -23,7 +23,7 @@ class AvailableTime extends Component {
             hourTo: "",
             classes: this.useStyles()
         };
-        this.getData().then(r => console.log(r));
+        this.getData();
     }
 
     useStyles() {
@@ -97,8 +97,7 @@ class AvailableTime extends Component {
         };
         let res;
         try {
-            res = await axios.post('http://localhost:4996/addOrUpdateAvailableTime', params)
-                .then(res => console.log(res.data));
+            res = await axios.post('http://localhost:4996/addOrUpdateAvailableTime', params);
         } catch (e) {
         }
         if (e.message === "Network Error")

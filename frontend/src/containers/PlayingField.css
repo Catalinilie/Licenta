@@ -1,5 +1,6 @@
 .leftSideInformation {
     margin: 0 1em 2em 1em !important;
+    border-radius: 0.5em;
     background: rgba(255, 255, 255, 0.3);
     -webkit-box-shadow: 0px 0px 28px 3px rgba(0, 0, 0, 0.37);
     box-shadow: 0 0 28px 3px rgba(0, 0, 0, 0.37);
@@ -24,10 +25,6 @@
     float: right;
 }
 
-div > Modal{
-    z-index: 9;
-}
-
 .imageBox{
     border-radius: 5px;
     margin-bottom: 1em;
@@ -38,6 +35,10 @@ div > Modal{
 .leftSideListGroup {
     background: #2FA4E7 !important;
     color: white !important;
+}
+
+.leftSideContentClass{
+    font-size: 0.9em;
 }
 
 .modalContentPlayingField {

@@ -10,6 +10,7 @@
     "bootswatch": "^4.4.1",
     "jquery": "^3.4.1",
     "moment": "^2.24.0",
+    "postcode-validator": "^3.0.0",
     "react": "^16.10.2",
     "react-addons-update": "^15.6.2",
     "react-async": "^10.0.0",
