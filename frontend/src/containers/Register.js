@@ -8,6 +8,8 @@ import TextField from "@material-ui/core/TextField";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import {ReactComponent as VisibilityOff} from "../icons/turn-visibility-off-button.svg";
 import {ReactComponent as VisibilityOn} from "../icons/visibility-button.svg";
+import validator from 'validator'
+
 
 export default function Register(props) {
     const [username, setUsername] = useState("");
@@ -18,11 +20,87 @@ export default function Register(props) {
     const [phoneNumber, setPhoneNumber] = useState("");
     const [emailAlreadyUsed, setEmailAlreadyUsed] = useState(false);
     const [usernameAlreadyUsed, seUsernameAlreadyUsed] = useState(false);
+    const [usernameError, setUsernameError] = useState(false);
+    const [firstNameError, setFirstNameError] = useState(false);
+    const [lastNameError, setLastNameError] = useState(false);
+    const [emailError, setEmailError] = useState(false);
+    const [passwordError, setPasswordError] = useState(false);
+    const [phoneNumberError, setPhoneNumberError] = useState(false);
     const [type, setType] = useState("password");
 
     function validateForm() {
+        if( usernameError===true || passwordError===true || lastNameError===true || firstNameError===true || phoneNumberError===true || emailError===true )
+            return false;
         return username.length > 0 && password.length > 0 && firstName.length > 0 && lastName.length > 0 && email.length > 0 && phoneNumber.length > 0;
     }
+
+    function validateUsername() {
+        if (username.length < 5)
+            setUsernameError(true);
+        else
+            setUsernameError(false);
+    }
+
+    function focusUserName() {
+        setUsernameError(false);
+    }
+
+    function validateEmail() {
+        if (email.length < 6)
+            setEmailError(true);
+        else
+            setEmailError(false);
+    }
+
+    function focusEmail() {
+        setEmailError(false);
+    }
+
+    function validatePassword() {
+        if (password.length < 6)
+            setPasswordError(true);
+        else
+            setPasswordError(false);
+    }
+
+    function focusPassword() {
+        setPasswordError(false);
+    }
+
+    function validateFirstName() {
+        if (firstName.length < 3)
+            setFirstNameError(true);
+        else
+            setFirstNameError(false);
+    }
+
+    function focusFirstName() {
+        setFirstNameError(false);
+    }
+
+    function validateLastName() {
+        if (lastName.length < 3)
+            setLastNameError(true);
+        else
+            setLastNameError(false);
+    }
+
+    function focusLastName() {
+        setLastNameError(false);
+    }
+
+    function validatePhoneNumber() {
+        if (!validator.isMobilePhone(phoneNumber))
+            setPhoneNumberError(true);
+        else
+            setPhoneNumberError(false);
+    }
+
+    function focusPhoneNumber() {
+        setPhoneNumberError(false);
+    }
+
+
 
     function selectLogo(type) {
         if (type === "text")
@@ -74,18 +152,29 @@ export default function Register(props) {
                         <TextField className="textFieldClass"
                                    autofocus
                                    id="outlined-username" label="Username"
+                                   error={usernameError}
+                                   onBlur={validateUsername}
+                                   onFocus={focusUserName}
+                                   helperText={usernameError ? "Username should have at least 6 characters." : false}
                                    variant="outlined" value={username}
                                    onChange={(e) => setUsername(e.target.value)}/>
                         <TextField className="textFieldClass"
-                                   autofocus
+                                   type="email"
+                                   error={emailError}
+                                   onBlur={validateEmail}
+                                   onFocus={focusEmail}
+                                   helperText={emailError ? "Email invalid." : false}
                                    id="outlined-username" label="Email"
                                    variant="outlined" value={email}
                                    onChange={e => setEmail(e.target.value)}/>
                         <TextField className="textFieldClass"
-                                   autofocus
                                    id="outlined-username" label="Password"
                                    variant="outlined" value={password}
                                    type={type}
+                                   error={passwordError}
+                                   onBlur={validatePassword}
+                                   onFocus={focusPassword}
+                                   helperText={passwordError ? "Password should have at least 6 characters." : false}
                                    InputProps={{
                                        endAdornment: (
                                            <InputAdornment position='end'>
@@ -101,20 +190,29 @@ export default function Register(props) {
                     </Col>
                     <Col md={6} style={{"margin-bottom": "2em"}}>
                         <TextField className="textFieldClass"
-                                   autofocus
                                    id="outlined-username" label="First Name"
+                                   error={firstNameError}
+                                   onBlur={validateFirstName}
+                                   onFocus={focusFirstName}
+                                   helperText={firstNameError ? "First Name should have at least 3 characters." : false}
                                    variant="outlined" value={firstName}
                                    onChange={e => setFirstName(e.target.value)}
                         />
                         <TextField className="textFieldClass"
-                                   autofocus
                                    id="outlined-username" label="Last Name"
+                                   error={lastNameError}
+                                   onBlur={validateLastName}
+                                   onFocus={focusLastName}
+                                   helperText={lastNameError ? "Last Name should have at least 3 characters." : false}
                                    variant="outlined" value={lastName}
                                    onChange={e => setLastName(e.target.value)}
                         />
                         <TextField className="textFieldClass"
-                                   autofocus
                                    id="outlined-username" label="Phone Number"
+                                   error={phoneNumberError}
+                                   onBlur={validatePhoneNumber}
+                                   onFocus={focusPhoneNumber}
+                                   helperText={phoneNumberError ? "Phone number invalid." : false}
                                    variant="outlined" value={phoneNumber}
                                    onChange={e => setPhoneNumber(e.target.value)}
                         />

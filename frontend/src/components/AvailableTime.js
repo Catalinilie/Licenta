@@ -21,6 +21,7 @@ class AvailableTime extends Component {
             dayTo: "",
             hourFrom: "",
             hourTo: "",
+            availableTimes: this.props.availableTimes,
             classes: this.useStyles()
         };
         this.getData();
@@ -37,30 +38,16 @@ class AvailableTime extends Component {
         }));
     }
 
-    updateFieldFlag() {
-        this.setState({
-            updateField: true
-        });
-    }
-
     validateForm() {
         let res = this.state.dayFrom === undefined || this.state.dayFrom === null
-            || this.state.dayTo === undefined || this.state.dayTo === null
             || this.state.hourFrom === undefined || this.state.hourFrom === null
             || this.state.hourTo === undefined || this.state.hourTo === null;
         if (Boolean(res))
             return false;
         else
-            return Boolean(this.state.dayFrom.length > 0
-                && this.state.dayTo.length > 0
-                && this.state.hourFrom.length > 0
-                && this.state.hourTo.length > 0);
-    }
-
-    cancelUpdate() {
-        this.setState({
-            updateField: false
-        });
+            return Boolean(this.state.dayFrom !== ""
+                && this.state.hourFrom !== ""
+                && this.state.hourTo !== "");
     }
 
     async getData() {
@@ -86,25 +73,43 @@ class AvailableTime extends Component {
             });
     }
 
+    delete(item) {
+        this.setState(prevState => ({
+            availableTimes: prevState.availableTimes.filter(el => el !== item)
+        }));
+    }
+
     async handleSubmit(state, e) {
+        e.preventDefault();
+        if (this.state.dayFrom !== "" && this.state.hourFrom !== "" && this.state.hourTo !== "") {
+            let availableTime = {
+                dayOfWeekFrom: this.state.dayFrom,
+                dayOfWeekTo: this.state.dayTo,
+                hourOfOpening: this.state.hourFrom,
+                hourOfClosing: this.state.hourTo
+            };
+            this.setState({
+                availableTimes: this.state.availableTimes.concat(availableTime)
+            })
+        }
+    }
+
+    async save(e) {
         e.preventDefault();
         const params = {
             "playingFieldId": this.props.playingFieldId,
-            "dayOfWeekFrom": this.state.dayFrom,
-            "dayOfWeekTo": this.state.dayTo,
-            "hourOfOpening": this.state.hourFrom,
-            "hourOfClosing": this.state.hourTo
+            "availableTimes": this.state.availableTimes
         };
-        let res;
         try {
-            res = await axios.post('http://localhost:4996/addOrUpdateAvailableTime', params);
+            let token = sessionStorage.getItem("token");
+            await axios.post('http://localhost:4996/addOrUpdateAvailableTime?token=' + token, params);
         } catch (e) {
         }
         if (e.message === "Network Error")
             alert(e.message);
 
         window.location.reload();
-        return res;
+
     }
 
     render() {
@@ -136,11 +141,9 @@ class AvailableTime extends Component {
                                        onChange={e => this.setState({
                                            "dayFrom": e.target.value
                                        })}
-                                       value={this.state.dayFrom}
-                                       disabled={(!this.state.updateField)}/>
+                            />
                             <TextField className="textFieldClass" id="outlined-day-to" label="Day of week to"
-                                       variant="outlined" value={this.state.dayTo}
-                                       disabled={(!this.state.updateField)}
+                                       variant="outlined"
                                        onChange={e => this.setState({
                                            "dayTo": e.target.value
                                        })}/>
@@ -149,51 +152,54 @@ class AvailableTime extends Component {
 
                             <TextField className="textFieldClass" id="outlined-hour-from"
                                        label="Hour of opening"
-                                       variant="outlined" value={this.state.hourFrom}
-                                       disabled={(!this.state.updateField)}
+                                       variant="outlined"
                                        onChange={e => this.setState({
                                            "hourFrom": e.target.value
                                        })}/>
 
                             <TextField className="textFieldClass" id="outlined-hour-to"
                                        label="Hour of Closing"
-                                       variant="outlined" value={this.state.hourTo}
-                                       disabled={(!this.state.updateField)}
+                                       variant="outlined"
                                        onChange={e => this.setState({
                                            "hourTo": e.target.value
                                        })}/>
                         </Col>
                         <div className="col align-self-center myProfileBoxClass">
-                            {!this.state.updateField &&
-                            <div className="myProfileUpdateButtonClass">
-                                <Button block bsSize="large" onClick={this.updateFieldFlag.bind(this)}
-                                        className="btn btn-primary" style={{"margin": "auto", "display": "table"}}>
-                                    Update
-                                </Button>
-                            </div>
-                            }
-                            {this.state.updateField &&
-                            <>
-                                <div className="container-fluid">
-                                    <div className="row buttonClassControl">
-                                        <Button bsSize="large" onClick={(e) => this.handleSubmit(this.state, e)}
-                                                disabled={!this.validateForm()} type="submit"
-                                                className="btn btn-primary">
-                                            Save
-                                        </Button>
-                                        <Button bsSize="large"
-                                                type="submit"
-                                                onClick={this.cancelUpdate.bind(this)}
-                                                className="btn btn-primary">
-
-                                            Cancel
-                                        </Button>
-                                    </div>
+                            <div className="container-fluid">
+                                <div className="row buttonClassControl">
+                                    <Button bsSize="large" onClick={(e) => this.handleSubmit(this.state, e)}
+                                            disabled={!this.validateForm()} type="submit"
+                                            className="btn btn-primary addFacilityButton">
+                                        Add
+                                    </Button>
+                                    <Button bsSize="large"
+                                            type="submit"
+                                            onClick={this.save.bind(this)}
+                                            className="btn btn-primary addFacilityButton">
+                                        Save
+                                    </Button>
                                 </div>
-                            </>
-                            }
+                            </div>
                         </div>
                     </form>
+                    <hr className="my-4"/>
+                    <ul>
+                        {this.state.availableTimes.map(item => ((
+                                (item.dayOfWeekTo != null) &&
+                                <span key={item.id}
+                                      className="badge badge-primary badge-pill facilityRemoveButtonClass">{item.dayOfWeekFrom} - {item.dayOfWeekTo}: {item.hourOfOpening}-{item.hourOfClosing}
+                                    <button className="btn btn-sm facilityRemoveButtonClassx"
+                                            onClick={() => this.delete(item)}>X</button>
+                            </span>)
+                            || (
+                                (item.dayOfWeekTo === null) &&
+                                <span key={item.id}
+                                      className="badge badge-primary badge-pill facilityRemoveButtonClass">{item.dayOfWeekFrom} : {item.hourOfOpening}-{item.hourOfClosing}
+                                    <button className="btn btn-sm facilityRemoveButtonClassx"
+                                            onClick={() => this.delete(item)}>X</button>
+                            </span>)
+                        ))}
+                    </ul>
                 </Container>
             );
     }

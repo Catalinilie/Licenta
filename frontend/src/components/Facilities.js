@@ -4,7 +4,6 @@ import axios from 'axios';
 import "./Facilities.css"
 import Col from "react-bootstrap/lib/Col";
 import TextField from "@material-ui/core/TextField";
-import countryList from "react-select-country-list";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import Container from "@material-ui/core/Container";
 import Link from "@material-ui/core/Link";
@@ -15,7 +14,6 @@ class Facilities extends Component {
 
     constructor(props) {
         super(props);
-        this.options = countryList().getData();
         this.state = {
             facilities: this.props.facilities,
             facility: "",

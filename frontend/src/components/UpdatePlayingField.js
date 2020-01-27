@@ -76,17 +76,17 @@ class UpdatePlayingField extends Component {
         if (Boolean(res))
             return false;
         else
-            return Boolean(this.state.title.length > 0
-                && this.state.type.length > 0
-                && this.state.numberOfPlayers.length > 0
-                && this.state.price.length > 0
-                && this.state.street.length > 0
-                && this.state.streetNr.length > 0
-                && this.state.city.length > 0
-                && this.state.region.length > 0
-                && this.state.country.length > 0
-                && this.state.addressCode.length > 0
-                && this.state.description.length > 0);
+            return Boolean(this.state.title.length > 5
+                && this.state.type.length > 4
+                && this.state.numberOfPlayers.length !== 0
+                && this.state.price.length > 3
+                && this.state.street.length > 4
+                && this.state.streetNr.length > 1
+                && this.state.city.length > 3
+                && this.state.region.length > 3
+                && this.state.country.length > 4
+                && this.state.addressCode.length > 3
+                && this.state.description.length > 10);
     }
 
     cancelUpdate() {

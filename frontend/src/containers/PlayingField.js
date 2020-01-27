@@ -27,7 +27,7 @@ const updateModalStyle = {
 
 const addAvailableTimeModalStyle = {
     content: {
-        height: "25em",
+        height: "30em",
         width: "45em",
         top: '50%',
         left: '50%',
@@ -60,6 +60,7 @@ class PlayingField extends Component {
         this.state = {
             imageURL: "",
             facilities: [],
+            availableTimes: [],
             modalUpdatePlayingField: false,
             modalAddAvailableTime: false,
             modalAddFacilities: false,
@@ -127,6 +128,9 @@ class PlayingField extends Component {
         await axios.get('http://localhost:4996/getFacilities', {params: playingFieldParam})
             .then(playingFieldResult => this.setState({facilities: this.state.facilities.concat(playingFieldResult.data)}));
 
+        await axios.get('http://localhost:4996/getAvailableTime', {params: playingFieldParam})
+            .then(playingFieldResult => this.setState({availableTimes: this.state.availableTimes.concat(playingFieldResult.data)}));
+
     }
 
     render() {
@@ -193,7 +197,8 @@ class PlayingField extends Component {
                             >
                                 <Button className="btn btn-primary closeButtonModal"
                                         onClick={this.closeModal}>Close</Button>
-                                <AvailableTime playingFieldId={this.props.match.params.id}/>
+                                <AvailableTime availableTimes={this.state.availableTimes}
+                                               playingFieldId={this.props.match.params.id}/>
 
                             </Modal>
 
@@ -215,6 +220,7 @@ class PlayingField extends Component {
                             </Modal>
                         </div>
                         }
+                        {(this.state.imageURL !== "http://localhost:4996undefined") &&
                         <div className="imageContainer">
                             <img
                                 className="imageBox"
@@ -222,6 +228,7 @@ class PlayingField extends Component {
                                 alt="new"
                             />
                         </div>
+                        }
                     </Col>
                     <Col md={3}>
                         <div className="list-group leftSideInformation">
@@ -231,9 +238,9 @@ class PlayingField extends Component {
                             </div>
                             <div
                                 className="list-group-item list-group-item-action flex-column align-items-start leftSideContentClass">
-                                <div className="d-flex w-100 justify-content-between">
-                                    <h5 className="mb-1">You can contact the owner at:</h5>
-                                </div>
+                                {/*<div className="d-flex w-100 justify-content-between">*/}
+                                {/*    <h5 className="mb-1">You can contact the owner at:</h5>*/}
+                                {/*</div>*/}
                                 <p className="mb-1">
                                     Phone Number: {this.state.playingField.address.contactPhone}
                                 </p>
@@ -269,6 +276,7 @@ class PlayingField extends Component {
                                 </p>
                             </div>
                         </div>
+                        {(this.state.facilities.length > 0) &&
                         <div className="list-group leftSideInformation">
                             <div
                                 className="list-group-item list-group-item-action flex-column align-items-start leftSideListGroup">
@@ -282,10 +290,32 @@ class PlayingField extends Component {
                                               className="badge badge-primary badge-pill facilityRemoveButtonClass">{item.facility}
                                         </span>
                                     ))}
-                                    {/*{this.state.facilities}*/}
                                 </p>
                             </div>
-                        </div>
+                        </div>}
+                        {(this.state.availableTimes.length > 0) &&
+                        <div className="list-group leftSideInformation">
+                            <div
+                                className="list-group-item list-group-item-action flex-column align-items-start leftSideListGroup">
+                                <p className="mb-1">Opening Hours</p>
+                            </div>
+                            <div
+                                className="list-group-item list-group-item-action flex-column align-items-start">
+                                <p className="mb-1">
+                                    {this.state.availableTimes.map(item => ((
+                                            (item.dayOfWeekTo != null) &&
+                                            <span key={item.id}>
+                                            {item.dayOfWeekFrom} - {item.dayOfWeekTo}: {item.hourOfOpening}-{item.hourOfClosing}<br/>
+                                        </span>)
+                                        || (
+                                            (item.dayOfWeekTo === null) &&
+                                            <span key={item.id}>
+                                            {item.dayOfWeekFrom} : {item.hourOfOpening}-{item.hourOfClosing}<br/>
+                                        </span>)
+                                    ))}
+                                </p>
+                            </div>
+                        </div>}
                     </Col>
                 </div>
             </div>

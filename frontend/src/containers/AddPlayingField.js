@@ -38,6 +38,7 @@ class AddPlayingField extends Component {
             imagePreview: null,
             titleError: false,
             typeError: false,
+            priceError: false,
             numberOfPlayersError: false,
             streetError: false,
             streetNumberError: false,
@@ -70,6 +71,55 @@ class AddPlayingField extends Component {
     };
 
     validateForm() {
+
+        let ok = 1;
+        if (this.state.title.length < 5) {
+            this.setState({titleError: true});
+            ok = 0;
+        }
+        if (this.state.type.length < 3) {
+            this.setState({typeError: true});
+            ok = 0;
+        }
+        if (this.state.numberOfPlayers === "") {
+            this.setState({numberOfPlayersError: true});
+            ok = 0;
+        }
+        if (this.state.price === "") {
+            this.setState({priceError: true});
+            ok = 0;
+        }
+        if (this.state.postalCode === "") {
+            try {
+                if (!postcodeValidator(this.state.addressCode, this.state.countryPref)) {
+                    this.setState({postalCodeError: true});
+                    ok = 0;
+                }
+
+            } catch (e) {
+            }
+        }
+        if (this.state.street.length < 5) {
+            this.setState({streetError: true});
+            ok = 0;
+        }
+        if (this.state.streetNr === "") {
+            this.setState({streetNumberError: true});
+            ok = 0;
+        }
+        if (this.state.city.length < 3) {
+            this.setState({cityError: true});
+            ok = 0;
+        }
+        if (this.state.region.length < 4) {
+            this.setState({regionError: true});
+            ok = 0;
+        }
+        if (this.state.description.length < 10) {
+            this.setState({descriptionError: true});
+            ok = 0;
+        }
+
         if (
             this.state.type === undefined
             || this.state.title === undefined
@@ -85,19 +135,7 @@ class AddPlayingField extends Component {
         )
             return false;
         else
-            return (
-                this.state.title.length > 0
-                && this.state.type.length > 0
-                && this.state.numberOfPlayers.length > 0
-                && this.state.price.length > 0
-                && this.state.street.length > 0
-                && this.state.streetNr.length > 0
-                && this.state.city.length > 0
-                && this.state.region.length > 0
-                && this.state.country.length > 0
-                && this.state.addressCode.length > 0
-                && this.state.description.length > 0
-            );
+            return (ok === 1);
     }
 
     validateTitle() {
@@ -180,6 +218,17 @@ class AddPlayingField extends Component {
         this.setState({cityError: false});
     }
 
+    validatePrice() {
+        if (this.state.price === "") {
+            this.setState({priceError: true});
+        } else
+            this.setState({priceError: false});
+    }
+
+    focusPrice() {
+        this.setState({priceError: false});
+    }
+
     validateRegion() {
         if (this.state.region.length < 4) {
             this.setState({regionError: true});
@@ -212,6 +261,11 @@ class AddPlayingField extends Component {
     };
 
     async handleSubmit(state, e) {
+        let valid = this.validateForm();
+        if (valid === false) {
+            e.preventDefault();
+            return;
+        }
         e.preventDefault();
         const params = {
             "title": this.state.title,
@@ -307,6 +361,10 @@ class AddPlayingField extends Component {
                                 <TextField className="textFieldClass" id="outlined-price" label="Price/hour"
                                            variant="outlined" value={this.state.price}
                                            autoComplete="off"
+                                           error={this.state.priceError}
+                                           onBlur={this.validatePrice.bind(this)}
+                                           onFocus={this.focusPrice.bind(this)}
+                                           helperText={this.state.priceError ? "Price shouldn't be empty." : false}
                                            onChange={e => this.setState({price: e.target.value})}/>
                                 <TextField className="textFieldClass" id="outlined-street" label="Street"
                                            variant="outlined" value={this.state.street}
@@ -397,7 +455,6 @@ class AddPlayingField extends Component {
                                             <LoaderButton block bsSize="large"
                                                           className="btn btn-primary LoginButtonClass"
                                                           onClick={(e) => this.handleSubmit(this.state, e)}
-                                                          disabled={!this.validateForm.bind(this)}
                                                           type="submit">
                                                 Add Playing Field
                                             </LoaderButton>

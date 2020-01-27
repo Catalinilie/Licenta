@@ -149,8 +149,10 @@ class MyCalendar extends Component {
     };
 
     openModal(event) {
-        this.setState({modalAddNewEvent: true});
-        this.setState({event: event});
+        if (sessionStorage.getItem("userId") === this.props.userId) {
+            this.setState({modalAddNewEvent: true});
+            this.setState({event: event});
+        }
     }
 
     render() {

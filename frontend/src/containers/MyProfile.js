@@ -7,6 +7,10 @@ import {Link} from "react-router-dom";
 import Container from "reactstrap/es/Container";
 import Col from "react-bootstrap/lib/Col";
 import TextField from "@material-ui/core/TextField";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import {ReactComponent as VisibilityOff} from "../icons/turn-visibility-off-button.svg";
+import {ReactComponent as VisibilityOn} from "../icons/visibility-button.svg";
+import validator from "validator";
 
 
 class MyProfile extends Component {
@@ -19,6 +23,11 @@ class MyProfile extends Component {
             firstName: "",
             lastName: "",
             password: "",
+            type: "password",
+            passwordError: false,
+            phoneNumberError: false,
+            firstNameError: false,
+            lastNameError: false,
             emailAlreadyUsed: false,
             usernameAlreadyUsed: false,
             updateField: false
@@ -40,6 +49,8 @@ class MyProfile extends Component {
     }
 
     validateForm() {
+        if( this.state.phoneNumberError===true || this.state.passwordError===true || this.state.lastNameError===true || this.state.firstNameError===true )
+            return false;
         return this.state.firstName.length > 0 && this.state.lastName.length > 0
             && this.state.password.length > 0 && this.state.phoneNumber.length > 0;
     }
@@ -87,6 +98,91 @@ class MyProfile extends Component {
         return res;
     }
 
+    validatePassword() {
+        if (this.state.password.length < 6)
+            this.setState({
+                passwordError: true
+            });
+        else
+            this.setState({
+                passwordError: false
+            });
+    }
+
+    focusPassword() {
+        this.setState({
+            passwordError: false
+        });
+    }
+
+    validatePhoneNumber() {
+        if (!validator.isMobilePhone(this.state.phoneNumber))
+            this.setState({phoneNumberError: true});
+        else
+            this.setState({phoneNumberError: false});
+    }
+
+    focusPhoneNumber() {
+        this.setState({
+            passwordError: false
+        });
+    }
+
+    validateFirstName() {
+        if (this.state.firstName.length < 3)
+            this.setState({
+                firstNameError: true
+            });
+        else
+            this.setState({
+                firstNameError: false
+            });
+    }
+
+    focusFirstName() {
+        this.setState({
+            firstNameError: false
+        });
+    }
+
+    validateLastName() {
+        if (this.state.lastName.length < 3)
+            this.setState({
+                lastNameError: true
+            });
+        else
+            this.setState({
+                lastNameError: false
+            });
+    }
+
+    focusLastName() {
+        this.setState({
+            lastNameError: false
+        });
+    }
+
+
+    showPassword(txt) {
+        if (txt === "text") {
+            this.setState({
+                type: "password"
+            });
+        } else {
+            this.setState({
+                type: "text"
+            });
+        }
+        return true;
+    }
+
+    selectLogo(type) {
+        if (type === "text")
+            return <VisibilityOff id="logoId" fill="gray"/>;
+        else
+            return <VisibilityOn id="logoId" fill="gray"/>;
+    }
+
     render() {
         if (sessionStorage.getItem("isAuthenticated") === "false")
             return (
@@ -111,18 +207,35 @@ class MyProfile extends Component {
                 <Container>
                     <form className="row myProfileContainerClass">
                         <Col md={6} className="textFieldColClass">
-                            <TextField className="textFieldClass" id="outlined-password" label="Password"
-                                       variant="outlined" placeholder="Enter password"
-                                       onChange={e => this.setState({
-                                           "password": e.target.value
-                                       })}
-                                       value={this.state.password}
-                                       type="password"
-                                       disabled={(!this.state.updateField)}/>
+                            <TextField className="textFieldClass"
+                                       id="outlined-username" label="Password"
+                                       variant="outlined" value={this.state.password}
+                                       type={this.state.type}
+                                       error={this.state.passwordError}
+                                       disabled={(!this.state.updateField)}
+                                       onBlur={this.validatePassword.bind(this)}
+                                       onFocus={this.focusPassword.bind(this)}
+                                       helperText={this.state.passwordError ? "Password should have at least 6 characters." : false}
+                                       InputProps={{
+                                           endAdornment: (
+                                               <InputAdornment position='end'>
+                                       <span onClick={() => this.showPassword(this.state.type)}>
+                                           {this.selectLogo(this.state.type)}
+                                       </span>
+
+                                               </InputAdornment>
+                                           ),
+                                       }}
+                                       onChange={e => this.setState({password: e.target.value})}
+                            />
                             <TextField className="textFieldClass" id="outlined-phoneNumber" label="PhoneNumber"
                                        variant="outlined" value={this.state.phoneNumber}
                                        placeholder={this.state.phoneNumber}
                                        disabled={(!this.state.updateField)}
+                                       error={this.state.phoneNumberError}
+                                       onBlur={this.validatePhoneNumber.bind(this)}
+                                       onFocus={this.focusPhoneNumber.bind(this)}
+                                       helperText={this.state.phoneNumberError ? "Phone number incorect." : false}
                                        onChange={e => this.setState({
                                            "phoneNumber": e.target.value
                                        })}/>
@@ -131,6 +244,10 @@ class MyProfile extends Component {
                             <TextField className="textFieldClass" id="outlined-firstName" label="First Name"
                                        variant="outlined" placeholder={this.state.firstName}
                                        value={this.state.firstName}
+                                       error={this.state.firstNameError}
+                                       onBlur={this.validateFirstName.bind(this)}
+                                       onFocus={this.focusFirstName.bind(this)}
+                                       helperText={this.state.firstNameError ? "First name should have at least 3 characters." : false}
                                        disabled={(!this.state.updateField)}
                                        onChange={e => this.setState({
                                            "firstName": e.target.value
@@ -138,6 +255,10 @@ class MyProfile extends Component {
                             <TextField className="textFieldClass" id="outlined-lastName" label="Last Name"
                                        variant="outlined" placeholder={this.state.lastName}
                                        value={this.state.lastName}
+                                       error={this.state.lastNameError}
+                                       onBlur={this.validateLastName.bind(this)}
+                                       onFocus={this.focusLastName.bind(this)}
+                                       helperText={this.state.lastNameError ? "Last name should have at least 3 characters." : false}
                                        disabled={(!this.state.updateField)}
                                        onChange={e => this.setState({
                                            "lastName": e.target.value
