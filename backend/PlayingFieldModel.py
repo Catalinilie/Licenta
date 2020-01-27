@@ -49,8 +49,13 @@ class PlayingField(db.Model):
         })
         return json.dumps(palyingField_object)
 
+    def playingFieldCount():
+        count = PlayingField.query.count()
+        return json.dumps({"count": count}), 200
+
+
     def getAllPlayingFields(index, count):
-        playingFields = PlayingField.query.order_by(PlayingField.description).limit(count).offset(index)
+        playingFields = PlayingField.query.order_by(PlayingField.createdOn.desc()).limit(count).offset(index)
         return json.dumps([PlayingField.json(playingField) for playingField in playingFields])
 
     def getPlayingFieldsByUserId(_userId):

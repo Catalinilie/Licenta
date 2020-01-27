@@ -2,14 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e93de24b-1313-4b1f-b438-ca81f5058a39" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/components/PlayingFieldCard.css" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/PlayingFieldCard.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/components/PlayingFieldCard.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/PlayingFieldCard.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/containers/Home.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/containers/Home.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/containers/MyPlayingField.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/containers/MyPlayingField.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/containers/PlayingField.css" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/containers/PlayingField.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/containers/PlayingField.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/containers/PlayingField.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/containers/Search.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/containers/Search.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AvailableTimeModel.py" beforeDir="false" afterPath="$PROJECT_DIR$/AvailableTimeModel.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PlayingFieldModel.py" beforeDir="false" afterPath="$PROJECT_DIR$/PlayingFieldModel.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database.db" beforeDir="false" afterPath="$PROJECT_DIR$/database.db" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -49,7 +47,7 @@
     <session id="742410596">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="69" />
+          <entry key="project.closed" value="75" />
           <entry key="project.open.time.0" value="1" />
           <entry key="project.open.time.10" value="5" />
           <entry key="project.open.time.12" value="3" />
@@ -57,25 +55,25 @@
           <entry key="project.open.time.3" value="1" />
           <entry key="project.open.time.4" value="9" />
           <entry key="project.open.time.5" value="20" />
-          <entry key="project.open.time.6" value="18" />
-          <entry key="project.open.time.7" value="4" />
-          <entry key="project.open.time.8" value="4" />
-          <entry key="project.open.time.9" value="4" />
-          <entry key="project.opened" value="70" />
+          <entry key="project.open.time.6" value="19" />
+          <entry key="project.open.time.7" value="5" />
+          <entry key="project.open.time.8" value="6" />
+          <entry key="project.open.time.9" value="6" />
+          <entry key="project.opened" value="76" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="Python Console" value="226" />
           <entry key="dummy" value="46" />
-          <entry key="py" value="26836" />
+          <entry key="py" value="27357" />
           <entry key="txt" value="252" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="PLAIN_TEXT" value="298" />
-          <entry key="Python" value="27062" />
+          <entry key="Python" value="27583" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -86,7 +84,7 @@
           <entry key="js" value="1" />
           <entry key="p" value="1" />
           <entry key="png" value="5" />
-          <entry key="py" value="117" />
+          <entry key="py" value="120" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
@@ -94,31 +92,32 @@
           <entry key="Image" value="11" />
           <entry key="JavaScript" value="1" />
           <entry key="PLAIN_TEXT" value="36" />
-          <entry key="Python" value="117" />
+          <entry key="Python" value="120" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-246">
-              <caret line="286" column="28" lean-forward="true" selection-start-line="286" selection-start-column="28" selection-end-line="286" selection-end-column="28" />
+            <state relative-caret-position="423">
+              <caret line="61" column="9" lean-forward="true" selection-start-line="61" selection-start-column="9" selection-end-line="61" selection-end-column="9" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
-                <marker date="1579697134781" expanded="true" signature="1428:1525" ph="..." />
+                <marker date="1580123295920" expanded="true" signature="1428:1649" ph="..." />
+                <marker date="1580123295920" expanded="true" signature="1602:1649" ph="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/AvailableSlotsModel.py">
+        <entry file="file://$PROJECT_DIR$/AvailableTimeModel.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="281">
-              <caret line="60" column="59" lean-forward="true" selection-start-line="60" selection-start-column="59" selection-end-line="60" selection-end-column="59" />
+            <state relative-caret-position="339">
+              <caret line="57" column="13" lean-forward="true" selection-start-line="57" selection-start-column="13" selection-end-line="57" selection-end-column="13" />
               <folding>
                 <element signature="e#0#34#0" expanded="true" />
               </folding>
@@ -127,28 +126,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/createDb.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="184">
-              <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/AvailableTimeModel.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="69">
-              <caret line="3" column="22" lean-forward="true" selection-start-line="3" selection-start-column="22" selection-end-line="3" selection-end-column="22" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/FacilitiesModel.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="365">
-              <caret line="60" column="13" lean-forward="true" selection-start-line="60" selection-start-column="13" selection-end-line="60" selection-end-column="13" />
+            <state relative-caret-position="1310">
+              <caret line="61" column="52" selection-start-line="61" selection-start-column="52" selection-end-line="61" selection-end-column="52" />
               <folding>
                 <element signature="e#0#34#0" expanded="true" />
                 <marker date="1579702067889" expanded="true" signature="1654:1658" ph="..." />
@@ -160,8 +141,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="59">
-              <caret line="14" column="25" lean-forward="true" selection-start-line="14" selection-start-column="25" selection-end-line="14" selection-end-column="25" />
+            <state relative-caret-position="276">
+              <caret line="14" column="25" selection-start-line="14" selection-start-column="25" selection-end-line="14" selection-end-column="25" />
             </state>
           </provider>
         </entry>
@@ -192,6 +173,32 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/UserModel.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="2438">
+              <caret line="109" column="8" selection-start-line="109" selection-start-column="8" selection-end-line="109" selection-end-column="8" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/PlayingFieldModel.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="53">
+              <caret line="66" column="18" lean-forward="true" selection-start-line="66" selection-start-column="18" selection-end-line="66" selection-end-column="18" />
+              <folding>
+                <element signature="e#0#34#0" expanded="true" />
+                <marker date="1580123465077" expanded="true" signature="2530:3093" ph="..." />
+                <marker date="1580123465077" expanded="true" signature="3123:3132" ph="..." />
+                <marker date="1580123465077" expanded="true" signature="5977:6620" ph="..." />
+                <marker date="1580123465077" expanded="true" signature="7274:7528" ph="..." />
+                <marker date="1580123465077" expanded="true" signature="8452:8753" ph="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/AddressModel.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="2461">
@@ -204,9 +211,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>boo</find>
-      <find>query</find>
-      <find>date</find>
       <find>dateti</find>
       <find>database.db</find>
       <find>SQLALCHEMY_DATABASE_URI</find>
@@ -218,7 +222,6 @@
       <find>PATCH</find>
       <find>search</find>
       <find>save</find>
-      <find>playingField</find>
       <find>offs</find>
       <find>/users</find>
       <find>/playingField</find>
@@ -230,6 +233,14 @@
       <find>insert</find>
       <find>connect</find>
       <find>create_engine</find>
+      <find>lastAdded</find>
+      <find>playingField</find>
+      <find>getAvailableTime</find>
+      <find>json</find>
+      <find>addOrUpdateAvailableTime</find>
+      <find>index</find>
+      <find>order</find>
+      <find>json.du</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -247,22 +258,22 @@
         <option value="$PROJECT_DIR$/ImageModel.py" />
         <option value="$PROJECT_DIR$/UserModel.py" />
         <option value="$PROJECT_DIR$/AddressModel.py" />
-        <option value="$PROJECT_DIR$/AvailableTimeModel.py" />
         <option value="$PROJECT_DIR$/appUtil.py" />
-        <option value="$PROJECT_DIR$/PlayingFieldModel.py" />
         <option value="$PROJECT_DIR$/AvailableSlotsModel.py" />
         <option value="$PROJECT_DIR$/createDb.py" />
-        <option value="$PROJECT_DIR$/app.py" />
         <option value="$PROJECT_DIR$/settings.py" />
         <option value="$PROJECT_DIR$/FacilitiesModel.py" />
+        <option value="$PROJECT_DIR$/AvailableTimeModel.py" />
+        <option value="$PROJECT_DIR$/app.py" />
+        <option value="$PROJECT_DIR$/PlayingFieldModel.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-1961" />
-    <option name="y" value="62" />
-    <option name="width" value="1552" />
-    <option name="height" value="840" />
+    <option name="x" value="-1466" />
+    <option name="y" value="66" />
+    <option name="width" value="1242" />
+    <option name="height" value="672" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="1" id="Add" />
@@ -288,29 +299,7 @@
             <path>
               <item name="backend" type="b2602c69:ProjectViewProjectNode" />
               <item name="backend" type="462c0819:PsiDirectoryNode" />
-              <item name="appUtil.py" type="8704e2dd:PyFileNode" />
-            </path>
-            <path>
-              <item name="backend" type="b2602c69:ProjectViewProjectNode" />
-              <item name="backend" type="462c0819:PsiDirectoryNode" />
-              <item name="AvailableSlotsModel.py" type="8704e2dd:PyFileNode" />
-            </path>
-            <path>
-              <item name="backend" type="b2602c69:ProjectViewProjectNode" />
-              <item name="backend" type="462c0819:PsiDirectoryNode" />
-              <item name="AvailableSlotsModel.py" type="8704e2dd:PyFileNode" />
-              <item name="AvailableSlots" type="dd8bbb05:PyElementNode" />
-            </path>
-            <path>
-              <item name="backend" type="b2602c69:ProjectViewProjectNode" />
-              <item name="backend" type="462c0819:PsiDirectoryNode" />
               <item name="AvailableTimeModel.py" type="8704e2dd:PyFileNode" />
-            </path>
-            <path>
-              <item name="backend" type="b2602c69:ProjectViewProjectNode" />
-              <item name="backend" type="462c0819:PsiDirectoryNode" />
-              <item name="AvailableTimeModel.py" type="8704e2dd:PyFileNode" />
-              <item name="AvailableTime" type="dd8bbb05:PyElementNode" />
             </path>
             <path>
               <item name="backend" type="b2602c69:ProjectViewProjectNode" />
@@ -320,155 +309,13 @@
             <path>
               <item name="backend" type="b2602c69:ProjectViewProjectNode" />
               <item name="backend" type="462c0819:PsiDirectoryNode" />
-              <item name="FacilitiesModel.py" type="8704e2dd:PyFileNode" />
-              <item name="Facility" type="dd8bbb05:PyElementNode" />
+              <item name="PlayingFieldModel.py" type="8704e2dd:PyFileNode" />
             </path>
             <path>
               <item name="backend" type="b2602c69:ProjectViewProjectNode" />
               <item name="backend" type="462c0819:PsiDirectoryNode" />
-              <item name="ImageModel.py" type="8704e2dd:PyFileNode" />
-            </path>
-            <path>
-              <item name="backend" type="b2602c69:ProjectViewProjectNode" />
-              <item name="backend" type="462c0819:PsiDirectoryNode" />
-              <item name="ImageModel.py" type="8704e2dd:PyFileNode" />
-              <item name="Image" type="dd8bbb05:PyElementNode" />
-            </path>
-            <path>
-              <item name="backend" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-            </path>
-            <path>
-              <item name="backend" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="&lt; Python 3.7 &gt;" type="70bed36:NamedLibraryElementNode" />
-            </path>
-            <path>
-              <item name="backend" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="&lt; Python 3.7 &gt;" type="70bed36:NamedLibraryElementNode" />
-              <item name="Python37-32" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="backend" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="&lt; Python 3.7 &gt;" type="70bed36:NamedLibraryElementNode" />
-              <item name="Python37-32" type="462c0819:PsiDirectoryNode" />
-              <item name="Lib" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="backend" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="&lt; Python 3.7 &gt;" type="70bed36:NamedLibraryElementNode" />
-              <item name="Python37-32" type="462c0819:PsiDirectoryNode" />
-              <item name="Lib" type="462c0819:PsiDirectoryNode" />
-              <item name="json" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="backend" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="&lt; Python 3.7 &gt;" type="70bed36:NamedLibraryElementNode" />
-              <item name="Python37-32" type="462c0819:PsiDirectoryNode" />
-              <item name="Lib" type="462c0819:PsiDirectoryNode" />
-              <item name="json" type="462c0819:PsiDirectoryNode" />
-              <item name="decoder.py" type="8704e2dd:PyFileNode" />
-            </path>
-            <path>
-              <item name="backend" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="&lt; Python 3.7 &gt;" type="70bed36:NamedLibraryElementNode" />
-              <item name="Python37-32" type="462c0819:PsiDirectoryNode" />
-              <item name="Lib" type="462c0819:PsiDirectoryNode" />
-              <item name="json" type="462c0819:PsiDirectoryNode" />
-              <item name="decoder.py" type="8704e2dd:PyFileNode" />
-              <item name="JSONDecoder" type="dd8bbb05:PyElementNode" />
-            </path>
-            <path>
-              <item name="backend" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="&lt; Python 3.7 &gt;" type="70bed36:NamedLibraryElementNode" />
-              <item name="Python37-32" type="462c0819:PsiDirectoryNode" />
-              <item name="Lib" type="462c0819:PsiDirectoryNode" />
-              <item name="site-packages" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="backend" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="&lt; Python 3.7 &gt;" type="70bed36:NamedLibraryElementNode" />
-              <item name="Python37-32" type="462c0819:PsiDirectoryNode" />
-              <item name="Lib" type="462c0819:PsiDirectoryNode" />
-              <item name="site-packages" type="462c0819:PsiDirectoryNode" />
-              <item name="flask" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="backend" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="&lt; Python 3.7 &gt;" type="70bed36:NamedLibraryElementNode" />
-              <item name="Python37-32" type="462c0819:PsiDirectoryNode" />
-              <item name="Lib" type="462c0819:PsiDirectoryNode" />
-              <item name="site-packages" type="462c0819:PsiDirectoryNode" />
-              <item name="flask" type="462c0819:PsiDirectoryNode" />
-              <item name="app.py" type="8704e2dd:PyFileNode" />
-            </path>
-            <path>
-              <item name="backend" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="&lt; Python 3.7 &gt;" type="70bed36:NamedLibraryElementNode" />
-              <item name="Python37-32" type="462c0819:PsiDirectoryNode" />
-              <item name="Lib" type="462c0819:PsiDirectoryNode" />
-              <item name="site-packages" type="462c0819:PsiDirectoryNode" />
-              <item name="flask" type="462c0819:PsiDirectoryNode" />
-              <item name="app.py" type="8704e2dd:PyFileNode" />
-              <item name="Flask" type="dd8bbb05:PyElementNode" />
-            </path>
-            <path>
-              <item name="backend" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="&lt; Python 3.7 &gt;" type="70bed36:NamedLibraryElementNode" />
-              <item name="Python37-32" type="462c0819:PsiDirectoryNode" />
-              <item name="Lib" type="462c0819:PsiDirectoryNode" />
-              <item name="site-packages" type="462c0819:PsiDirectoryNode" />
-              <item name="flask_cors" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="backend" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="&lt; Python 3.7 &gt;" type="70bed36:NamedLibraryElementNode" />
-              <item name="Python37-32" type="462c0819:PsiDirectoryNode" />
-              <item name="Lib" type="462c0819:PsiDirectoryNode" />
-              <item name="site-packages" type="462c0819:PsiDirectoryNode" />
-              <item name="flask_cors" type="462c0819:PsiDirectoryNode" />
-              <item name="decorator.py" type="8704e2dd:PyFileNode" />
-            </path>
-            <path>
-              <item name="backend" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="&lt; Python 3.7 &gt;" type="70bed36:NamedLibraryElementNode" />
-              <item name="Python37-32" type="462c0819:PsiDirectoryNode" />
-              <item name="Lib" type="462c0819:PsiDirectoryNode" />
-              <item name="site-packages" type="462c0819:PsiDirectoryNode" />
-              <item name="flask_sqlalchemy" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="backend" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="&lt; Python 3.7 &gt;" type="70bed36:NamedLibraryElementNode" />
-              <item name="Python37-32" type="462c0819:PsiDirectoryNode" />
-              <item name="Lib" type="462c0819:PsiDirectoryNode" />
-              <item name="site-packages" type="462c0819:PsiDirectoryNode" />
-              <item name="flask_sqlalchemy" type="462c0819:PsiDirectoryNode" />
-              <item name="__init__.py" type="8704e2dd:PyFileNode" />
-            </path>
-            <path>
-              <item name="backend" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="&lt; Python 3.7 &gt;" type="70bed36:NamedLibraryElementNode" />
-              <item name="Python37-32" type="462c0819:PsiDirectoryNode" />
-              <item name="Lib" type="462c0819:PsiDirectoryNode" />
-              <item name="site-packages" type="462c0819:PsiDirectoryNode" />
-              <item name="flask_sqlalchemy" type="462c0819:PsiDirectoryNode" />
-              <item name="__init__.py" type="8704e2dd:PyFileNode" />
-              <item name="_QueryProperty" type="dd8bbb05:PyElementNode" />
+              <item name="PlayingFieldModel.py" type="8704e2dd:PyFileNode" />
+              <item name="PlayingField" type="dd8bbb05:PyElementNode" />
             </path>
           </expand>
           <select />
@@ -732,7 +579,14 @@
       <option name="project" value="LOCAL" />
       <updated>1579704579061</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Added Facilities">
+      <created>1579704750005</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1579704750005</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TodoView">
@@ -748,13 +602,13 @@
     <frame x="-1928" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.13013698" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.16280295" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3298193" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.32576618" />
-      <window_info active="true" anchor="bottom" id="Debug" order="3" sideWeight="0.65911484" visible="true" weight="0.30987513" />
+      <window_info active="true" anchor="bottom" id="Debug" order="3" sideWeight="0.65911484" visible="true" weight="0.307605" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32831326" />
@@ -798,6 +652,11 @@
   <component name="debuggerHistoryManager">
     <expressions id="evaluateCodeFragment">
       <expression>
+        <expression-string>PlayingField.query.count()</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
+      </expression>
+      <expression>
         <expression-string>json.dumps([{facility.facility} for facility in facilities])</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
@@ -835,11 +694,6 @@ db.session.commit()</expression-string>
       </expression>
       <expression>
         <expression-string>[{&quot;type&quot;: playingFieldType} for playingFieldType in playingField]</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>json.dumps([AvailableSlots.json(availableSlot) for availableSlot in availableSlots])</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
       </expression>
@@ -952,13 +806,6 @@ db.session.commit()</expression-string>
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37-32/Lib/selectors.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="406">
-          <caret line="314" selection-start-line="314" selection-end-line="314" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../frontend/src/App.js" />
     <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37-32/Lib/smtplib.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -1015,13 +862,6 @@ db.session.commit()</expression-string>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/UserModel.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2438">
-          <caret line="109" column="8" selection-start-line="109" selection-start-column="8" selection-end-line="109" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ModelUtil.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="92">
@@ -1036,17 +876,71 @@ db.session.commit()</expression-string>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/PlayingFieldModel.py">
+    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37-32/Lib/json/decoder.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1909">
-          <caret line="88" column="23" selection-start-line="88" selection-start-column="23" selection-end-line="88" selection-end-column="23" />
+        <state relative-caret-position="381">
+          <caret line="354" selection-start-line="354" selection-end-line="354" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37-32/Lib/site-packages/flask_sqlalchemy/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="338">
+          <caret line="518" selection-start-line="518" selection-end-line="518" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37-32/Lib/site-packages/flask/app.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="23">
+          <caret line="1934" selection-start-line="1934" selection-end-line="1934" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/database.db">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="69">
+          <caret line="3" column="1" lean-forward="true" selection-start-line="3" selection-start-column="1" selection-end-line="3" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AvailableSlotsModel.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1311">
+          <caret line="60" column="59" selection-start-line="60" selection-start-column="59" selection-end-line="60" selection-end-column="59" />
           <folding>
             <element signature="e#0#34#0" expanded="true" />
-            <marker date="1579604809248" expanded="true" signature="2402:2965" ph="..." />
-            <marker date="1579604809248" expanded="true" signature="2995:3004" ph="..." />
-            <marker date="1579604809248" expanded="true" signature="5849:6492" ph="..." />
-            <marker date="1579604809248" expanded="true" signature="7146:7400" ph="..." />
-            <marker date="1579604809248" expanded="true" signature="8324:8625" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/createDb.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="184">
+          <caret line="8" selection-start-line="8" selection-end-line="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37-32/Lib/selectors.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="406">
+          <caret line="314" selection-start-line="314" selection-end-line="314" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="276">
+          <caret line="14" column="25" selection-start-line="14" selection-start-column="25" selection-end-line="14" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/appUtil.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="253">
+          <caret line="21" column="47" selection-start-line="21" selection-start-column="47" selection-end-line="21" selection-end-column="47" />
+          <folding>
+            <marker date="1579456812633" expanded="true" signature="3419:3424" ph="..." />
           </folding>
         </state>
       </provider>
@@ -1062,6 +956,13 @@ db.session.commit()</expression-string>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/UserModel.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2438">
+          <caret line="109" column="8" selection-start-line="109" selection-start-column="8" selection-end-line="109" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/AddressModel.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2461">
@@ -1069,93 +970,50 @@ db.session.commit()</expression-string>
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37-32/Lib/json/decoder.py">
+    <entry file="file://$PROJECT_DIR$/FacilitiesModel.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="381">
-          <caret line="354" selection-start-line="354" selection-end-line="354" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/AvailableSlotsModel.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="281">
-          <caret line="60" column="59" lean-forward="true" selection-start-line="60" selection-start-column="59" selection-end-line="60" selection-end-column="59" />
+        <state relative-caret-position="1310">
+          <caret line="61" column="52" selection-start-line="61" selection-start-column="52" selection-end-line="61" selection-end-column="52" />
           <folding>
             <element signature="e#0#34#0" expanded="true" />
+            <marker date="1579702067889" expanded="true" signature="1654:1658" ph="..." />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37-32/Lib/site-packages/flask_sqlalchemy/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="338">
-          <caret line="518" selection-start-line="518" selection-end-line="518" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/createDb.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="184">
-          <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37-32/Lib/site-packages/flask/app.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="23">
-          <caret line="1934" selection-start-line="1934" selection-end-line="1934" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/AvailableTimeModel.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="69">
-          <caret line="3" column="22" lean-forward="true" selection-start-line="3" selection-start-column="22" selection-end-line="3" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/appUtil.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="253">
-          <caret line="21" column="47" selection-start-line="21" selection-start-column="47" selection-end-line="21" selection-end-column="47" />
+        <state relative-caret-position="339">
+          <caret line="57" column="13" lean-forward="true" selection-start-line="57" selection-start-column="13" selection-end-line="57" selection-end-column="13" />
           <folding>
-            <marker date="1579456812633" expanded="true" signature="3419:3424" ph="..." />
+            <element signature="e#0#34#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/database.db">
+    <entry file="file://$PROJECT_DIR$/PlayingFieldModel.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="69">
-          <caret line="3" column="1" lean-forward="true" selection-start-line="3" selection-start-column="1" selection-end-line="3" selection-end-column="1" />
+        <state relative-caret-position="53">
+          <caret line="66" column="18" lean-forward="true" selection-start-line="66" selection-start-column="18" selection-end-line="66" selection-end-column="18" />
+          <folding>
+            <element signature="e#0#34#0" expanded="true" />
+            <marker date="1580123465077" expanded="true" signature="2530:3093" ph="..." />
+            <marker date="1580123465077" expanded="true" signature="3123:3132" ph="..." />
+            <marker date="1580123465077" expanded="true" signature="5977:6620" ph="..." />
+            <marker date="1580123465077" expanded="true" signature="7274:7528" ph="..." />
+            <marker date="1580123465077" expanded="true" signature="8452:8753" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-246">
-          <caret line="286" column="28" lean-forward="true" selection-start-line="286" selection-start-column="28" selection-end-line="286" selection-end-column="28" />
+        <state relative-caret-position="423">
+          <caret line="61" column="9" lean-forward="true" selection-start-line="61" selection-start-column="9" selection-end-line="61" selection-end-column="9" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
-            <marker date="1579697134781" expanded="true" signature="1428:1525" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="59">
-          <caret line="14" column="25" lean-forward="true" selection-start-line="14" selection-start-column="25" selection-end-line="14" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/FacilitiesModel.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="365">
-          <caret line="60" column="13" lean-forward="true" selection-start-line="60" selection-start-column="13" selection-end-line="60" selection-end-column="13" />
-          <folding>
-            <element signature="e#0#34#0" expanded="true" />
-            <marker date="1579702067889" expanded="true" signature="1654:1658" ph="..." />
+            <marker date="1580123295920" expanded="true" signature="1428:1649" ph="..." />
+            <marker date="1580123295920" expanded="true" signature="1602:1649" ph="..." />
           </folding>
         </state>
       </provider>

@@ -10,9 +10,9 @@ class AvailableTime(db.Model):
     __tablename__ = 'AvailableTime'
 
     id = db.Column(db.String, primary_key=True, unique=True)
-    playingFieldId = db.Column(db.String, nullable=False, unique=True)
+    playingFieldId = db.Column(db.String, nullable=False)
     dayOfWeekFrom = db.Column(db.String(12), nullable=False)
-    dayOfWeekTo = db.Column(db.String(12), nullable=False)
+    dayOfWeekTo = db.Column(db.String(12))
     hourOfOpening = db.Column(db.String(12), nullable=False)
     hourOfClosing = db.Column(db.String(12), nullable=False)
 
@@ -46,33 +46,31 @@ class AvailableTime(db.Model):
             return True
 
     def createAvailableTime(_playingFieldId, _dayOfWeekFrom, _dayOfWeekTo, _hourOfOpening, _hourOfClosing):
-        if AvailableTime.availableTimeExist(_playingFieldId):
-            return "The playing field with id: " + _playingFieldId + " already has an availableTime.", 409
+        _id = generateUUID()
+        if AvailableTime.query.filter_by(id=_id).first() is None:
+            newAvailableTime = AvailableTime(
+                id=_id,
+                playingFieldId=_playingFieldId,
+                dayOfWeekFrom=_dayOfWeekFrom,
+                dayOfWeekTo=_dayOfWeekTo,
+                hourOfOpening=_hourOfOpening,
+                hourOfClosing=_hourOfClosing
+            )
+            db.session.add(newAvailableTime)
+            db.session.commit()
+            return True
         else:
-            _id = generateUUID()
-            if AvailableTime.query.filter_by(id=_id).first() is None:
-                newAvailableTime = AvailableTime(
-                    id=_id,
-                    playingFieldId=_playingFieldId,
-                    dayOfWeekFrom=_dayOfWeekFrom,
-                    dayOfWeekTo=_dayOfWeekTo,
-                    hourOfOpening=_hourOfOpening,
-                    hourOfClosing=_hourOfClosing
-                )
-                db.session.add(newAvailableTime)
-                db.session.commit()
-                return "Available Time created with success.", 200
-            else:
-                AvailableTime.createAvailableTime(_playingFieldId, _dayOfWeekFrom, _dayOfWeekTo, _hourOfOpening,
-                                                  _hourOfClosing)
+            AvailableTime.createAvailableTime(_playingFieldId, _dayOfWeekFrom, _dayOfWeekTo, _hourOfOpening,
+                                              _hourOfClosing)
 
     def getAvailableTimeByPlayingFieldId(_playingFieldId):
-        availableTime = AvailableTime.query.filter_by(playingFieldId=_playingFieldId).first()
+        availableTimes = AvailableTime.query.filter_by(playingFieldId=_playingFieldId).all()
 
-        if availableTime is None:
+        if availableTimes is None:
             return "No available time found for the playingField with id: " + _playingFieldId, 404
         else:
-            return AvailableTime.json(availableTime), 200
+            return json.dumps([AvailableTime.json(availableTime) for availableTime in availableTimes]), 200
+
 
     def updateAvailableTimeByPlayingFieldId(_playingFieldId, _dayOfWeekFrom, _dayOfWeekTo, _hourOfOpening,
                                             _hourOfClosing):
@@ -89,11 +87,11 @@ class AvailableTime(db.Model):
         else:
             return "Available time with id: " + _playingFieldId + " does not exist."
 
-    def deleteAvailableTime(_id):
-        availableTime = AvailableTime.query.filter_by(id=_id).first()
+    def deleteAvailableTime(_playingFieldId):
+        availableTime = AvailableTime.query.filter_by(playingFieldId=_playingFieldId).all()
         if availableTime is None:
             return False, 404
         else:
-            AvailableTime.query.filter_by(id=_id).delete()
+            AvailableTime.query.filter_by(playingFieldId=_playingFieldId).delete()
             db.session.commit()
             return True, 200

@@ -48,6 +48,11 @@ def getPlayingFields():
     return PlayingField.getPlayingFieldsByUserId(id), 200
 
 
+@app.route('/playingFieldCount', methods=['GET'])
+def getPlayingFieldCount():
+    return PlayingField.playingFieldCount()
+
+
 @app.route('/playingField', methods=['GET'])
 # @token_required
 def getPlayingField():
@@ -266,20 +271,31 @@ def getAvailableTime():
 
 
 @app.route('/addOrUpdateAvailableTime', methods=['POST'])
+@token_required
 def addOrUpdateAvailableTime():
     data = json.loads(request.data)
     playingFieldId = data["playingFieldId"]
-    dayOfWeekFrom = data["dayOfWeekFrom"]
-    dayOfWeekTo = data["dayOfWeekTo"]
-    hourOfOpening = data["hourOfOpening"]
-    hourOfClosing = data["hourOfClosing"]
+    availableTimes = data["availableTimes"]
 
-    if AvailableTime.availableTimeExist(playingFieldId):
-        return AvailableTime.updateAvailableTimeByPlayingFieldId(playingFieldId, dayOfWeekFrom, dayOfWeekTo,
-                                                                 hourOfOpening, hourOfClosing)
+    ok = True
+
+    AvailableTime.deleteAvailableTime(playingFieldId)
+    for availableTime in availableTimes:
+        dayOfWeekFrom = availableTime["dayOfWeekFrom"]
+        if "dayOfWeekTo" in availableTime:
+            dayOfWeekTo = availableTime["dayOfWeekTo"]
+        else:
+            dayOfWeekTo = None
+        hourOfOpening = availableTime["hourOfOpening"]
+        hourOfClosing = availableTime["hourOfClosing"]
+        result = AvailableTime.createAvailableTime(playingFieldId, dayOfWeekFrom, dayOfWeekTo, hourOfOpening,
+                                                   hourOfClosing)
+        if not result:
+            ok = False
+    if ok:
+        return "Available Times created with success", 400
     else:
-        return AvailableTime.createAvailableTime(playingFieldId, dayOfWeekFrom, dayOfWeekTo, hourOfOpening,
-                                                 hourOfClosing)
+        return "Something goes wrong", 409
 
 
 @app.route('/addOrUpdateFacilities', methods=['POST'])
