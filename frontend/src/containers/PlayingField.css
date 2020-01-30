@@ -21,11 +21,25 @@
     box-shadow: 0 0 28px 3px rgba(0, 0, 0, 0.37);
 }
 
+@media screen and (min-width: 1400px) {
+    .playingFieldContainer {
+        width: 1400px !important;
+    }
+}
+.deleteModalButtonClass{
+    margin: 0.5em auto 0.5em auto;
+    text-align: center;
+}
+
+.deleteModalTextClass{
+    margin-top: 2em;
+}
+
 .closeButtonModal {
     float: right;
 }
 
-.imageBox{
+.imageBox {
     border-radius: 5px;
     margin-bottom: 1em;
     -webkit-box-shadow: 0px 0px 28px 3px rgba(0, 0, 0, 0.37);
@@ -37,7 +51,7 @@
     color: white !important;
 }
 
-.leftSideContentClass{
+.leftSideContentClass {
     font-size: 0.9em;
 }
 
@@ -93,6 +107,6 @@
     background: rgba(3, 3, 7, 0.6) !important;
 }
 
-.facilityRemoveButtonClass{
+.facilityRemoveButtonClass {
     margin: 0 0.5em 0.5em 0.5em !important;
 }

@@ -29,7 +29,7 @@ export default function Register(props) {
     const [type, setType] = useState("password");
 
     function validateForm() {
-        if( usernameError===true || passwordError===true || lastNameError===true || firstNameError===true || phoneNumberError===true || emailError===true )
+        if (usernameError === true || passwordError === true || lastNameError === true || firstNameError === true || phoneNumberError === true || emailError === true)
             return false;
         return username.length > 0 && password.length > 0 && firstName.length > 0 && lastName.length > 0 && email.length > 0 && phoneNumber.length > 0;
     }
@@ -46,7 +46,9 @@ export default function Register(props) {
     }
 
     function validateEmail() {
-        if (email.length < 6)
+        const expression = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        let valid = expression.test(String(email).toLowerCase());
+        if (!valid)
             setEmailError(true);
         else
             setEmailError(false);
@@ -101,7 +103,6 @@ export default function Register(props) {
     }
 
 
-
     function selectLogo(type) {
         if (type === "text")
             return <VisibilityOff id="logoId" fill="gray"/>;
@@ -146,11 +147,11 @@ export default function Register(props) {
 
     return (
         <Container>
-            <form onSubmit={handleSubmit} style={{"margin-top": "3em"}}>
+            <form onSubmit={handleSubmit} style={{"marginTop": "3em"}}>
                 <div className="registerContainer row">
-                    <Col md={6} style={{"margin-bottom": "2em"}}>
+                    <Col md={6} style={{"marginBottom": "2em"}}>
                         <TextField className="textFieldClass"
-                                   autofocus
+                                   autoFocus
                                    id="outlined-username" label="Username"
                                    error={usernameError}
                                    onBlur={validateUsername}
@@ -164,11 +165,11 @@ export default function Register(props) {
                                    onBlur={validateEmail}
                                    onFocus={focusEmail}
                                    helperText={emailError ? "Email invalid." : false}
-                                   id="outlined-username" label="Email"
+                                   id="outlined-email" label="Email"
                                    variant="outlined" value={email}
                                    onChange={e => setEmail(e.target.value)}/>
                         <TextField className="textFieldClass"
-                                   id="outlined-username" label="Password"
+                                   id="outlined-password" label="Password"
                                    variant="outlined" value={password}
                                    type={type}
                                    error={passwordError}
@@ -188,9 +189,9 @@ export default function Register(props) {
                                    onChange={e => setPassword(e.target.value)}
                         />
                     </Col>
-                    <Col md={6} style={{"margin-bottom": "2em"}}>
+                    <Col md={6} style={{"marginBottom": "2em"}}>
                         <TextField className="textFieldClass"
-                                   id="outlined-username" label="First Name"
+                                   id="outlined-first-name" label="First Name"
                                    error={firstNameError}
                                    onBlur={validateFirstName}
                                    onFocus={focusFirstName}
@@ -199,7 +200,7 @@ export default function Register(props) {
                                    onChange={e => setFirstName(e.target.value)}
                         />
                         <TextField className="textFieldClass"
-                                   id="outlined-username" label="Last Name"
+                                   id="outlined-last-name" label="Last Name"
                                    error={lastNameError}
                                    onBlur={validateLastName}
                                    onFocus={focusLastName}
@@ -208,7 +209,7 @@ export default function Register(props) {
                                    onChange={e => setLastName(e.target.value)}
                         />
                         <TextField className="textFieldClass"
-                                   id="outlined-username" label="Phone Number"
+                                   id="outlined-phone-number" label="Phone Number"
                                    error={phoneNumberError}
                                    onBlur={validatePhoneNumber}
                                    onFocus={focusPhoneNumber}
@@ -218,7 +219,7 @@ export default function Register(props) {
                         />
                     </Col>
                 </div>
-                <div className="col align-self-center" style={{"text-align": " center"}}>
+                <div className="col align-self-center" style={{"textAlign": "center"}}>
                     <div style={{"margin": "auto", "display": "table"}}>
                         {emailAlreadyUsed &&
                         < div className="form-group has-danger">

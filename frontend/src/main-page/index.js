@@ -35,7 +35,7 @@ function App(props) {
                                     <Link className="nav-link" to="/addPlayingField">Add Field</Link>
                                 </li>
                                 <li className="nav-item">
-                                    <Link className="nav-link" to="/myPlayingFields">My playing Fields</Link>
+                                    <Link className="nav-link" to="/myPlayingFields">My Playing Fields</Link>
                                 </li>
                                 <li className="nav-item">
                                     <Link className="nav-link" to="/myProfile">My Profile</Link>

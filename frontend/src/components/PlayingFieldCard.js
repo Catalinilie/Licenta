@@ -12,6 +12,7 @@ import {Link} from "react-router-dom";
 import {ReactComponent as Logo} from '../icons/6dd9e91b5f916e049aea8d4a381c14f8.svg';
 import Modal from "react-modal";
 import UpdatePlayingField from "./UpdatePlayingField";
+import Col from "react-bootstrap/lib/Col";
 
 
 const customStyles = {
@@ -27,6 +28,19 @@ const customStyles = {
     }
 };
 
+const deleteModalStyle = {
+    content: {
+        height: "12em",
+        width: "30em",
+        top: '50%',
+        left: '50%',
+        right: '50%',
+        bottom: '50%',
+        marginRight: '-50%',
+        transform: 'translate(-50%, -50%)'
+    }
+};
+
 class PlayingFieldCard extends Component {
 
     constructor(props) {
@@ -35,6 +49,7 @@ class PlayingFieldCard extends Component {
             imageURL: "",
             url: "",
             modalIsOpen: false,
+            deleteModal: false,
             search: sessionStorage.getItem("search"),
             classes: makeStyles({
                 card: {
@@ -58,8 +73,13 @@ class PlayingFieldCard extends Component {
         this.subtitle.style.color = '#f00';
     }
 
+    openDeleteModal() {
+        this.setState({deleteModal: true});
+    }
+
     closeModal() {
         this.setState({modalIsOpen: false});
+        this.setState({deleteModal: false});
     }
 
     async componentDidMount() {
@@ -113,7 +133,7 @@ class PlayingFieldCard extends Component {
                     <Typography className="addressCard" variant="body2" color="textSecondary" component="div">
                             <span className="addressCardSpanClass">
                                 {this.props.field.address.city}, str. {this.props.field.address.street}&nbsp;
-                                {this.props.field.address.streetNr}&nbsp;
+                                nr. {this.props.field.address.streetNr}&nbsp;
                             </span>
                         <span>
                             <Logo id="logoIdCard" fill="gray"/>
@@ -124,10 +144,46 @@ class PlayingFieldCard extends Component {
                     {this.state.search === "false" &&
                     <CardActions className="cardActionArea">
                         <button className="btn btn-primary playingFieldButtonCard" color="primary"
-                                onClick={e => this.deletePlayingField(this.props.field.id, e)}
+                                onClick={this.openDeleteModal.bind(this)}
                         >
                             Delete
                         </button>
+                        <Modal
+                            isOpen={this.state.deleteModal}
+                            onRequestClose={this.closeModal}
+                            style={deleteModalStyle}
+                            contentLabel="Delete"
+                        >
+
+                            <Button className="btn btn-primary closeButtonModal"
+                                    onClick={this.closeModal}>Close
+                            </Button>
+                            <div>
+                                Delete Playing Field
+                            </div>
+                            <div className="deleteModalTextClass">
+                                Are you sure that you want to delete this Playing Field?
+                            </div>
+                            <div className="container-fluid">
+                                <div className="row">
+                                    <Col md={6} className="deleteModalButtonClass">
+                                        <button className="btn btn-primary deleteModalButtonClass" color="primary"
+                                                onClick={e => this.deletePlayingField(this.props.field.id, e)}
+                                        >
+                                            Yes
+                                        </button>
+                                    </Col>
+                                    <Col md={6} className="deleteModalButtonClass">
+                                        <button className="btn btn-primary deleteModalButtonClass" color="primary"
+                                                onClick={this.closeModal}
+                                        >
+                                            No
+                                        </button>
+                                    </Col>
+                                </div>
+                            </div>
+
+                        </Modal>
                         <button className="btn btn-primary playingFieldButtonUpdate" onClick={this.openModal}>Update</button>
                         <Modal
                             isOpen={this.state.modalIsOpen}

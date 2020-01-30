@@ -22,8 +22,8 @@
 .cardActionArea {
     width: 100%;
     margin-top: 1em !important;
-    margin-bottom: 0.5em !important;
     padding-top: 0 !important;
+    padding-bottom: 1em !important;
 }
 
 .addressCard {

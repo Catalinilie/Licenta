@@ -192,7 +192,6 @@ class AvailableTime extends Component {
                                             onClick={() => this.delete(item)}>X</button>
                             </span>)
                             || (
-                                (item.dayOfWeekTo === null) &&
                                 <span key={item.id}
                                       className="badge badge-primary badge-pill facilityRemoveButtonClass">{item.dayOfWeekFrom} : {item.hourOfOpening}-{item.hourOfClosing}
                                     <button className="btn btn-sm facilityRemoveButtonClassx"

@@ -10,6 +10,11 @@
     }
 }
 
+.resetPasswordContainerText{
+    width: 18em;
+    margin: 2em 0 0 0 !important;
+}
+
 .LoginButton {
     font-weight: bold;
     text-effect: emboss;
@@ -23,23 +28,65 @@
     borderColor: '#000';
     paddingBottom: 10;
 }
+
 .inputStyle {
     flex: 1;
 }
 
-#logoId{
+#logoId {
     height: 2rem;
     width: 2rem;
     cursor: pointer;
 }
 
-.loginContainer{
-    padding: 1rem;
+.loginContainer {
+    padding: 1em 1em 3em 1em;
     margin: 1rem !important;
     text-align: left !important;
     height: fit-content;
     border-radius: 0.2em;
     background: rgba(255, 255, 255, 0.3);
-    -webkit-box-shadow: 0px 0px 28px 3px rgba(0,0,0,0.37);
-    box-shadow: 0 0 28px 3px rgba(0,0,0,0.37);
+    -webkit-box-shadow: 0px 0px 28px 3px rgba(0, 0, 0, 0.37);
+    box-shadow: 0 0 28px 3px rgba(0, 0, 0, 0.37);
+}
+
+.forgotPasswordButtonClass {
+    font-size: 0.7em !important;
+    margin: 1em;
+    color: rgb(42, 87, 255) !important;
+    font-style: italic;
+    font-family: "Comic Sans MS", cursive, sans-serif;
+    float: right;
+    text-transform: none !important;
+    outline: none !important;
+}
+
+.textFieldClass {
+    width: 100% !important;
+
+    margin-top: 1rem !important;
+    margin-bottom: 1rem !important;
+}
+
+.resetPasswordTextClass{
+    position: relative;
+    margin: auto;
+    width: 10em;
+    margin-top: 1em!important;
+}
+.resetPasswordContainerClass{
+    text-align: center!important;
+}
+
+.resetPasswordContainer{
+    margin-top: 2em !important;
+}
+.closeButtonModal {
+    color: white !important;
+    float: right;
+}
+
+.resetPasswordModalButtonClass{
+    color: white !important;
+    margin: 2em auto auto auto !important;
 }

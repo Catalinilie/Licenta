@@ -51,6 +51,19 @@ const addFacilitiesModalStyle = {
     }
 };
 
+const deleteModalStyle = {
+    content: {
+        height: "12em",
+        width: "30em",
+        top: '50%',
+        left: '50%',
+        right: '50%',
+        bottom: '50%',
+        marginRight: '-50%',
+        transform: 'translate(-50%, -50%)'
+    }
+};
+
 Modal.setAppElement(document.getElementById('root'));
 
 class PlayingField extends Component {
@@ -64,6 +77,7 @@ class PlayingField extends Component {
             modalUpdatePlayingField: false,
             modalAddAvailableTime: false,
             modalAddFacilities: false,
+            deleteModal: false,
             playingField: "",
             classes: makeStyles({
                 card: {
@@ -90,6 +104,10 @@ class PlayingField extends Component {
         this.setState({modalAddFacilities: true});
     }
 
+    openDeleteModal() {
+        this.setState({deleteModal: true});
+    }
+
     afterOpenModal() {
         this.subtitle.style.color = '#f00';
     }
@@ -98,6 +116,7 @@ class PlayingField extends Component {
         this.setState({modalUpdatePlayingField: false});
         this.setState({modalAddAvailableTime: false});
         this.setState({modalAddFacilities: false});
+        this.setState({deleteModal: false});
     }
 
     async deletePlayingField(id, e) {
@@ -136,7 +155,7 @@ class PlayingField extends Component {
     render() {
         return (
             <>  {this.state.playingField &&
-            <div className="container-fluid">
+            <div className="container-fluid playingFieldContainer">
                 <div className="row" style={{"margin": "2rem 0 2rem 0"}}>
                     <Col md={9}>
                         <div className="jumbotron titleContainerClass">
@@ -166,10 +185,47 @@ class PlayingField extends Component {
 
                         <div className="playingFieldButtons">
                             <button className="btn btn-primary playingFieldButton" color="primary"
-                                    onClick={e => this.deletePlayingField(this.props.match.params.id, e)}
+                                    onClick={this.openDeleteModal.bind(this)}
                             >
                                 Delete
                             </button>
+                            <Modal
+                                isOpen={this.state.deleteModal}
+                                onRequestClose={this.closeModal}
+                                style={deleteModalStyle}
+                                contentLabel="Delete"
+                            >
+
+                                <Button className="btn btn-primary closeButtonModal"
+                                        onClick={this.closeModal}>Close
+                                </Button>
+                                <div>
+                                    Delete Playing Field
+                                </div>
+                                <div className="deleteModalTextClass">
+                                    Are you sure that you want to delete this Playing Field?
+                                </div>
+                                <div className="container-fluid">
+                                    <div className="row">
+                                        <Col md={6} className="deleteModalButtonClass">
+                                            <button className="btn btn-primary deleteModalButtonClass" color="primary"
+                                                    onClick={e => this.deletePlayingField(this.props.match.params.id, e)}
+                                            >
+                                                Yes
+                                            </button>
+                                        </Col>
+                                        <Col md={6} className="deleteModalButtonClass">
+                                            <button className="btn btn-primary deleteModalButtonClass" color="primary"
+                                                    onClick={this.closeModal}
+                                            >
+                                                No
+                                            </button>
+                                        </Col>
+                                    </div>
+                                </div>
+
+                            </Modal>
+
 
                             <button className="btn btn-primary playingFieldButton"
                                     onClick={this.openUpdateModal.bind(this)}>Update

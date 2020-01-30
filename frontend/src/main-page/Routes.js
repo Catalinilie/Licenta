@@ -10,6 +10,7 @@ import Search from "../containers/Search";
 import AppliedRoute from "../components/AppliedRoute";
 import MyProfile from "../containers/MyProfile";
 import PlayingField from "../containers/PlayingField";
+import ResetPassword from "../containers/ResetPassword"
 
 export default function Routes({ appProps }) {
     return (
@@ -19,6 +20,7 @@ export default function Routes({ appProps }) {
             <AppliedRoute path="/myProfile" exact component={MyProfile} appProps={appProps} />
             <AppliedRoute path="/home" exact component={Home} appProps={appProps} />
             <AppliedRoute path="/signup" exact component={Register} appProps={appProps} />
+            <AppliedRoute path="/resetPassword/:token/:email" exact component={ResetPassword} appProps={appProps} />
             <AppliedRoute path="/search" exact component={Search} appProps={appProps} />
             <AppliedRoute path="/addPlayingField" exact component={AddPlayingField} appProps={appProps} />
             <AppliedRoute path="/myPlayingFields" exact component={MyPlayingField} appProps={appProps} />

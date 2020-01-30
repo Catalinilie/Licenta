@@ -241,6 +241,7 @@ class UpdatePlayingField extends Component {
                             <Autocomplete
                                 id="autoCompleteField"
                                 options={this.state.options}
+                                option={this.state.country}
                                 getOptionLabel={option => option.label}
                                 onChange={this.onTagsChange}
                                 disabled={(!this.state.updateField)}
