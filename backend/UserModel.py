@@ -117,6 +117,13 @@ class User(db.Model):
         else:
             return user.id
 
+    def getUserIdByEmail(_email):
+        user = User.query.filter_by(email=_email).first()
+        if user is None:
+            return False
+        else:
+            return user.id
+
     def getPhoneNumber(_id):
         user = User.query.filter_by(id=_id).first()
         if user is None:

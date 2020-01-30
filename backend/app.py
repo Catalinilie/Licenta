@@ -1,3 +1,4 @@
+import datetime
 import os
 
 import jwt
@@ -120,18 +121,51 @@ def updatePlayingField():
     return updatePlayingFieldById(id)
 
 
-@app.route('/resetPassword', methods=['POST'])
-def resetPassword():
-    data = json.loads(request.data)
-    mailAddress = data["email"]
+@app.route('/accountExists', methods=['GET'])
+def emailExists():
+    email = request.args.get('email')
+    accountExist = User.emailAlreadyExist(email)
+    if accountExist:
+        return "An account for the given email exist.", 200
+    else:
+        return "No account with the given email exist.", 404
 
-    with app.app_context():
-        msg = Message(subject="Hello",
-                      sender=['playingfieldbooking@gmail.com', 'playingfieldbooking@gmail.com'],
-                      recipients=[mailAddress],
-                      body="The link is:")
-        mail.send(msg)
-        return "Mail sent with success.", 200
+
+@app.route('/resetPassword', methods=['POST', 'PATCH'])
+def resetPassword():
+    if request.method == 'POST':
+        data = json.loads(request.data)
+        mailAddress = data["email"]
+
+        token = str(jwt.encode({'exp': datetime.datetime.utcnow() + datetime.timedelta(days=0, seconds=600)},
+                               app.config['SECRET_KEY'], algorithm='HS256').decode())
+
+        link = "http://localhost:3000/resetPassword/" + token + "/" + mailAddress
+
+        with app.app_context():
+            msg = Message(subject="Reset Password",
+                          sender=['playingfieldbooking@gmail.com', 'playingfieldbooking@gmail.com'],
+                          recipients=[mailAddress],
+                          body="Hello,\n\nSeems that you forgot your password. In order to reset your password please "
+                                  "access the link from bellow.\n\n" + link + "\n\n Have a good day!")
+            mail.send(msg)
+            return "Mail sent with success.", 200
+    else:
+        data = json.loads(request.data)
+        email = data["email"]
+        newPassword = data["newPassword"]
+        tokenValid = True
+        token = request.args.get('token')
+        try:
+            jwt.decode(token, app.config['SECRET_KEY'])
+        except:
+            tokenValid = False
+            return jsonify({'error': "Invalid token, password can't be changed."}), 401
+        if tokenValid:
+            userId = User.getUserIdByEmail(email)
+            updated = User.updatePassword(userId, newPassword)
+            if updated:
+                return "Password updated with success.", 201
 
 
 @app.route('/uploadImage', methods=['POST', 'GET'])
