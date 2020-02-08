@@ -100,7 +100,8 @@ class PlayingFieldCard extends Component {
 
     async deletePlayingField(id, e) {
         try {
-            await axios.delete('http://localhost:4996/deletePlayingField', {params: {playingFieldId: id}})
+            let token = sessionStorage.getItem("token");
+            await axios.delete('http://localhost:4996/deletePlayingField?token=' + token, {params: {playingFieldId: id}})
                 .then(() => window.location.reload());
         } catch (e) {
             if (e.response.status === 404)
@@ -158,7 +159,7 @@ class PlayingFieldCard extends Component {
                             <Button className="btn btn-primary closeButtonModal"
                                     onClick={this.closeModal}>Close
                             </Button>
-                            <div>
+                            <div className="deletePlayingFieldModalTitleClass">
                                 Delete Playing Field
                             </div>
                             <div className="deleteModalTextClass">
