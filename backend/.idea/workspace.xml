@@ -2,10 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e93de24b-1313-4b1f-b438-ca81f5058a39" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserModel.py" beforeDir="false" afterPath="$PROJECT_DIR$/UserModel.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/database.db" beforeDir="false" afterPath="$PROJECT_DIR$/database.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/AvailableTime.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/AvailableTime.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/PlayingFieldCard.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/PlayingFieldCard.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/containers/PlayingField.css" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/containers/PlayingField.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/containers/PlayingField.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/containers/PlayingField.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/containers/Search.css" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/containers/Search.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/containers/Search.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/containers/Search.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/main-page/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/main-page/index.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -45,19 +52,19 @@
     <session id="742410596">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="83" />
+          <entry key="project.closed" value="88" />
           <entry key="project.open.time.0" value="1" />
           <entry key="project.open.time.10" value="5" />
           <entry key="project.open.time.12" value="3" />
           <entry key="project.open.time.14" value="1" />
           <entry key="project.open.time.3" value="4" />
           <entry key="project.open.time.4" value="10" />
-          <entry key="project.open.time.5" value="21" />
-          <entry key="project.open.time.6" value="21" />
+          <entry key="project.open.time.5" value="23" />
+          <entry key="project.open.time.6" value="23" />
           <entry key="project.open.time.7" value="5" />
           <entry key="project.open.time.8" value="6" />
           <entry key="project.open.time.9" value="7" />
-          <entry key="project.opened" value="84" />
+          <entry key="project.opened" value="88" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
@@ -65,15 +72,15 @@
           <entry key="Python Console" value="226" />
           <entry key="dummy" value="46" />
           <entry key="puml" value="5" />
-          <entry key="py" value="28274" />
-          <entry key="txt" value="297" />
+          <entry key="py" value="28282" />
+          <entry key="txt" value="330" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="PLAIN_TEXT" value="343" />
+          <entry key="PLAIN_TEXT" value="376" />
           <entry key="PlantUML file" value="5" />
-          <entry key="Python" value="28500" />
+          <entry key="Python" value="28508" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -86,7 +93,7 @@
           <entry key="p" value="1" />
           <entry key="png" value="5" />
           <entry key="puml" value="1" />
-          <entry key="py" value="129" />
+          <entry key="py" value="130" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
@@ -95,33 +102,33 @@
           <entry key="JavaScript" value="1" />
           <entry key="PLAIN_TEXT" value="38" />
           <entry key="PlantUML file" value="1" />
-          <entry key="Python" value="129" />
+          <entry key="Python" value="130" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="109">
-              <caret line="156" column="25" lean-forward="true" selection-start-line="156" selection-start-column="25" selection-end-line="156" selection-end-column="25" />
+            <state relative-caret-position="179">
+              <caret line="240" column="46" lean-forward="true" selection-start-line="240" selection-start-column="46" selection-end-line="240" selection-end-column="46" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
-                <marker date="1580377472232" expanded="true" signature="1444:1665" ph="..." />
-                <marker date="1580377472232" expanded="true" signature="1618:1665" ph="..." />
-                <marker date="1580377472232" expanded="true" signature="3761:4070" ph="..." />
+                <marker date="1580570579255" expanded="true" signature="1444:1665" ph="..." />
+                <marker date="1580570579255" expanded="true" signature="1618:1665" ph="..." />
+                <marker date="1580570579255" expanded="true" signature="3761:4070" ph="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="230">
-              <caret line="12" column="21" lean-forward="true" selection-start-line="12" selection-start-column="21" selection-end-line="12" selection-end-column="21" />
+            <state relative-caret-position="322">
+              <caret line="16" column="40" selection-start-line="16" selection-start-column="40" selection-end-line="16" selection-end-column="40" />
             </state>
           </provider>
         </entry>
@@ -129,9 +136,10 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/appUtil.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="253">
-              <caret line="21" column="82" selection-start-line="20" selection-start-column="8" selection-end-line="21" selection-end-column="82" />
+            <state relative-caret-position="276">
+              <caret line="22" selection-start-line="22" selection-end-line="22" />
               <folding>
+                <element signature="e#0#11#0" expanded="true" />
                 <marker date="1579456812633" expanded="true" signature="3419:3424" ph="..." />
               </folding>
             </state>
@@ -141,7 +149,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/UserModel.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="181">
+            <state relative-caret-position="3634">
               <caret line="161" column="8" selection-start-line="161" selection-start-column="8" selection-end-line="161" selection-end-column="8" />
             </state>
           </provider>
@@ -160,7 +168,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>database.db</find>
       <find>SQLALCHEMY_DATABASE_URI</find>
       <find>__ini</find>
       <find>SQLALCHEMY_TRACK_MODIFICATIONS</find>
@@ -190,6 +197,7 @@
       <find>order</find>
       <find>json.du</find>
       <find>send</find>
+      <find>304</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -206,7 +214,6 @@
         <option value="$PROJECT_DIR$/SecurityModel.py" />
         <option value="$PROJECT_DIR$/ImageModel.py" />
         <option value="$PROJECT_DIR$/AddressModel.py" />
-        <option value="$PROJECT_DIR$/appUtil.py" />
         <option value="$PROJECT_DIR$/AvailableSlotsModel.py" />
         <option value="$PROJECT_DIR$/createDb.py" />
         <option value="$PROJECT_DIR$/settings.py" />
@@ -215,15 +222,16 @@
         <option value="$PROJECT_DIR$/PlayingFieldModel.py" />
         <option value="$PROJECT_DIR$/uml.puml" />
         <option value="$PROJECT_DIR$/UserModel.py" />
+        <option value="$PROJECT_DIR$/appUtil.py" />
         <option value="$PROJECT_DIR$/app.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-1671" />
-    <option name="y" value="10" />
-    <option name="width" value="1552" />
-    <option name="height" value="840" />
+    <option name="x" value="-10" />
+    <option name="y" value="-10" />
+    <option name="width" value="1940" />
+    <option name="height" value="1050" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="1" id="Add" />
@@ -234,17 +242,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope">
-        <subPane subId="Scope 'Project Files'; set:Project Files; class com.intellij.psi.search.scope.ProjectFilesScope">
-          <expand>
-            <path>
-              <item name="backend" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
-              <item name="" type="442cc68d:ScopeViewTreeModel$RootNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -260,73 +257,18 @@
             <path>
               <item name="backend" type="b2602c69:ProjectViewProjectNode" />
               <item name="backend" type="462c0819:PsiDirectoryNode" />
-              <item name="UserModel.py" type="8704e2dd:PyFileNode" />
+              <item name="appUtil.py" type="8704e2dd:PyFileNode" />
             </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="Scope">
+        <subPane subId="Scope 'Project Files'; set:Project Files; class com.intellij.psi.search.scope.ProjectFilesScope">
+          <expand>
             <path>
-              <item name="backend" type="b2602c69:ProjectViewProjectNode" />
-              <item name="backend" type="462c0819:PsiDirectoryNode" />
-              <item name="UserModel.py" type="8704e2dd:PyFileNode" />
-              <item name="User" type="dd8bbb05:PyElementNode" />
-            </path>
-            <path>
-              <item name="backend" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-            </path>
-            <path>
-              <item name="backend" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="&lt; Python 3.7 &gt;" type="70bed36:NamedLibraryElementNode" />
-            </path>
-            <path>
-              <item name="backend" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="&lt; Python 3.7 &gt;" type="70bed36:NamedLibraryElementNode" />
-              <item name="Python37-32" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="backend" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="&lt; Python 3.7 &gt;" type="70bed36:NamedLibraryElementNode" />
-              <item name="Python37-32" type="462c0819:PsiDirectoryNode" />
-              <item name="Lib" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="backend" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="&lt; Python 3.7 &gt;" type="70bed36:NamedLibraryElementNode" />
-              <item name="Python37-32" type="462c0819:PsiDirectoryNode" />
-              <item name="Lib" type="462c0819:PsiDirectoryNode" />
-              <item name="site-packages" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="backend" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="&lt; Python 3.7 &gt;" type="70bed36:NamedLibraryElementNode" />
-              <item name="Python37-32" type="462c0819:PsiDirectoryNode" />
-              <item name="Lib" type="462c0819:PsiDirectoryNode" />
-              <item name="site-packages" type="462c0819:PsiDirectoryNode" />
-              <item name="flask" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="backend" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="&lt; Python 3.7 &gt;" type="70bed36:NamedLibraryElementNode" />
-              <item name="Python37-32" type="462c0819:PsiDirectoryNode" />
-              <item name="Lib" type="462c0819:PsiDirectoryNode" />
-              <item name="site-packages" type="462c0819:PsiDirectoryNode" />
-              <item name="flask" type="462c0819:PsiDirectoryNode" />
-              <item name="app.py" type="8704e2dd:PyFileNode" />
-            </path>
-            <path>
-              <item name="backend" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="&lt; Python 3.7 &gt;" type="70bed36:NamedLibraryElementNode" />
-              <item name="Python37-32" type="462c0819:PsiDirectoryNode" />
-              <item name="Lib" type="462c0819:PsiDirectoryNode" />
-              <item name="site-packages" type="462c0819:PsiDirectoryNode" />
-              <item name="flask" type="462c0819:PsiDirectoryNode" />
-              <item name="app.py" type="8704e2dd:PyFileNode" />
-              <item name="Flask" type="dd8bbb05:PyElementNode" />
+              <item name="backend" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="" type="442cc68d:ScopeViewTreeModel$RootNode" />
             </path>
           </expand>
           <select />
@@ -337,6 +279,7 @@
   <component name="PropertiesComponent">
     <property name="SearchEverywhereHistoryKey" value="__init&#9;FILE&#9;file://C:/Users/ilie.prisacariu/AppData/Local/Programs/Python/Python37-32/Lib/site-packages/flask_sqlalchemy/__init__.py" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RunDashboard">
@@ -593,7 +536,14 @@
       <option name="project" value="LOCAL" />
       <updated>1580136296282</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Added forgot password feature.">
+      <created>1580392960455</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1580392960455</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TodoView">
@@ -606,16 +556,15 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-1928" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
+    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.14699684" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.14672835" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3298193" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.32576618" />
-      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.65911484" visible="true" weight="0.30646992" />
+      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.65911484" weight="0.3057229" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32831326" />
@@ -662,7 +611,8 @@
     <MESSAGE value="Refactor" />
     <MESSAGE value="Added Facilities" />
     <MESSAGE value="Modified AvailableTime implementation" />
-    <option name="LAST_COMMIT_MESSAGE" value="Modified AvailableTime implementation" />
+    <MESSAGE value="Added forgot password feature." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added forgot password feature." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -979,30 +929,6 @@ db.session.commit()</expression-string>
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/appUtil.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="253">
-          <caret line="21" column="82" selection-start-line="20" selection-start-column="8" selection-end-line="21" selection-end-column="82" />
-          <folding>
-            <marker date="1579456812633" expanded="true" signature="3419:3424" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/PlayingFieldModel.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1265">
-          <caret line="60" column="38" selection-start-line="60" selection-start-column="38" selection-end-line="60" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/UserModel.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="181">
-          <caret line="161" column="8" selection-start-line="161" selection-start-column="8" selection-end-line="161" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37-32/Lib/site-packages/flask/app.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="23">
@@ -1012,21 +938,46 @@ db.session.commit()</expression-string>
     </entry>
     <entry file="file://$PROJECT_DIR$/app.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="109">
-          <caret line="156" column="25" lean-forward="true" selection-start-line="156" selection-start-column="25" selection-end-line="156" selection-end-column="25" />
+        <state relative-caret-position="179">
+          <caret line="240" column="46" lean-forward="true" selection-start-line="240" selection-start-column="46" selection-end-line="240" selection-end-column="46" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
-            <marker date="1580377472232" expanded="true" signature="1444:1665" ph="..." />
-            <marker date="1580377472232" expanded="true" signature="1618:1665" ph="..." />
-            <marker date="1580377472232" expanded="true" signature="3761:4070" ph="..." />
+            <marker date="1580570579255" expanded="true" signature="1444:1665" ph="..." />
+            <marker date="1580570579255" expanded="true" signature="1618:1665" ph="..." />
+            <marker date="1580570579255" expanded="true" signature="3761:4070" ph="..." />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/settings.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="230">
-          <caret line="12" column="21" lean-forward="true" selection-start-line="12" selection-start-column="21" selection-end-line="12" selection-end-column="21" />
+        <state relative-caret-position="322">
+          <caret line="16" column="40" selection-start-line="16" selection-start-column="40" selection-end-line="16" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/appUtil.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="276">
+          <caret line="22" selection-start-line="22" selection-end-line="22" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+            <marker date="1579456812633" expanded="true" signature="3419:3424" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/UserModel.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3634">
+          <caret line="161" column="8" selection-start-line="161" selection-start-column="8" selection-end-line="161" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PlayingFieldModel.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1265">
+          <caret line="60" column="38" selection-start-line="60" selection-start-column="38" selection-end-line="60" selection-end-column="38" />
         </state>
       </provider>
     </entry>
