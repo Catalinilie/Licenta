@@ -250,6 +250,7 @@ def getUserByUsername():
 
 
 @app.route('/deletePlayingField', methods=['DELETE'])
+@token_required
 def deletePlayingField():
     playingFieldId = request.args.get('playingFieldId')
     return deletePlayingFieldById(playingFieldId)

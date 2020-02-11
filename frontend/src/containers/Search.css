@@ -15,6 +15,13 @@
     }
 }
 
+.noResultSearchClass{
+    text-align: center;
+    font-size: 1.5em;
+    font-style: italic;
+    margin: 5em auto 0 auto;
+}
+
 .myPlayingFieldClassCardSearch{
     margin: 1rem 1rem 0 1rem;
     width: 21em;

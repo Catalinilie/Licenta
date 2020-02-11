@@ -136,13 +136,13 @@ class AvailableTime extends Component {
                 <Container>
                     <form className="row myProfileContainerClass">
                         <Col md={6} className="textFieldColClass">
-                            <TextField className="textFieldClass" id="outlined-day-from" label="Day of week from"
+                            <TextField className="textFieldClass" id="outlined-day-from" label="Day from"
                                        variant="outlined"
                                        onChange={e => this.setState({
                                            "dayFrom": e.target.value
                                        })}
                             />
-                            <TextField className="textFieldClass" id="outlined-day-to" label="Day of week to"
+                            <TextField className="textFieldClass" id="outlined-day-to" label="Day to *"
                                        variant="outlined"
                                        onChange={e => this.setState({
                                            "dayTo": e.target.value

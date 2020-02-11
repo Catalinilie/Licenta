@@ -40,6 +40,24 @@ export default class Login extends Component {
             });
     };
 
+    resetCity = (event) => {
+            this.setState({
+                city: ""
+            });
+    };
+
+    resetType = (event) => {
+        this.setState({
+            type: ""
+        });
+    };
+
+    resetNumberOfPlayers = (event) => {
+        this.setState({
+            numberOfPlayers: ""
+        });
+    };
+
     onNumberOfPlayersChange = (event, values) => {
         if (values)
             this.setState({
@@ -95,7 +113,7 @@ export default class Login extends Component {
     }
 
     showData() {
-        if (this.state.playingFieldResult)
+        if (this.state.playingFieldResult && this.state.playingFieldResult.data.length > 0)
             return (
                 <div className="container-fluid">
                     <div className="row cardField">
@@ -105,6 +123,12 @@ export default class Login extends Component {
                             </Col>
                         ))}
                     </div>
+                </div>
+            );
+       else
+            return (
+                <div className="noResultSearchClass">
+                    No Result Found.
                 </div>
             );
     }
@@ -123,6 +147,7 @@ export default class Login extends Component {
                                         options={this.state.typeList}
                                         getOptionLabel={option => option}
                                         onChange={this.onTypeChange}
+                                        onInputChange={this.resetType}
                                         renderInput={params => (
                                             <TextField {...params} className="textFieldClassSearch" id="outlined-type"
                                                        label="Type"
@@ -135,6 +160,7 @@ export default class Login extends Component {
                                         options={this.state.cityList}
                                         getOptionLabel={option => option}
                                         onChange={this.onCityChange}
+                                        onInputChange={this.resetCity}
                                         renderInput={params => (
                                             <TextField {...params} className="textFieldClassSearch" id="outlined-city"
                                                        label="City"
@@ -147,6 +173,7 @@ export default class Login extends Component {
                                         options={this.state.numberOfPlayersList}
                                         getOptionLabel={option => option}
                                         onChange={this.onNumberOfPlayersChange}
+                                        onInputChange={this.resetNumberOfPlayers}
                                         renderInput={params => (
                                             <TextField {...params} className="textFieldClassSearch" id="outlined-number-of-players"
                                                        label="Number of Players"

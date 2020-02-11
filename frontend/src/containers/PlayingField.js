@@ -121,7 +121,8 @@ class PlayingField extends Component {
 
     async deletePlayingField(id, e) {
         try {
-            await axios.delete('http://localhost:4996/deletePlayingField', {params: {playingFieldId: id}})
+            const token = sessionStorage.getItem("token");
+            await axios.delete('http://localhost:4996/deletePlayingField?token=' + token, {params: {playingFieldId: id}})
                 .then(() => this.props.history.push("/myPlayingFields"));
         } catch (e) {
             if (e.response.status === 404)
@@ -157,9 +158,9 @@ class PlayingField extends Component {
             <>  {this.state.playingField &&
             <div className="container-fluid playingFieldContainer">
                 <div className="row" style={{"margin": "2rem 0 2rem 0"}}>
-                    <Col md={9}>
+                    <Col md={9} className="fieldDetailsContainerClass">
                         <div className="jumbotron titleContainerClass">
-                            <h1 className="display-3">{this.state.playingField.title}</h1>
+                            <h1 className="display-5 titlePlayingFieldClass">{this.state.playingField.title}</h1>
                             <div className="row">
                                 <Logo id="logoId" fill="gray"/>
                                 <p className="lead addressTextPlayingFieldClass">{this.state.playingField.address.city},
@@ -199,7 +200,7 @@ class PlayingField extends Component {
                                 <Button className="btn btn-primary closeButtonModal"
                                         onClick={this.closeModal}>Close
                                 </Button>
-                                <div>
+                                <div className="deletePlayingFieldModalTitleClass">
                                     Delete Playing Field
                                 </div>
                                 <div className="deleteModalTextClass">
